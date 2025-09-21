@@ -94,6 +94,19 @@ curl -vvv http://localhost:7007/version
 
 ## Additional Notes
 
+### RHDH code mechanics
+
 A lot of the code and mechanics here are based on [Red Hat Developer Hub (RHDH)](https://github.com/redhat-developer/rhdh) codebase.
 
 VeeCode DevPortal is *not* a fork of RHDH though. It is an independent project that borrows some mechanics (and OSS code) from RHDH to achieve its goal: to be an OSS ready-to-use Backstage distro fit for production use.
+
+### Temporary fix for better-sqlite3
+
+We added a root import for `better-sqlite3` to define it globally in a resolution.
+
+A symbolic must be manually created to solve a runtime issue still under investigation:
+
+```sh
+cd node_modules/better-sqlite3/build
+ln -s Release/better_sqlite3.node better_sqlite3.node
+```
