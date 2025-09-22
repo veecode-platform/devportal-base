@@ -29,7 +29,8 @@
     ]
   },
   "dependencies": {
-    "better-sqlite3": "^12.2.0"
+    "better-sqlite3": "^12.2.0",
+    "webpack": "^5.94.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.34.3",
@@ -43,7 +44,8 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@backstage/backend-dynamic-feature-service": "0.7.4",
-    "better-sqlite3": "^12.2.0"
+    "better-sqlite3": "^12.2.0",
+    "webpack": "5.101.3"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {
