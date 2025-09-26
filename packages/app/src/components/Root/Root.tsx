@@ -549,24 +549,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
               {renderMenuItems(true, false)}
               {/* <NotificationsSidebarItem /> */}
               {/* End global nav */}
-              {showSettings && (
-                <>
-                  <SidebarGroup
-                    label="Settings"
-                    to="/settings"
-                    icon={<AccountCircleOutlinedIcon />}
-                  >
-                    <SidebarSettings icon={AccountCircleOutlinedIcon} />
-                  </SidebarGroup>
-                </>
-              )}
-              {showAdministration && (
-                <>
-                  <SidebarGroup label="Administration" icon={<AdminIcon />}>
-                    {renderMenuItems(false, true)}
-                  </SidebarGroup>
-                </>
-              )}
               <SidebarScrollWrapper>
                 {renderMenuItems(false, false)}
                 {dynamicRoutes.map(({ scope, menuItem, path }) => {
@@ -585,6 +567,24 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
               <SidebarDivider />
             </SidebarGroup>
             <SidebarSpace />
+            {showAdministration && (
+                <>
+                  <SidebarGroup label="Administration" icon={<AdminIcon />}>
+                    {renderMenuItems(false, true)}
+                  </SidebarGroup>
+                </>
+              )}
+              {showSettings && (
+                <>
+                  <SidebarGroup
+                    label="Settings"
+                    to="/settings"
+                    icon={<AccountCircleOutlinedIcon />}
+                  >
+                    <SidebarSettings icon={AccountCircleOutlinedIcon} />
+                  </SidebarGroup>
+                </>
+              )}
             <SidebarDivider />
             <SidebarGroup label="Sign Out" icon={<ExitToAppIcon />}>
               <SignOutElement />
