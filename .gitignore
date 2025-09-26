@@ -74,4 +74,4 @@ e2e-test-report/
 .cache/
 
 # Archive
-archive/app-*
+archive/*

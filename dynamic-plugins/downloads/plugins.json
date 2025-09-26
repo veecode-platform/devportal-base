@@ -1,0 +1,12 @@
+{
+    "plugins": [
+        {
+            "name": "@veecode-platform/plugin-veecode-homepage-dynamic",
+            "version": "0.1.11"
+        },
+        {
+            "name": "@veecode-platform/plugin-veecode-global-header-dynamic",
+            "version": "0.1.6"
+        }
+    ]
+}

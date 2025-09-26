@@ -143,9 +143,7 @@ backend.add(import('@backstage/plugin-catalog-backend-module-openapi'));
 // scaffolder plugin
 backend.add(import('@backstage/plugin-scaffolder-backend'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
-backend.add(
-  import('@backstage/plugin-scaffolder-backend-module-notifications'),
-);
+// backend.add(import('@backstage/plugin-scaffolder-backend-module-notifications'));
 backend.add(
   import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
 );
@@ -197,7 +195,7 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 backend.add(import('@backstage/plugin-kubernetes-backend'));
 
 // notifications and signals plugins
-backend.add(import('@backstage/plugin-notifications-backend'));
+// backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
 
 backend.add(import('@internal/plugin-dynamic-plugins-info-backend'));
