@@ -6,20 +6,27 @@
     "node": "20 || 22"
   },
   "scripts": {
-    "start": "backstage-cli repo start",
-    "build:backend": "yarn workspace backend build",
-    "build:all": "backstage-cli repo build --all",
+    "init-local": "make full && yarn check-dynamic-plugins",
+    "start": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend",
+    "start-backend": "yarn workspace backend start",
+    "dev": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app --config ../../app-config.yaml --config ../../dynamic-plugins-root/app-config.dynamic-plugins.yaml",
+    "dev-local": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../dynamic-plugins-root/app-config.dynamic-plugins.yaml",
+    "build": "turbo run build",
+    "build:backend": "yarn tsc && yarn workspace backend build",
     "build-image": "yarn workspace backend build-image",
-    "tsc": "tsc",
+    "tsc": "turbo run tsc",
     "tsc:full": "tsc --skipLibCheck false --incremental false",
-    "clean": "backstage-cli repo clean",
-    "test": "backstage-cli repo test",
+    "clean": "turbo run clean",
+    "test": "turbo run test",
     "test:all": "backstage-cli repo test --coverage",
     "test:e2e": "playwright test",
     "fix": "backstage-cli repo fix",
-    "lint": "backstage-cli repo lint --since origin/main",
+    "lint:check": "turbo run lint:check",
+    "lint:fix": "turbo run lint:fix",
+    "lint": "turbo run lint",
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
+    "update-backstage": "backstage-cli versions:bump --pattern '@{backstage,roadiehq,backstage-community,veecode-platform}/*'",
     "new": "backstage-cli new"
   },
   "workspaces": {
@@ -38,6 +45,7 @@
     "@playwright/test": "^1.32.3",
     "node-gyp": "^10.0.0",
     "prettier": "^2.3.2",
+    "turbo": "latest",
     "typescript": "~5.8.0"
   },
   "resolutions": {

@@ -7,17 +7,19 @@
     "role": "frontend"
   },
   "scripts": {
-    "start": "backstage-cli package start",
-    "build": "backstage-cli package build",
+    "start": "janus-cli package start",
+    "build": "janus-cli package build",
     "clean": "backstage-cli package clean",
     "test": "backstage-cli package test",
-    "lint": "backstage-cli package lint"
+    "lint:check": "backstage-cli package lint",
+    "lint:fix": "backstage-cli package lint --fix",
+    "tsc": "tsc",
+    "prettier:check": "prettier --ignore-unknown --check .",
+    "prettier:fix": "prettier --ignore-unknown --write ."
   },
   "dependencies": {
     "@backstage-community/plugin-analytics-module-ga4": "^0.8.0",
     "@backstage-community/plugin-explore": "^0.12.0",
-    "@backstage-community/plugin-rbac": "^1.43.0",
-    "@backstage-community/plugin-rbac-common": "^1.19.0",
     "@backstage/app-defaults": "^1.7.0",
     "@backstage/catalog-model": "^1.7.5",
     "@backstage/cli": "^0.34.2",
@@ -35,7 +37,6 @@
     "@backstage/plugin-catalog-unprocessed-entities": "^0.2.21",
     "@backstage/plugin-home": "^0.8.12",
     "@backstage/plugin-kubernetes": "^0.12.11",
-    "@backstage/plugin-notifications": "^0.5.9",
     "@backstage/plugin-org": "^0.6.44",
     "@backstage/plugin-permission-react": "^0.4.36",
     "@backstage/plugin-scaffolder": "^1.34.1",
@@ -66,14 +67,18 @@
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "react-use": "17.6.0",
-    "tss-react": "4.9.18"
+    "tss-react": "4.9.18",
+    "zod": "^3.25.64",
+    "zod-to-json-schema": "^3.24.5"
   },
   "resolutions": {
     "webpack-dev-server": "4.15.2",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.12"
   },
   "devDependencies": {
+    "@backstage/cli": "0.32.1",
     "@backstage/test-utils": "^1.7.11",
+    "@janus-idp/cli": "3.6.1",
     "@module-federation/webpack-bundler-runtime": "^0.19.1",
     "@playwright/test": "^1.32.3",
     "@testing-library/dom": "^9.0.0",
@@ -81,7 +86,8 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.0.0",
     "@types/react-dom": "*",
-    "cross-env": "^7.0.0"
+    "prettier": "3.5.3",
+    "typescript": "5.8.3"
   },
   "browserslist": {
     "production": [
@@ -96,6 +102,8 @@
     ]
   },
   "files": [
-    "dist"
-  ]
+    "dist",
+    "config.d.ts"
+  ],
+  "configSchema": "config.d.ts"
 }

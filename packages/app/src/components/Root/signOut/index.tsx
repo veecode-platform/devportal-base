@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { SidebarItem } from '@backstage/core-components';
 import SignOutIcon from '@material-ui/icons/MeetingRoom';
 import {
-  configApiRef,
+  // configApiRef,
   identityApiRef,
   useApi,
   errorApiRef,
@@ -10,7 +10,7 @@ import {
 
 const SignOutElement = () => {
   const identityApi = useApi(identityApiRef);
-  const config = useApi(configApiRef);
+  // const config = useApi(configApiRef);
   const errorApi = useApi(errorApiRef);
   const [loading, setLoading] = useState(false);
 
@@ -29,7 +29,7 @@ const SignOutElement = () => {
       text="Sign Out"
       onClick={async () => {
         if (loading) return;
-        if (config.getBoolean('platform.guest.enabled'))
+        // if (config.getBoolean('platform.guest.enabled'))
           await identityApi.signOut();
         await handleSessionLogout();
       }}

@@ -1,0 +1,35 @@
+{
+  "name": "dynamic-plugins-root",
+  "version": "1.7.0",
+  "private": true,
+  "engines": {
+    "node": "22"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "tsc": "turbo run tsc",
+    "export-dynamic": "turbo run export-dynamic --no-cache",
+    "export-dynamic:clean": "turbo run export-dynamic:clean",
+    "copy-dynamic-plugins": "turbo copy-dynamic-plugins --",
+    "clean": "turbo run clean",
+    "test": "turbo run test",
+    "lint:check": "turbo run lint:check",
+    "lint:fix": "turbo run lint:fix",
+    "new-wrapper": "node ./scripts/new-wrapper.mjs"
+  },
+  "workspaces": {
+    "packages": [
+      "_utils",
+      "downloads",
+      "wrappers/*"
+    ]
+  },
+  "devDependencies": {
+    "turbo": "2.5.4"
+  },
+  "resolutions": {
+    "@types/react": "18.3.23",
+    "@types/react-dom": "18.3.7"
+  },
+  "packageManager": "yarn@4.4.1"
+}

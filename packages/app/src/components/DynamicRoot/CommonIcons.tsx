@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-import { Administration } from '@backstage-community/plugin-rbac';
+// import { Administration } from '@backstage-community/plugin-rbac';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import BugReportIcon from '@material-ui/icons/BugReport';
 import ContactMailIcon from '@material-ui/icons/ContactMail';
@@ -91,7 +91,7 @@ const CommonIcons: {
   environment: LanguageIcon,
   about: InfoIcon,
   contact: ContactMailIcon,
-  admin: Administration,
+  // admin: Administration,
   vulnerabilities: BugReportIcon,
   rbac: VpnKeyIcon,
   database: StorageIcon,

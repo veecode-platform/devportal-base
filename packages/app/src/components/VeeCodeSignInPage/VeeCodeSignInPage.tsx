@@ -12,6 +12,8 @@ import { SignInPage } from './SigninPage';
 
 export const VeeCodeSignInPage: any = (props: SignInPageProps) => {
   const config = useApi(configApiRef);
+  console.log('VeeCodeSignInPage');
+  console.log(config);
   const guest = config.getBoolean('platform.guest.enabled');
   const signInProviders = config.getStringArray('platform.signInProviders');
   const demoGuest = config.getOptionalBoolean('platform.guest.demo');

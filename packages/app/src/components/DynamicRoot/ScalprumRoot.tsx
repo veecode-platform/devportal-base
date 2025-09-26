@@ -60,9 +60,9 @@ const ScalprumRoot = ({
         baseFrontendConfig ?? { context: '', data: {} },
         ...appConfig,
       ]);
-      console.log("TOP DEBUG");
-      console.log(baseFrontendConfig);
-      console.log(appConfig);
+      // console.log("TOP DEBUG");
+      // console.log(baseFrontendConfig);
+      // console.log(appConfig);
       const baseUrl = reader.getString('backend.baseUrl');
       const dynamicPlugins = reader.get<DynamicPluginConfig>('dynamicPlugins');
       try {
@@ -79,10 +79,10 @@ const ScalprumRoot = ({
         console.warn(
           `Failed to fetch scalprum configuration: ${JSON.stringify(err)}`,
         );
-        console.log("MEU DEBUG");
-        console.log(dynamicPlugins);
-        console.log(baseUrl);
-        console.log(scalprumConfig);
+        // console.log("MEU DEBUG");
+        // console.log(dynamicPlugins);
+        // console.log(baseUrl);
+        // console.log(scalprumConfig);
         return {
           dynamicPlugins,
           baseUrl,
@@ -108,11 +108,11 @@ const ScalprumRoot = ({
   };
   
   // Debug logging
-  console.log('ScalprumProvider Debug:');
-  console.log('scalprumApiHolder', scalprumApiHolder);
-  console.log('dynamicPlugins', dynamicPlugins);
-  console.log('baseUrl', baseUrl);
-  console.log('scalprumConfig', scalprumConfig);
+  // console.log('ScalprumProvider Debug:');
+  // console.log('scalprumApiHolder', scalprumApiHolder);
+  // console.log('dynamicPlugins', dynamicPlugins);
+  // console.log('baseUrl', baseUrl);
+  // console.log('scalprumConfig', scalprumConfig);
   
   // Initialize shared scope if it doesn't exist
   if (typeof window !== 'undefined' && !(window as any).__webpack_share_scopes__) {

@@ -52,7 +52,7 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { CatalogImportPage } from '@backstage/plugin-catalog-import';
 import { CatalogUnprocessedEntitiesPage } from '@backstage/plugin-catalog-unprocessed-entities';
 import { VisitListener } from '@backstage/plugin-home';
-import { NotificationsPage } from '@backstage/plugin-notifications';
+// import { NotificationsPage } from '@backstage/plugin-notifications';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
 import {
@@ -82,7 +82,7 @@ import ConfigUpdater from '../Root/ConfigUpdater';
 import { LayoutCustom } from '../scaffolder/LayoutCustom';
 import { SearchPage } from '../search/SearchPage';
 import { settingsPage } from '../UserSettings/SettingsPages';
-import { RbacPage } from '@backstage-community/plugin-rbac';
+// import { RbacPage } from '@backstage-community/plugin-rbac';
 import {
   DefaultTechDocsHome,
   TechDocsIndexPage,
@@ -239,7 +239,7 @@ const AppBase = () => {
               <Route path="/search" element={<BackstageSearchPage />}>
                 <SearchPage />
               </Route>
-              <Route path="/notifications" element={<NotificationsPage />} />
+              {/* <Route path="/notifications" element={<NotificationsPage />} /> */}
               <Route path="/settings" element={<UserSettingsPage />}>
                 {settingsPage(providerSettings)}
               </Route>
@@ -285,7 +285,8 @@ const AppBase = () => {
                   />
                 }
               />
-              <Route path="/rbac" element={<RbacPage />} />;
+              
+              {/* <Route path="/rbac" element={<RbacPage />} />; */}
               {dynamicRoutes.map(
                 ({ Component, staticJSXContent, path, config: { props } }) => {
                   return (

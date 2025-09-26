@@ -65,7 +65,7 @@ export function configureCorporateProxyAgent() {
     staticLogger.info('Adding corporate proxy and no_proxy support');
     // Create a composite dispatcher that chooses based on NO_PROXY
     class NoProxyAwareDispatcher extends Dispatcher {
-      dispatch(options: Dispatcher.DispatchOptions, handler: Dispatcher.DispatchHandlers): boolean {
+      dispatch(options: Dispatcher.DispatchOptions, handler: Dispatcher.DispatchHandler): boolean {
         try {
           const origin = options.origin;
           const url = typeof origin === 'string' ? new URL(origin) : origin instanceof URL ? origin : undefined;
