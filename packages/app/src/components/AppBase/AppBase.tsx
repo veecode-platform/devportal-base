@@ -216,7 +216,7 @@ const AppBase = () => {
                     columns={createApiDocsCustomColumns()}
                     pagination={{
                       mode: 'offset',
-                      limit: 15,
+                      limit: 20,
                     }}
                   />
                 }

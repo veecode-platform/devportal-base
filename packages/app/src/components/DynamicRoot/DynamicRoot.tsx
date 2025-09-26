@@ -551,6 +551,8 @@ export const DynamicRoot = ({
       const filteredStaticApis = staticApis.filter(
         api => !remoteApis.some(remoteApi => remoteApi.api.id === api.api.id),
       );
+      console.log('dynamicThemeProviders', dynamicThemeProviders);
+      console.log('filteredStaticThemes', filteredStaticThemes);
       app.current = createApp({
         __experimentalTranslations: {
           availableLanguages: ['en'],

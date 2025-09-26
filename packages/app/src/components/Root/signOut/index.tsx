@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { SidebarItem } from '@backstage/core-components';
-import SignOutIcon from '@material-ui/icons/MeetingRoom';
+import SignOutIcon from '@mui/icons-material/MeetingRoom';
 import {
   // configApiRef,
   identityApiRef,

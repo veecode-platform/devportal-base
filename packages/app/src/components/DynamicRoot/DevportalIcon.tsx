@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Theme } from '@material-ui/core';
-import Icon from '@material-ui/core/Icon';
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@mui/material';
+import Icon from '@mui/material/Icon';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme: Theme) => ({
   imageIcon: {

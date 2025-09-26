@@ -1,14 +1,16 @@
 import { Content, Header, InfoCard, Page, Progress } from '@backstage/core-components'
-import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles } from '@material-ui/core';
-import MailIcon from '@material-ui/icons/Mail';
-import DescriptionIcon from '@material-ui/icons/Description';
-import NearMeIcon from '@material-ui/icons/NearMe';
-import ForumIcon from '@material-ui/icons/Forum';
-import BusinessIcon from '@material-ui/icons/Business';
+import { Avatar, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import MailIcon from '@mui/icons-material/Mail';
+import DescriptionIcon from '@mui/icons-material/Description';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import ForumIcon from '@mui/icons-material/Forum';
+import BusinessIcon from '@mui/icons-material/Business';
 import React from 'react';
 import { useApi, alertApiRef } from '@backstage/core-plugin-api';
 import { licenseKeyApiRef } from '../../api';
 import useAsync from 'react-use/lib/useAsync';
+
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
   paperStyle: {

@@ -131,7 +131,7 @@ export const InfoCard = () => {
               title={showBuildInformation ? 'Show less' : 'Show more'}
               onClick={toggleBuildInformation}
               style={{ width: 48 }}
-            >
+              size="large">
               {showBuildInformation ? <UnfoldLessIcon /> : <UnfoldMoreIcon />}
             </IconButton>
           </div>

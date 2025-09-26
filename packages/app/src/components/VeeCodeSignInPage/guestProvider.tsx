@@ -22,7 +22,7 @@ import { ResponseError } from '@backstage/errors';
 
 // import { coreComponentsTranslationRef } from '../translation/translation';
 // import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 
 import { GuestUserIdentity } from './GuestUserIdentity';
 import { ProxiedSignInIdentity } from './ProxiedSignInPage/ProxiedSignInIdentity';

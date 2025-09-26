@@ -24,7 +24,7 @@ import { useApi, errorApiRef } from '@backstage/core-plugin-api';
 import { GridItem, useStyles } from './styles';
 import { ForwardedError } from '@backstage/errors';
 import { UserIdentity } from '@backstage/core-components';
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import { coreComponentsTranslationRef } from '../translation/translation';
 import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
 

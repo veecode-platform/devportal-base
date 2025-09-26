@@ -20,15 +20,20 @@
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
+// import { ThemeProvider } from '@mui/material/styles';
+import { UnifiedThemeProvider, createUnifiedTheme } from '@backstage/theme';
 import { useLoaderTheme } from '@red-hat-developer-hub/backstage-plugin-theme';
 
 const Loader = () => {
   // Access theme context before Backstage App is instantiated
   const theme = useLoaderTheme();
+  const unifiedTheme = createUnifiedTheme({
+    palette: theme.palette,
+    // other theme properties
+  });
 
   return (
-    <ThemeProvider theme={theme}>
+    <UnifiedThemeProvider theme={unifiedTheme}>
       <CssBaseline />
       <Box
         sx={{
@@ -40,7 +45,7 @@ const Loader = () => {
       >
         <CircularProgress />
       </Box>
-    </ThemeProvider>
+    </UnifiedThemeProvider>
   );
 };
 
