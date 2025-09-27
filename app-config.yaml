@@ -1,6 +1,26 @@
 app:
-  title: DevPortal Base
+  title: VeeCode DevPortal
   baseUrl: http://localhost:3000
+  analytics:
+    ga4:
+      measurementId: soueu
+  branding:
+    fullLogo: https://veecode-platform.github.io/support/logos/logo.svg
+    fullLogoDark: https://veecode-platform.github.io/support/logos/logo-black.svg
+    iconLogo: https://veecode-platform.github.io/support/logos/logo-mobile.png
+    fullLogoWidth: 150
+    theme:
+      light:
+        variant: "backstage"
+        palette:
+          navigation:
+            background: "#222222" # your fixed light theme sidebar background
+      dark:
+        variant: "backstage"
+        palette:
+          navigation:
+            background: "#222222" # same fixed color for dark theme
+  packages: all
 
 organization:
   name: VeeCode
@@ -31,6 +51,27 @@ backend:
     client: better-sqlite3
     connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+  auth:
+    secret: mysecret
+    dangerouslyDisableDefaultAuthPolicy: true
+    externalAccess:
+      - type: static
+        options:
+          # Notice: This test-token can be used to add notifications to the backstage demo application.
+          # Production enironments should define a token in a more secure way that supports rotation.
+          token: test-token
+          subject: test-subject
+
+auth:
+  environment: development
+  # see https://backstage.io/docs/auth/ to learn about auth providers
+  providers:
+    # See https://backstage.io/docs/auth/guest/provider
+    #guest: {}
+    guest:
+      userEntityRef: user:default/admin
+      ownershipEntityRefs: [group:default/admins]
+      dangerouslyAllowOutsideDevelopment: true
 
 integrations:
   github:
@@ -62,16 +103,31 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
-auth:
-  # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers:
-    # See https://backstage.io/docs/auth/guest/provider
-    guest: {}
-
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow: [Component, System, API, Resource, Location, User, Group]
+  locations:
+    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    - type: file
+      target: ../../examples/entities.yaml
+
+    # Local example template
+    - type: file
+      target: ../../examples/template/template.yaml
+      rules:
+        - allow: [Template]
+
+    # Local example organizational data
+    - type: file
+      target: ../../examples/org.yaml
+      rules:
+        - allow: [User, Group]  
 
     ## Uncomment these lines to add more example data
     # - type: url
@@ -89,7 +145,26 @@ kubernetes:
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
 permission:
   # setting this to `false` will disable permissions
+  # enabled: false
   enabled: true
+  permissionedPlugins:
+    - catalog
+    - scaffolder
+  rbac:
+    admin:
+      users:
+        - name: group:default/admins
+    # authorizedUsers:
+    #   - group:default/admins
+    #   - user:default/admin
+# tech radar backend plugin
+techRadar:
+  url: https://github.com/backstage/community-plugins/blob/main/workspaces/tech-radar/plugins/tech-radar-common/src/sampleTechRadarResponse.json
+
+# bug da veecodesignin page
+platform:
+  guest:
+    enabled: true
 
 dynamicPlugins:
   rootDirectory: dynamic-plugins-root
