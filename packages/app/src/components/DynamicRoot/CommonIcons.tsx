@@ -18,16 +18,16 @@
  */
 
 // import { Administration } from '@backstage-community/plugin-rbac';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
-import BugReportIcon from '@material-ui/icons/BugReport';
-import ContactMailIcon from '@material-ui/icons/ContactMail';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import InfoIcon from '@material-ui/icons/Info';
-import LanguageIcon from '@material-ui/icons/Language';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import PeopleIcon from '@material-ui/icons/People';
-import StorageIcon from '@material-ui/icons/Storage';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import BugReportIcon from '@mui/icons-material/BugReport';
+import ContactMailIcon from '@mui/icons-material/ContactMail';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import InfoIcon from '@mui/icons-material/Info';
+import LanguageIcon from '@mui/icons-material/Language';
+import LibraryBooks from '@mui/icons-material/LibraryBooks';
+import PeopleIcon from '@mui/icons-material/People';
+import StorageIcon from '@mui/icons-material/Storage';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import AddCircle from '@mui/icons-material/AddCircleOutline';
 import Bookmarks from '@mui/icons-material/BookmarksOutlined';
 import Business from '@mui/icons-material/BusinessOutlined';

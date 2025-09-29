@@ -15,8 +15,8 @@
  */
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
-import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@mui/material/Grid';
+import makeStyles from '@mui/styles/makeStyles';
 
 import BgSVG from './assets/bg.svg';
 
@@ -51,10 +51,10 @@ export const useStyles = makeStyles(
       margin: '2rem auto',
       justifyContent: 'center',
       alignItems: 'center',
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         width: '95vw',
       },
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: '100vw',
       },
     },
@@ -115,7 +115,7 @@ export const useStyles = makeStyles(
       gap: '1rem',
       margin: '.5rem auto',
       fontSize: '.9rem',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         width: '82%',
       },
     },

@@ -1,0 +1,109 @@
+#
+# Copyright (c) 2025-2026 Vertigo Global LLC and Vertigo Tecnologia.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#
+# This Dockerfile is used for development purposes only.
+# It is not intended to be used for production.
+# Think of this as a form of building the project without a
+# Node installation in the host machine.
+#
+
+# We will use an ubi10 Node.js image for VeeCode DevPortal distro
+FROM registry.redhat.io/ubi9/nodejs-22:9.6-1757333865 AS base
+
+ARG NPM_REGISTRY=https://registry.npmjs.org/
+
+USER root
+RUN dnf install -y \
+      python3 make gcc-c++ git pkg-config \
+      jq wget tar gzip ca-certificates \
+    && dnf clean all \
+    && wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -q -O /usr/local/bin/yq \
+    && chmod +x /usr/local/bin/yq
+# RUN mkdir -p /opt/dynamic-plugins-root && \
+#     mkdir -p /opt/dynamic-plugins && \
+#     chown default:default /opt/dynamic-plugins-root && \
+#     chown default:default /opt/dynamic-plugins
+
+USER default
+
+# Set as environment variable (so npm install uses it)
+ENV NPM_REGISTRY=$NPM_REGISTRY
+ENV NPM_CONFIG_REGISTRY=$NPM_REGISTRY
+ENV YARN_REGISTRY=$NPM_REGISTRY
+
+# Enable Yarn via Corepack (Node 22)
+WORKDIR /opt/app
+RUN echo "Using NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY" && \
+    npm install -g corepack && \
+    corepack enable
+
+# --- 1) Cacheable deps layer: copy ONLY manifests ---
+COPY --chown=default:default package.json yarn.lock turbo.json tsconfig.json /opt/app/
+COPY --chown=default:default packages/app/package.json /opt/app/packages/app/
+COPY --chown=default:default packages/backend/package.json /opt/app/packages/backend/
+COPY --chown=default:default packages/plugin-utils/package.json /opt/app/packages/plugin-utils/
+COPY --chown=default:default plugins/about/package.json /opt/app/plugins/about/
+COPY --chown=default:default plugins/about-backend/package.json /opt/app/plugins/about-backend/
+COPY --chown=default:default plugins/dynamic-plugins-info/package.json \
+    plugins/dynamic-plugins-info/turbo.json \
+    plugins/dynamic-plugins-info/tsconfig.json \
+    /opt/app/plugins/dynamic-plugins-info/
+COPY --chown=default:default plugins/dynamic-plugins-info-backend/package.json \
+    plugins/dynamic-plugins-info-backend/turbo.json \
+    plugins/dynamic-plugins-info-backend/tsconfig.json \
+    /opt/app/plugins/dynamic-plugins-info-backend/
+COPY --chown=default:default plugins/scalprum-backend/package.json \
+    plugins/scalprum-backend/turbo.json \
+    plugins/scalprum-backend/tsconfig.json \
+    /opt/app/plugins/scalprum-backend/
+COPY --chown=default:default plugins/support/package.json /opt/app/plugins/support/
+COPY --chown=default:default plugins/translation-backend/package.json \
+    plugins/translation-backend/turbo.json \
+    plugins/translation-backend/tsconfig.json \
+    /opt/app/plugins/translation-backend/
+
+# Strict, reproducible install (no node_modules from host)
+RUN yarn config set npmRegistryServer $NPM_REGISTRY && \
+    yarn config set nodeLinker node-modules && \
+    HOST=$(printf '%s\n' "$NPM_REGISTRY" | awk -F[/:] '{print $4}') && \
+    yarn config set unsafeHttpWhitelist --json "[\"localhost\",\"$HOST\"]"
+RUN yarn install --immutable && yarn cache clean
+#RUN yarn install && yarn cache clean
+#RUN yarn install
+
+COPY --chown=default:default dynamic-plugins /opt/dynamic-plugins
+COPY --chown=default:default dynamic-plugins-root /opt/dynamic-plugins-root
+
+RUN cp /opt/app/.yarnrc.yml /opt/dynamic-plugins/
+
+# RUN mkdir -p /opt/dynamic-plugins-root && \
+#     mkdir -p /opt/dynamic-plugins && \
+#     cd /opt/dynamic-plugins
+    #yarn install
+
+# prepare dynamic-plugins-root
+RUN cd /opt/dynamic-plugins && \
+    yarn install && \
+    yarn build
+    # yarn export-dynamic && \
+    # yarn copy-dynamic-plugins /opt/dynamic-plugins-root
+
+ENV PATH="/opt/app/node_modules/.bin:$PATH"
+
+# --- 2) Build everything we need for the single runtime ---
+# FROM deps AS build
+# Copy source AFTER deps so small edits don't re-run installs
+#COPY --chown=default:default . /opt/app/

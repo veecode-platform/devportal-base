@@ -1,13 +1,15 @@
 import { Header, InfoCard, Page, Progress, TabbedLayout } from '@backstage/core-components'
-import { Avatar, Box, Chip, Grid, List, ListItem, ListItemAvatar, ListItemText, makeStyles } from '@material-ui/core';
+import { Avatar, Box, Chip, Grid, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import React from 'react';
 import { VeecodeLogoIcon } from './DevportalIcon';
 import { BackstageLogoIcon } from './BackstageLogoIcon';
-import { Alert } from '@material-ui/lab';
+import { Alert } from '@mui/material';
 import { useInfo, useSpec } from '../../hooks';
-import DescriptionIcon from '@material-ui/icons/Description';
-import MemoryIcon from '@material-ui/icons/Memory';
-import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
+import DescriptionIcon from '@mui/icons-material/Description';
+import MemoryIcon from '@mui/icons-material/Memory';
+import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
+
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
   paperStyle: {

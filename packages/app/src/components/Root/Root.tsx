@@ -43,7 +43,7 @@ import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
 
 import { policyEntityCreatePermission } from '@backstage-community/plugin-rbac-common';
 import { AdminIcon } from '@internal/plugin-dynamic-plugins-info';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -549,24 +549,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
               {renderMenuItems(true, false)}
               {/* <NotificationsSidebarItem /> */}
               {/* End global nav */}
-              {showSettings && (
-                <>
-                  <SidebarGroup
-                    label="Settings"
-                    to="/settings"
-                    icon={<AccountCircleOutlinedIcon />}
-                  >
-                    <SidebarSettings icon={AccountCircleOutlinedIcon} />
-                  </SidebarGroup>
-                </>
-              )}
-              {showAdministration && (
-                <>
-                  <SidebarGroup label="Administration" icon={<AdminIcon />}>
-                    {renderMenuItems(false, true)}
-                  </SidebarGroup>
-                </>
-              )}
               <SidebarScrollWrapper>
                 {renderMenuItems(false, false)}
                 {dynamicRoutes.map(({ scope, menuItem, path }) => {
@@ -585,6 +567,24 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
               <SidebarDivider />
             </SidebarGroup>
             <SidebarSpace />
+            {showAdministration && (
+                <>
+                  <SidebarGroup label="Administration" icon={<AdminIcon />}>
+                    {renderMenuItems(false, true)}
+                  </SidebarGroup>
+                </>
+              )}
+              {showSettings && (
+                <>
+                  <SidebarGroup
+                    label="Settings"
+                    to="/settings"
+                    icon={<AccountCircleOutlinedIcon />}
+                  >
+                    <SidebarSettings icon={AccountCircleOutlinedIcon} />
+                  </SidebarGroup>
+                </>
+              )}
             <SidebarDivider />
             <SidebarGroup label="Sign Out" icon={<ExitToAppIcon />}>
               <SignOutElement />

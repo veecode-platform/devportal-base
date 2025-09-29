@@ -4,11 +4,12 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGINS_ROOT="${2:-${SCRIPT_DIR}/../../dynamic-plugins-root}"
 DIST_DIR="${SCRIPT_DIR}/dist"
+PLUGINS_JSON="${SCRIPT_DIR}/plugins.json"
 
 mkdir -p "${DIST_DIR}/files"
 mkdir -p "${DIST_DIR}/unpacked"
 
-echo "Processing packages from 'plugins.json'..."
+echo "Processing packages from '${PLUGINS_JSON}'..."
 
 declare -A packages_map  # associative array
 
@@ -16,7 +17,7 @@ while IFS= read -r line; do
   PACKAGE_NAME="${line% *}"
   PACKAGE_VERSION="${line##* }"
   packages_map["${PACKAGE_NAME}"]="${PACKAGE_VERSION}"
-done < <(jq -r '.plugins[] | "\(.name) \(.version)"' plugins.json)
+done < <(jq -r '.plugins[] | "\(.name) \(.version)"' "${PLUGINS_JSON}")
 
 function generate_filename() {
   local package_name="$1"
@@ -68,7 +69,9 @@ function unzip_packages() {
 }
 
 function clean_packages() {
-  rm -rf "${DIST_DIR}/unpacked/*"
+  echo "Cleaning unpacked packages from '${DIST_DIR}/unpacked'..."
+  rm -rf "${DIST_DIR}/unpacked"
+  mkdir -p "${DIST_DIR}/unpacked"
 }
 
 function copy_packages() {
@@ -89,7 +92,9 @@ function copy_packages() {
 
 function clean_all() {
   clean_packages
-  rm -rf "${DIST_DIR}/unpacked/*"
+  echo "Cleaning downloaded packages..."
+  rm -rf "${DIST_DIR}/files"
+  mkdir -p "${DIST_DIR}/files"
 }
 
 case "$1" in

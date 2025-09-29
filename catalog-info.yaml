@@ -2,12 +2,12 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: devportal-base
-  description: An example of a Backstage application.
+  description: An open source Backstage distro.
   # Example for optional annotations
   # annotations:
   #   github.com/project-slug: backstage/backstage
   #   backstage.io/techdocs-ref: dir:.
 spec:
   type: website
-  owner: john@example.com
+  owner: andre@vertigo.com.br
   lifecycle: experimental

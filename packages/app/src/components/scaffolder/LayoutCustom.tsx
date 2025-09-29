@@ -5,7 +5,9 @@ import {
   LayoutTemplate,
 } from '@backstage/plugin-scaffolder-react';
 
-import { Grid, makeStyles } from '@material-ui/core';
+import { Grid } from '@mui/material';
+
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
   wrapper: {

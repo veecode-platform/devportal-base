@@ -24,16 +24,16 @@
     "lint:check": "backstage-cli package lint",
     "test": "backstage-cli package test --passWithNoTests --coverage",
     "clean": "backstage-cli package clean",
-    "export-dynamic": "janus-cli package export-dynamic-plugin --in-place",
+    "export-dynamic": "rhdh-cli plugin export --embed-package @backstage-community/plugin-rbac",
     "export-dynamic:clean": "run export-dynamic --clean"
   },
   "dependencies": {
-    "@backstage-community/plugin-rbac": "1.43.0",
+    "@backstage-community/plugin-rbac": "^1.44.0",
     "@mui/material": "5.18.0"
   },
   "devDependencies": {
-    "@backstage/cli": "0.30.0",
-    "@janus-idp/cli": "3.6.1",
+    "@backstage/cli": "^0.34.3",
+    "@red-hat-developer-hub/cli": "^1.7.2",
     "typescript": "5.9.2"
   },
   "files": [

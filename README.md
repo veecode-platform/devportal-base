@@ -1,5 +1,7 @@
 # DevPortal base image
 
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 VeeCode DevPortal is an open-source [Backstage](https://backstage.io) distro meant to be ready to use in production from day 1.
 
 This repo is a work in progress meant to rationalize and accelerate DevPortal release process.
@@ -45,7 +47,7 @@ LOG_LEVEL=debug yarn dev-local
 
 ### Build preinstalled plugins
 
-All preinstalled plugins are defined in `dynamic-plugins/wrappers` and `dynamic-plugins/downloads` directories. Each wrapper is a construct that exports a dynamic plugin from a pre-existing static plugin (backend or frontend), working as a compatibility layer for older plugins. Newer plugins are already dynamic plugins by themselves, so there is no need to create wrappers for them, just add them to `dynamic-plugins/downloads` list.
+All preinstalled plugins are defined in `dynamic-plugins/wrappers` and `dynamic-plugins/downloads` directories. Each wrapper is a construct that exports a dynamic plugin from a pre-existing static plugin (backend or frontend), working as a compatibility layer for older plugins. Newer plugins are already dynamic plugins by themselves, so there is no need to create wrappers for them, just add them to `dynamic-plugins/downloads/plugins.json` list.
 
 If you want to build all preinstalled plugins, run:
 
@@ -59,9 +61,11 @@ yarn copy-dynamic-plugins $(pwd)/../dynamic-plugins-root
 
 Note: you only have to do this once - the output is generated in `dynamic-plugins-root` directory and picked by the dynamic loader at runtime when the app starts. Wrapper plugins are built, exported and copied, downloaded plugins are just copied and unpacked.
 
+When `yarn dev-local` is run, the dynamic loader will load all plugins from `dynamic-plugins-root` directory.
+
 ### Build container image
 
-TODO
+Please read [docker/README.md](docker/README.md) for instructions on how to build the container image.
 
 ## Understanding plugins
 
@@ -85,6 +89,9 @@ List of preinstalled plugins:
 - VeeCode Global Header
 - Notifications (frontend and backend)
 - Signals (frontend and backend)
+- RBAC (frontend and backend)
+- Tech Radar (frontend and backend)
+- Tech Docs (frontend and backend)
 
 ### Motivation
 
@@ -184,3 +191,11 @@ A symbolic must be manually created to solve a runtime issue still under investi
 cd node_modules/better-sqlite3/build
 ln -s Release/better_sqlite3.node better_sqlite3.node
 ```
+
+## License
+
+Copyright (c) 2025-2026 by Vertigo Tecnologia (VeeCode controller). Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
