@@ -9,6 +9,8 @@ dynamic-plugins-root/*
 # no generated build files
 **/dist
 **/dist-types
+**/dist-dynamic
+**/dist-scalprum
 archive
 # no compressed files
 *.gz

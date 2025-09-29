@@ -12,7 +12,7 @@
     "test": "backstage-cli package test --passWithNoTests --coverage"
   },
   "devDependencies": {
-    "@backstage/cli": "0.30.0",
+    "@backstage/cli": "^0.34.3",
     "glob": "11.0.2",
     "yaml": "2.8.0"
   }

@@ -2,6 +2,11 @@
 
 # DevPortal Base Docker Development Helper Script
 
+#
+# we assume a local verdaccio registry is running at http://localhost:4873
+# this is used to cache dependencies 
+#
+
 set -e
 
 # Colors for output
@@ -10,6 +15,24 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+getIPAddress() {
+    local ip_addr=""
+    # uses `ip` if available, otherwise uses `ifconfig`
+    if command -v ip >/dev/null 2>&1; then
+        ip_addr=$(ip -4 addr show scope global 2>/dev/null | awk '/inet /{print $2}' | cut -d/ -f1 | head -1)
+    elif command -v ifconfig >/dev/null 2>&1; then
+        ip_addr=$(ifconfig 2>/dev/null | awk '/inet / && $2 != "127.0.0.1" {print $2}' | head -1)
+    fi
+    # Fallback to 172.17.0.1 if no IP found
+    if [ -z "$ip_addr" ]; then
+        ip_addr="172.17.0.1"
+    fi
+    
+    echo "$ip_addr"
+}
+
+MY_HOST=$(getIPAddress)
 
 # Function to print colored output
 print_status() {
@@ -56,7 +79,9 @@ show_help() {
 # Function to build the image
 build_image() {
     print_status "Building DevPortal Base Docker image..."
-    docker-compose build
+    NPM_REG="http://$MY_HOST:4873"
+    print_status "Using NPM registry: $NPM_REG (please run a local Verdaccio registry at this address)"
+    docker-compose --progress=plain build --build-arg NPM_REGISTRY=$NPM_REG
     print_success "Image built successfully!"
 }
 

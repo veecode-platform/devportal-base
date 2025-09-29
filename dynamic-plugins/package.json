@@ -15,6 +15,7 @@
     "test": "turbo run test",
     "lint:check": "turbo run lint:check",
     "lint:fix": "turbo run lint:fix",
+    "update-backstage": "backstage-cli versions:bump --pattern '@{backstage,roadiehq,backstage-community}/*'",
     "new-wrapper": "node ./scripts/new-wrapper.mjs"
   },
   "workspaces": {
@@ -25,9 +26,13 @@
     ]
   },
   "devDependencies": {
-    "turbo": "2.5.4"
+    "@backstage/cli": "^0.34.3",
+    "@red-hat-developer-hub/cli": "^1.7.2",
+    "turbo": "2.5.8"
   },
   "resolutions": {
+    "react": "^18.0.2",
+    "react-dom": "^18.0.2",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7"
   },
