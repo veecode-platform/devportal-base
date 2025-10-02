@@ -2,16 +2,16 @@
 dynamicPlugins:
   rootDirectory: dynamic-plugins-root
   frontend:
-    backstage.plugin-notifications:
-      dynamicRoutes:
-        - importName: NotificationsPage
-          menuItem:
-            config:
-              props:
-                titleCounterEnabled: true
-                webNotificationsEnabled: false
-            importName: NotificationsSidebarItem
-          path: /notifications
+    # backstage.plugin-notifications:
+    #   dynamicRoutes:
+    #     - importName: NotificationsPage
+    #       menuItem:
+    #         config:
+    #           props:
+    #             titleCounterEnabled: true
+    #             webNotificationsEnabled: false
+    #         importName: NotificationsSidebarItem
+    #       path: /notifications
     red-hat-developer-hub.backstage-plugin-global-floating-action-button:
       mountPoints:
         - mountPoint: application/listener

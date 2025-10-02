@@ -52,7 +52,7 @@ import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { CatalogImportPage } from '@backstage/plugin-catalog-import';
 import { CatalogUnprocessedEntitiesPage } from '@backstage/plugin-catalog-unprocessed-entities';
 import { VisitListener } from '@backstage/plugin-home';
-// import { NotificationsPage } from '@backstage/plugin-notifications';
+import { NotificationsPage } from '@backstage/plugin-notifications';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
 import {
@@ -239,7 +239,7 @@ const AppBase = () => {
               <Route path="/search" element={<BackstageSearchPage />}>
                 <SearchPage />
               </Route>
-              {/* <Route path="/notifications" element={<NotificationsPage />} /> */}
+              <Route path="/notifications" element={<NotificationsPage />} />
               <Route path="/settings" element={<UserSettingsPage />}>
                 {settingsPage(providerSettings)}
               </Route>

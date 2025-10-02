@@ -71,7 +71,17 @@ Please read [docker/README.md](docker/README.md) for instructions on how to buil
 
 ### Static plugins
 
-Derived images will not embed more static plugins, so all plugins that cannot be loaded dynamically must be embedded in this base image.
+Derived images will not embed more static plugins, so all plugins that cannot be loaded dynamically must be embedded in this base image. We will try to keep the number of static plugins to a minimum, restricted to core functionality that must be available for all dynamic plugins.
+
+A few of those plugins are:
+
+| Type     | Plugin | Purpose |
+| :------- | :------| :-------|
+| Both     | Notifications | Delivers messages to users about events that occur in the platform. |
+| Both     | Signals | A lower-level pub/sub infrastructure for event-like communication between Backstage plugins/services. |
+| Backend  | Permissions | Defines and enforces fine-grained access control rules across the platform. |
+| Frontend | Permissions-React | React components for access control rules in the frontend. |
+| Both     | RBAC | Role-based access control for the platform. |
 
 ### Dynamic plugins
 
@@ -87,9 +97,6 @@ List of preinstalled plugins:
 
 - VeeCode Homepage
 - VeeCode Global Header
-- Notifications (frontend and backend)
-- Signals (frontend and backend)
-- RBAC (frontend and backend)
 - Tech Radar (frontend and backend)
 - Tech Docs (frontend and backend)
 

@@ -64,7 +64,7 @@ import { ApplicationHeaders } from './ApplicationHeaders';
 import { MenuIcon } from './MenuIcon';
 import { SidebarLogo } from './SidebarLogo';
 import SignOutElement from './signOut';
-// import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 
 type StylesProps = {
   aboveSidebarHeaderHeight?: number;
@@ -547,7 +547,11 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
             <SidebarGroup label="Menu" icon={<MuiMenuIcon />}>
               {/* Global nav, not org-specific */}
               {renderMenuItems(true, false)}
-              {/* <NotificationsSidebarItem /> */}
+              <NotificationsSidebarItem 
+                webNotificationsEnabled // Enables WebNotification API
+                titleCounterEnabled     // Enables counter in page title
+                snackbarProps={{ enabled: true }} // Disables/enables snackbar notifications
+              />
               {/* End global nav */}
               <SidebarScrollWrapper>
                 {renderMenuItems(false, false)}
