@@ -1,0 +1,133 @@
+# Backstage override configuration for your local development environment
+dynamicPlugins:
+  rootDirectory: dynamic-plugins-root
+  frontend:
+    backstage.plugin-notifications:
+      dynamicRoutes:
+        - importName: NotificationsPage
+          menuItem:
+            config:
+              props:
+                titleCounterEnabled: true
+                webNotificationsEnabled: false
+            importName: NotificationsSidebarItem
+          path: /notifications
+    red-hat-developer-hub.backstage-plugin-global-floating-action-button:
+      mountPoints:
+        - mountPoint: application/listener
+          importName: DynamicGlobalFloatingActionButton
+        - mountPoint: global.floatingactionbutton/config
+          importName: NullComponent # It is necessary to specify an importName because mount point without an associated component is not allowed.
+          config:
+            icon: '<svg viewBox="0 0 250 300" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M200.134 0l55.555 117.514-55.555 117.518h-47.295l55.555-117.518L152.84 0h47.295zM110.08 99.836l20.056-38.092-2.29-8.868L102.847 0H55.552l48.647 102.898 5.881-3.062zm17.766 74.433l-17.333-39.034-6.314-3.101-48.647 102.898h47.295l25-52.88v-7.883z" fill="#40B4E5"/><path d="M152.842 235.032L97.287 117.514 152.842 0h47.295l-55.555 117.514 55.555 117.518h-47.295zm-97.287 0L0 117.514 55.555 0h47.296L47.295 117.514l55.556 117.518H55.555z" fill="#003764"/></svg>'
+            label: 'Quay'
+            showLabel: true
+            toolTip: 'Quay'
+            to: 'https://quay.io'
+        - mountPoint: global.floatingactionbutton/config
+          importName: NullComponent
+          config:
+            icon: github
+            label: 'Git'
+            toolTip: 'Github'
+            to: https://github.com/redhat-developer/rhdh-plugins
+    veecode-platform.plugin-veecode-homepage:
+      dynamicRoutes:
+        - path: /
+          importName: VeecodeHomepagePage
+          config:
+            props:
+              width: 1500
+              height: 800
+    veecode-platform.plugin-veecode-global-header:
+      mountPoints:
+        - mountPoint: application/header
+          importName: GlobalHeader
+          config:
+            position: above-sidebar # above-main-content | above-sidebar
+        - mountPoint: global.header/component
+          importName: CompanyLogo
+          config:
+            priority: 200
+            props:
+              to: '/'
+        - mountPoint: global.header/component
+          importName: SearchComponent
+          config:
+            priority: 100
+        - mountPoint: global.header/component
+          importName: Spacer
+          config:
+            priority: 99
+            props:
+              growFactor: 0
+        - mountPoint: global.header/component
+          importName: Divider
+          config:
+            priority: 90
+        - mountPoint: global.header/component
+          importName: NotificationButton
+          config:
+            priority: 60
+        - mountPoint: global.header/component
+          importName: StarredDropdown
+          config:
+            priority: 70
+            props:
+              growFactor: 0
+        - mountPoint: global.header/component
+          importName: ToogleThemeButton
+          config:
+            priority: 75
+            props:
+              growFactor: 0
+        - mountPoint: global.header/component
+          importName: ProfileDropdown
+          config:
+            priority: 10
+        - mountPoint: global.header/profile
+          importName: MenuItemLink
+          config:
+            priority: 100
+            props:
+              title: Settings
+              link: /settings
+              icon: manageAccounts
+        - mountPoint: global.header/profile
+          importName: LogoutButton
+          config:
+        #     priority: 10
+        # - mountPoint: global.header/component
+        #   importName: HeaderIconButton
+        #   config:
+        #     priority: 90
+        #     props:
+        #       title: Create...
+        #       icon: add
+        #       to: create
+    backstage-community.plugin-tech-radar:
+      apiFactories:
+        - importName: TechRadarApi
+      appIcons:
+        - name: techRadar
+          importName: TechRadarIcon
+      dynamicRoutes:
+        - path: /tech-radar
+          importName: TechRadarPage
+          menuItem:
+            icon: techRadar
+            text: Tech Radar
+          config:
+            props:
+              width: 1500
+              height: 800
+    backstage-community.plugin-rbac:
+      appIcons:
+        - name: rbacIcon
+          importName: RbacIcon
+      dynamicRoutes:
+        - path: /rbac
+          importName: RbacPage
+          menuItem:
+            icon: rbacIcon
+            text: RBAC

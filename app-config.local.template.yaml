@@ -1,0 +1,6 @@
+# Backstage override configuration for your local development environment
+
+# bug da veecodesignin page
+platform:
+  guest:
+    enabled: true
