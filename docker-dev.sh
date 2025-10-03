@@ -76,11 +76,22 @@ show_help() {
     echo "  $0 dev"
 }
 
+ping_registry() {
+    print_status "Pinging NPM registry..."
+    result=$(curl -s -o /dev/null -w "%{http_code}" http://$MY_HOST:4873)
+    if [ "$result" != "200" ]; then
+        print_error "NPM registry is not running at http://$MY_HOST:4873"
+        exit 1
+    fi
+    print_success "NPM registry found running at http://$MY_HOST:4873"
+}
+
 # Function to build the image
 build_image() {
     print_status "Building DevPortal Base Docker image..."
     NPM_REG="http://$MY_HOST:4873"
     print_status "Using NPM registry: $NPM_REG (please run a local Verdaccio registry at this address)"
+    ping_registry
     docker-compose --progress=plain build --build-arg NPM_REGISTRY=$NPM_REG
     print_success "Image built successfully!"
 }
@@ -192,6 +203,7 @@ case "${1:-help}" in
         ;;
     help|--help|-h)
         show_help
+        exit 0
         ;;
     *)
         print_error "Unknown command: $1"

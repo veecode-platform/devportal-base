@@ -21,7 +21,7 @@
 #
 
 # We will use an ubi10 Node.js image for VeeCode DevPortal distro
-FROM registry.redhat.io/ubi9/nodejs-22:9.6-1757333865 AS base
+FROM registry.redhat.io/ubi9/nodejs-22:9.6-1759119998 AS base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org/
 
@@ -79,15 +79,17 @@ COPY --chown=default:default plugins/translation-backend/package.json \
 RUN yarn config set npmRegistryServer $NPM_REGISTRY && \
     yarn config set nodeLinker node-modules && \
     HOST=$(printf '%s\n' "$NPM_REGISTRY" | awk -F[/:] '{print $4}') && \
-    yarn config set unsafeHttpWhitelist --json "[\"localhost\",\"$HOST\"]"
-RUN yarn install --immutable && yarn cache clean
+    yarn config set unsafeHttpWhitelist --json "[\"localhost\",\"$HOST\"]" && \
+    cp .yarnrc.yml $HOME/.yarnrc.yml
+RUN yarn install --immutable
+# RUN yarn install --immutable && yarn cache clean
 #RUN yarn install && yarn cache clean
 #RUN yarn install
 
 COPY --chown=default:default dynamic-plugins /opt/dynamic-plugins
 COPY --chown=default:default dynamic-plugins-root /opt/dynamic-plugins-root
 
-RUN cp /opt/app/.yarnrc.yml /opt/dynamic-plugins/
+# RUN cp /opt/app/.yarnrc.yml $HOME/.yarnrc.yml
 
 # RUN mkdir -p /opt/dynamic-plugins-root && \
 #     mkdir -p /opt/dynamic-plugins && \
@@ -97,13 +99,22 @@ RUN cp /opt/app/.yarnrc.yml /opt/dynamic-plugins/
 # prepare dynamic-plugins-root
 RUN cd /opt/dynamic-plugins && \
     yarn install && \
-    yarn build
-    # yarn export-dynamic && \
-    # yarn copy-dynamic-plugins /opt/dynamic-plugins-root
+    yarn build && \
+    yarn export-dynamic && \
+    yarn copy-dynamic-plugins /opt/dynamic-plugins-root && \
+    rm -Rf node_modules .turbo .yarn dist dist-types && \
+    find . -type d -name "dist-types" -exec rm -rf {} + && \
+    find . -type d -name "node_modules" -exec rm -rf {} + && \
+    find . -type d -name ".turbo" -exec rm -rf {} + && \
+    find . -type d -name ".yarn" -exec rm -rf {} + && \
+    find . -type d -name "dist" -exec rm -rf {} +
 
 ENV PATH="/opt/app/node_modules/.bin:$PATH"
 
 # --- 2) Build everything we need for the single runtime ---
 # FROM deps AS build
 # Copy source AFTER deps so small edits don't re-run installs
-#COPY --chown=default:default . /opt/app/
+COPY --chown=default:default . /opt/app/
+
+RUN cp app-config.local.template.yaml app-config.local.yaml && \
+    cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.local.yaml

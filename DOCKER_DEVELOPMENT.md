@@ -117,11 +117,11 @@ docker-compose ps
 # Install dependencies
 yarn install
 
-# Start development with local config
-yarn dev-local
-
 # Build the project
 yarn build
+
+# Start development with local config
+yarn dev-local
 
 # Run tests
 yarn test
@@ -215,17 +215,21 @@ docker-compose up -d
 
 ## Tips
 
-1. **Live Reload**: Your local code changes are immediately reflected in the container
-2. **Performance**: Node modules are stored in a Docker volume for better performance
-3. **Database**: PostgreSQL data persists between container restarts
-4. **Debugging**: Use `docker-compose logs -f` to see real-time logs
-5. **Shell Access**: Always available via `docker-compose exec devportal-base /bin/bash`
+To find out the latest Red Hat Node.js version, run:
+
+```bash
+skopeo list-tags docker://registry.redhat.io/ubi9/nodejs-22 \
+  | jq -r '.Tags[]
+           | select(startswith("9.6-"))
+           | select(endswith("-source") | not)' \
+  | sort -V \
+  | tail -n 1
+```
 
 ## Integration with Existing Workflow
 
 This Docker setup is designed to work alongside your existing development workflow:
 
 - All your existing `yarn` commands work inside the container
-- Configuration files (`app-config.*.yaml`) are mounted and accessible
 - The Makefile commands can be run inside the container
 - Dynamic plugins development is fully supported

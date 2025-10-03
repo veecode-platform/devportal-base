@@ -1,6 +1,7 @@
 .git
-.yarn/cache
-.yarn/install-state.gz
+**/.yarnrc.yml
+**/.yarn/cache
+**/.yarn/install-state.gz
 **/node_modules
 *.local.yaml
 # no generated plugin files
