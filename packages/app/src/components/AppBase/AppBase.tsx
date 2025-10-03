@@ -82,7 +82,7 @@ import ConfigUpdater from '../Root/ConfigUpdater';
 import { LayoutCustom } from '../scaffolder/LayoutCustom';
 import { SearchPage } from '../search/SearchPage';
 import { settingsPage } from '../UserSettings/SettingsPages';
-// import { RbacPage } from '@backstage-community/plugin-rbac';
+import { RbacPage } from '@backstage-community/plugin-rbac';
 import {
   DefaultTechDocsHome,
   TechDocsIndexPage,
@@ -286,7 +286,7 @@ const AppBase = () => {
                 }
               />
               
-              {/* <Route path="/rbac" element={<RbacPage />} />; */}
+              <Route path="/rbac" element={<RbacPage />} />;
               {dynamicRoutes.map(
                 ({ Component, staticJSXContent, path, config: { props } }) => {
                   return (

@@ -162,8 +162,9 @@ if (process.env.ENABLE_ALLOW_ALL_POLICY === 'true') {
   backend.add(
     import('@backstage/plugin-permission-backend-module-allow-all-policy'),
   );
+  staticLogger.info(`Allow-all RBAC policy is ENABLED`);
 } else {
-  staticLogger.info(`Allow all RBAC policy disabled`);
+  staticLogger.info(`Allow-all RBAC policy is DISABLED`);
 }
 
 backend.add(pluginIDProviderService);

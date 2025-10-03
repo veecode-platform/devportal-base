@@ -154,9 +154,8 @@ permission:
     admin:
       users:
         - name: group:default/admins
-    # authorizedUsers:
-    #   - group:default/admins
-    #   - user:default/admin
+      superUsers:
+        - name: group:default/admins
 # tech radar backend plugin
 techRadar:
   url: https://github.com/backstage/community-plugins/blob/main/workspaces/tech-radar/plugins/tech-radar-common/src/sampleTechRadarResponse.json

@@ -25,14 +25,14 @@ Derived images are expected to:
 
 ### Copy app-config examples
 
-Some app-config examples are provided in the `app-config.local.template.yaml` and `app-config.dynamic-plugins.template.yaml` files. You can copy them to their proper places and edit them at will.
+Some app-config examples are provided in the `app-config.local.template.yaml` and `app-config.dynamic-plugins.local.template.yaml` files. You can copy them to their proper places and edit them at will.
 
 ```sh
 cp app-config.local.template.yaml app-config.local.yaml
-cp app-config.dynamic-plugins.template.yaml ./dynamic-plugins-root/app-config.dynamic-plugins.yaml
+cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.local.yaml
 ```
 
-Note: we gitignore the target files to prevent team conflicts, mess with them freely.
+**Note:** The target files are gitignored to prevent team conflicts, so you can modify them freely.
 
 ### Build code
 
@@ -47,9 +47,12 @@ LOG_LEVEL=debug yarn dev-local
 
 ### Build preinstalled plugins
 
-All preinstalled plugins are defined in `dynamic-plugins/wrappers` and `dynamic-plugins/downloads` directories. Each wrapper is a construct that exports a dynamic plugin from a pre-existing static plugin (backend or frontend), working as a compatibility layer for older plugins. Newer plugins are already dynamic plugins by themselves, so there is no need to create wrappers for them, just add them to `dynamic-plugins/downloads/plugins.json` list.
+All preinstalled plugins are defined in `dynamic-plugins/wrappers` and `dynamic-plugins/downloads` directories:
 
-If you want to build all preinstalled plugins, run:
+- **Wrappers**: Compatibility layer that exports dynamic plugins from pre-existing static plugins (backend or frontend)
+- **Downloads**: Native dynamic plugins that don't require wrappers - just add them to `dynamic-plugins/downloads/plugins.json`
+
+To build all preinstalled plugins:
 
 ```sh
 cd dynamic-plugins/
@@ -59,9 +62,9 @@ yarn export-dynamic
 yarn copy-dynamic-plugins $(pwd)/../dynamic-plugins-root
 ```
 
-Note: you only have to do this once - the output is generated in `dynamic-plugins-root` directory and picked by the dynamic loader at runtime when the app starts. Wrapper plugins are built, exported and copied, downloaded plugins are just copied and unpacked.
+**Note:** You only need to do this once. The output is generated in `dynamic-plugins-root` directory and loaded by the dynamic loader at runtime. Wrapper plugins are built, exported and copied; downloaded plugins are unpacked and copied.
 
-When `yarn dev-local` is run, the dynamic loader will load all plugins from `dynamic-plugins-root` directory.
+When running `yarn dev-local`, the dynamic loader will load all plugins from the `dynamic-plugins-root` directory.
 
 ### Build container image
 
@@ -71,9 +74,11 @@ Please read [docker/README.md](docker/README.md) for instructions on how to buil
 
 ### Static plugins
 
-Derived images will not embed more static plugins, so all plugins that cannot be loaded dynamically must be embedded in this base image. We will try to keep the number of static plugins to a minimum, restricted to core functionality that must be available for all dynamic plugins.
+Static plugins are compiled directly into the application bundle and cannot be loaded dynamically. The base image includes only essential static plugins that provide core functionality required by all dynamic plugins.
 
-A few of those plugins are:
+Derived images should not add more static plugins. We maintain a minimal set restricted to foundational features:
+
+**Core static plugins:**
 
 | Type     | Plugin | Purpose |
 | :------- | :------| :-------|
@@ -85,26 +90,36 @@ A few of those plugins are:
 
 ### Dynamic plugins
 
-Dynamic plugin "autowire" themselves to Backstage at runtime, so you do not need extra coding to import them to DevPortal and a lot of friction is removed from the process of experimenting with new plugins.
+Dynamic plugins "autowire" themselves to Backstage at runtime without requiring code changes or rebuilds. This removes friction from experimenting with new plugins and is a key component for DevPortal's extensibility and adaptability.
 
-Dynamic plugins can be loaded in many ways or even downloaded from the internet (OCI or NPM repositories), but a very common way is embedding them in the distro image.
+**Loading methods:**
+
+- Downloaded from OCI registries
+- Downloaded from NPM repositories
+- Loaded from local filesystem ("preinstalled plugins")
+
+The most common approach for production deployments is embedding plugins in the distro image as preinstalled plugins.
 
 ### Preinstalled plugins
 
-Preinstalled plugins are dynamic plugins that are embedded in the distro image but not necessarily loaded at runtime. Their intent is to provide a self-sufficient distro out of the box for many possible deployment scenarios, yet still requiring a smaller footprint than loading them all.
+Preinstalled plugins are dynamic plugins embedded in the distro image but not necessarily loaded at runtime. This approach provides:
 
-List of preinstalled plugins:
+- **Self-sufficient distribution** - Works out of the box without external dependencies
+- **Flexible deployment** - Enable only the plugins you need
+- **Smaller footprint** - Plugins are available but not all loaded by default
 
-- VeeCode Homepage
-- VeeCode Global Header
-- Tech Radar (frontend and backend)
-- Tech Docs (frontend and backend)
+**Base image preinstalled plugins:**
 
-### Motivation
+- **VeeCode Homepage** - Customizable landing page
+- **VeeCode Global Header** - Unified navigation and branding
+- **Tech Radar** - Technology adoption visualization (frontend + backend)
+- **Tech Docs** - Documentation system (frontend + backend)
 
-Only the minimal amount of required plugins should be embedded in this base image, in order for it to work out of the box.
+### Design philosophy
 
-Derived images will embed all the dynamic plugins a generic and self-sufficient distro should have.
+**Base image:** Contains only the minimal set of plugins required for core functionality and a working out-of-the-box experience.
+
+**Derived images:** Embed additional dynamic plugins to create a comprehensive, self-sufficient distribution tailored for specific use cases.
 
 ## Development tips
 
@@ -114,28 +129,45 @@ The steps described above ([Build code](#build-code) and [Build preinstalled plu
 
 ### Adding new preinstalled plugins
 
-Adding new plugins that are already available as dynamic packages is simple: just add them to the `dynamic-plugins/downloads/plugins.json` file and repeat the [Build preinstalled plugins](#build-preinstalled-plugins) commands.
+#### For native dynamic plugins
 
-For older plugins that require a compatibility layer we created a helper script to ease the process of adding new preinstalled plugins. It will create the necessary files and directories and update the necessary configuration files and it understands both backend and frontend plugins.
+If the plugin is already available as a dynamic package:
 
-Just invoke `yarn new-wrapper <plugin-name>` and repeat the [Build preinstalled plugins](#build-preinstalled-plugins) commands:
+1. Add it to `dynamic-plugins/downloads/plugins.json`
+2. Run the [Build preinstalled plugins](#build-preinstalled-plugins) commands
+
+#### For legacy static plugins
+
+For older plugins that need a compatibility wrapper:
+
+##### Option 1: Use the helper script (experimental)
 
 ```sh
 yarn new-wrapper @backstage-community/plugin-tech-radar@1.7.0
 ```
 
-**IMPORTANT:** this is *highly* experimental yet, but beats doing it all manually. Use at your own risk.
+Then run the [Build preinstalled plugins](#build-preinstalled-plugins) commands.
 
-Another **great** alternative for older plugins is to just shamelessly rip off the [equivalent wrappers that exist on RHDH repo](https://github.com/redhat-developer/rhdh/tree/main/dynamic-plugins/wrappers). Pick the ones you need and copy them to `dynamic-plugins/wrappers`.
+⚠️ **Warning:** This script is highly experimental. It creates the necessary files and directories for both backend and frontend plugins, but use at your own risk.
 
-### Relaxing security
+##### Option 2: Copy from RHDH (recommended)
 
-You can relax a bit of security locally to:
+Borrow existing wrappers from the [RHDH repository](https://github.com/redhat-developer/rhdh/tree/main/dynamic-plugins/wrappers):
 
-- expose backend plugins endpoints with a fixed token
-- disable authentication (guest provider) with an assumed identity
+1. Find the wrapper you need
+2. Copy it to `dynamic-plugins/wrappers`
+3. Run the [Build preinstalled plugins](#build-preinstalled-plugins) commands
 
-This can be done by creating a `app-config.local.yaml` file with the following content:
+### Relaxing security for local development
+
+For local development, you can simplify authentication by:
+
+- Using a fixed backend token
+- Enabling the guest auth provider with an assumed identity
+
+⚠️ **Warning:** Only use this configuration in local development environments.
+
+Create or edit `app-config.local.yaml` with:
 
 ```yaml
 # Backstage override configuration for your local development environment
@@ -154,11 +186,14 @@ auth:
       dangerouslyAllowOutsideDevelopment: true
 ```
 
-### Reaching backend endpoints
+### Accessing backend endpoints
 
-Backstage frontend is bound to port `3000` and backend to port `7007`. You can reach backend endpoints at `http://localhost:7007/api/`, but you will need a token to authenticate.
+**Default ports:**
 
-The snippet below shows how to get a token and use it to authenticate requests to the backend (assumes the relaxed configuration above):
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:7007`
+
+Backend API endpoints require authentication. The examples below show how to obtain and use a token (requires the relaxed security configuration above):
 
 ```sh
 # get a Backstage user token via the guest provider
@@ -182,17 +217,17 @@ curl -vvv http://localhost:7007/version
 
 ## Additional Notes
 
-### RHDH code mechanics
+### Relationship to RHDH
 
-A lot of the code and mechanics here are based on [Red Hat Developer Hub (RHDH)](https://github.com/redhat-developer/rhdh) codebase.
+Many code patterns and mechanics in this project are inspired by [Red Hat Developer Hub (RHDH)](https://github.com/redhat-developer/rhdh).
 
-VeeCode DevPortal is *not* a fork of RHDH though. It is an independent project that borrows some mechanics (and OSS code) from RHDH to achieve its goal: to be an OSS ready-to-use Backstage distro fit for production use.
+**Important:** VeeCode DevPortal is **not** a fork of RHDH. It is an independent open-source project that leverages proven patterns from RHDH to deliver a production-ready Backstage distribution.
 
 ### Temporary fix for better-sqlite3
 
-We added a root import for `better-sqlite3` to define it globally in a resolution.
+A root import for `better-sqlite3` has been added to define it globally in package resolutions.
 
-A symbolic must be manually created to solve a runtime issue still under investigation:
+⚠️ **Known issue:** A symbolic link must be manually created to resolve a runtime issue (under investigation):
 
 ```sh
 cd node_modules/better-sqlite3/build
