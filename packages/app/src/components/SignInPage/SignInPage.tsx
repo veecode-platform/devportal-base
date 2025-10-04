@@ -24,13 +24,17 @@ import {
 } from '@backstage/core-components';
 import {
   configApiRef,
+  githubAuthApiRef,
+  gitlabAuthApiRef,
   useApi,
   type SignInPageProps,
 } from '@backstage/core-plugin-api';
 
-import { githubProvider, gitlabProvider, keycloakProvider } from '../../api';
+import { keycloakProvider } from '../../api';
+import { useTranslation } from '../../hooks/useTranslation';
 
-const DEFAULT_PROVIDER = 'keycloak';
+// const DEFAULT_PROVIDER = 'keycloak';
+const DEFAULT_PROVIDER = 'github';
 
 /**
  * Key:
@@ -40,31 +44,71 @@ const DEFAULT_PROVIDER = 'keycloak';
  * SignInProviderConfig - Local sign-in provider configuration.
  * string - Proxy sign-in provider configuration.
  */
+/*
 const PROVIDERS = new Map<string, SignInProviderConfig | string>([
   ['github', githubProvider],
   ['gitlab', gitlabProvider],
   ['keycloak', keycloakProvider],
 ]);
+*/
+
+/**
+ * Creates provider configurations with translated strings
+ *
+ * t - Translation function.
+ * Map of provider configurations.
+ *
+ * Key:
+ * string - Provider name.
+ *
+ * Value:
+ * SignInProviderConfig - Local sign-in provider configuration.
+ * string - Proxy sign-in provider configuration.
+ *  */
+const createProviders = (t: (key: string, params?: any) => string) =>
+  new Map<string, SignInProviderConfig | string>([
+    [
+      'github',
+      {
+        id: 'github-auth-provider',
+        title: t('signIn.providers.github.title'),
+        message: t('signIn.providers.github.message'),
+        apiRef: githubAuthApiRef,
+      },
+    ],
+    [
+      'gitlab',
+      {
+        id: 'gitlab-auth-provider',
+        title: t('signIn.providers.gitlab.title'),
+        message: t('signIn.providers.gitlab.message'),
+        apiRef: gitlabAuthApiRef,
+      },
+    ],
+    ['keycloak', keycloakProvider],
+  ]);
 
 export function SignInPage(props: SignInPageProps): React.JSX.Element {
   const configApi = useApi(configApiRef);
+  const { t } = useTranslation();
   const isDevEnv = configApi.getString('auth.environment') === 'development';
   const provider =
     configApi.getOptionalString('signInPage') ?? DEFAULT_PROVIDER;
+  const providers = createProviders(t);
   const providerConfig =
-    PROVIDERS.get(provider) ?? PROVIDERS.get(DEFAULT_PROVIDER)!;
-
+    providers.get(provider) ?? providers.get(DEFAULT_PROVIDER)!;
+  
   if (typeof providerConfig === 'object') {
-    const providers = isDevEnv
+    const providerList = isDevEnv
       ? (['guest', providerConfig] satisfies ['guest', SignInProviderConfig])
       : [providerConfig];
 
     return (
       <CCSignInPage
         {...props}
-        title="Select a sign-in method"
+        title={t('signIn.page.title')}
         align="center"
-        providers={providers}
+        providers={providerList}
       />
     );
   }

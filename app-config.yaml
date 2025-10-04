@@ -61,7 +61,11 @@ backend:
           # Production enironments should define a token in a more secure way that supports rotation.
           token: test-token
           subject: test-subject
-
+  reading:
+    allow:
+      - host: github.com
+      - host: gitlab.com
+      - host: api.apis.guru
 auth:
   environment: development
   # see https://backstage.io/docs/auth/ to learn about auth providers
@@ -73,18 +77,7 @@ auth:
       ownershipEntityRefs: [group:default/admins]
       dangerouslyAllowOutsideDevelopment: true
 
-integrations:
-  github:
-    - host: github.com
-      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
-      token: ${GITHUB_TOKEN}
-    ### Example for how to add your GitHub Enterprise instance using the API:
-    # - host: ghe.example.net
-    #   apiBaseUrl: https://ghe.example.net/api/v3
-    #   token: ${GHE_TOKEN}
-
-proxy:
+# proxy:
   ### Example for how to add a proxy endpoint for the frontend.
   ### A typical reason to do this is to handle HTTPS and CORS for internal services.
   # endpoints:
@@ -103,7 +96,7 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
-scaffolder:
+# scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
 catalog:
@@ -116,18 +109,19 @@ catalog:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
-
     # Local example template
     - type: file
       target: ../../examples/template/template.yaml
       rules:
         - allow: [Template]
-
     # Local example organizational data
     - type: file
       target: ../../examples/org.yaml
       rules:
         - allow: [User, Group]  
+    # Local example apis
+    - type: file
+      target: ../../examples/apis.yaml
 
     ## Uncomment these lines to add more example data
     # - type: url
@@ -139,7 +133,7 @@ catalog:
     #   rules:
     #     - allow: [User, Group]
 
-kubernetes:
+# kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
 # see https://backstage.io/docs/permissions/getting-started for more on the permission framework
