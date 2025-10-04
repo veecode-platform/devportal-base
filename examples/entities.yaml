@@ -21,6 +21,19 @@ spec:
   system: examples
   providesApis: [example-grpc-api]
 ---
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-component
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: example-node-app
+spec:
+  type: service
+  lifecycle: experimental
+  #owner: guests
+  owner: admins
+  system: examples
+  providesApis: [apis-guru]
+---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-api
 apiVersion: backstage.io/v1alpha1
 kind: API

@@ -1,0 +1,50 @@
+# Backstage override configuration for your local development environment
+
+#
+# enables github auth and syncs users/groups from your github org and its teams
+#
+
+# bug da veecodesignin page
+platform:
+  guest:
+    enabled: true
+auth:
+  # repeat environment from main file
+  environment: development
+  # now the new provider (will add to main file)
+  providers:
+    # --- GitHub provider (loaded dynamically from the module, if loaded) ---
+    github:
+      # or remove this level for a single env block
+      development:
+        clientId: xxxx
+        clientSecret: xxxx
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: emailLocalPartMatchingUserEntityName
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - appId: 2056954
+          clientId: xxxx
+          clientSecret: xxxx
+          privateKey: |
+            -----BEGIN RSA PRIVATE KEY-----
+            blablablablabla
+            -----END RSA PRIVATE KEY-----
+          # webhookSecret:
+catalog:
+  providers:
+    githubOrg:
+      id: development
+      githubUrl: https://github.com
+      orgs:
+        - "your-org"
+      schedule:
+        frequency:
+          minutes: 5
+        timeout:
+          minutes: 3

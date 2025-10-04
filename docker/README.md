@@ -1,22 +1,22 @@
-# VeeCode Base Developer Docker Image
+# Docker Build Guide
 
-This folder contains the Dockerfile for the VeeCode Base Docker Image.
+This document explains how to build VeeCode DevPortal container images for both development and production.
 
-You are expected to build this image locally using the `docker-dev.sh` script from the project root path.
+## Development Docker Image
 
-## Purpose
+### Purpose
 
-This is a helper tool to experiment buiding images for development purposes under OSX or Windows WSL, by forcing a build under Linux AMD/ARM using containers. This also allows to build in a host without Node.js tools.
+This is a helper tool to experiment building images for development purposes under OSX or Windows WSL, by forcing a build under Linux AMD/ARM using containers. This also allows building in a host without Node.js tools.
 
-## Pre-requisites
+### Prerequisites
 
 - Docker
 - Docker Compose plugin
 - Verdaccio (local npm registry)
 
-## Workflow
+### Workflow
 
-Just run the `docker-dev.sh` script from the project root path to start a "hanging" container, then use the same script to get into it and start as many build as you need.
+Run the `docker-dev.sh` script from the project root path to start a "hanging" container, then use the same script to get into it and start as many builds as you need.
 
 ```bash
 ./docker-dev.sh build
@@ -24,15 +24,15 @@ Just run the `docker-dev.sh` script from the project root path to start a "hangi
 ./docker-dev.sh shell
 ```
 
-## What it does
+### What It Does
 
-The Dockerfile does these steps:
+The Dockerfile performs these steps:
 
-- copies all the `package.json` files into an image layer
-- installs dependencies for workspaces
-- copies the rest of the project code
+- Copies all the `package.json` files into an image layer
+- Installs dependencies for workspaces
+- Copies the rest of the project code
 
-## Verdaccio
+### Verdaccio Setup
 
 Verdaccio is a local npm registry that can be used to publish and install packages. Start it locally with:
 
@@ -42,6 +42,34 @@ verdaccio -l 0.0.0.0:4873
 
 The commands in `docker-dev.sh` script will use this registry.
 
-## Production Docker image
+## Production Docker Image
 
 A definitive multiplatform image is built and published on Docker Hub from the CI/CD pipeline.
+
+### Build Process
+
+The production build:
+
+- Creates a lightweight container image with minimal DevPortal runtime
+- Bundles all required static plugins
+- Includes preinstalled dynamic plugins
+- Provides fast start time and good defaults
+
+### Image Characteristics
+
+The resulting base image:
+
+- Very lightweight with minimal runtime footprint
+- Defines mechanics for loading plugins dynamically
+- Bundles all required static plugins
+- Includes mechanics for bundling dynamic plugins (preinstalled plugins)
+- Contains a minimal set of preinstalled plugins (homepage and global header)
+- Provides default configuration for all preinstalled plugins
+- Starts with none or minimal configuration required
+
+### Derived Images
+
+Derived images are expected to:
+
+- Embed all preinstalled plugins for a self-sufficient distro
+- Embed default configuration for all preinstalled plugins
