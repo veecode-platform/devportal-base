@@ -2,11 +2,18 @@
 
 This document explains how to build VeeCode DevPortal container images for both development and production.
 
+We have two different Dockerfiles:
+
+- `Dockerfile-dev`: used for development purposes only
+- `Dockerfile`: used for image release
+
 ## Development Docker Image
 
 ### Purpose
 
 This is a helper tool to experiment building images for development purposes under OSX or Windows WSL, by forcing a build under Linux AMD/ARM using containers. This also allows building in a host without Node.js tools.
+
+It is defined by the `Dockerfile-dev` file and exposes the same ports of running locally (3000 and 7007).
 
 ### Prerequisites
 
@@ -44,7 +51,7 @@ The commands in `docker-dev.sh` script will use this registry.
 
 ## Production Docker Image
 
-A definitive multiplatform image is built and published on Docker Hub from the CI/CD pipeline.
+A definitive multiplatform image is built and published on Docker Hub from the CI/CD pipeline. It is defined by the `Dockerfile` file and exposes a single port (the backend port, 7007).
 
 ### Build Process
 
@@ -54,6 +61,7 @@ The production build:
 - Bundles all required static plugins
 - Includes preinstalled dynamic plugins
 - Provides fast start time and good defaults
+- Uses caching to speed up builds
 
 ### Image Characteristics
 

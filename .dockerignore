@@ -12,6 +12,8 @@ dynamic-plugins-root/*
 **/dist-types
 **/dist-dynamic
 **/dist-scalprum
+!dynamic-plugins-docker/**/dist*
+!dynamic-plugins-docker/**/node_modules
 archive
 # no compressed files
 *.gz
@@ -20,3 +22,6 @@ archive
 *.tar.gz
 **/.turbo
 **/.webpack-cache
+# include bundle jars for CI docker build
+!packages/backend/dist/bundle.tar.gz
+!packages/backend/dist/skeleton.tar.gz

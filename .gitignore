@@ -58,6 +58,7 @@ site
 # Dynamic plugins root content
 dynamic-plugins-root/*
 !dynamic-plugins-root/.gitkeep
+dynamic-plugins-docker/
 
 #dev caches
 .webpack-cache

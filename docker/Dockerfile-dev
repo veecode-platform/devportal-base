@@ -87,7 +87,8 @@ RUN yarn install --immutable
 #RUN yarn install
 
 COPY --chown=default:default dynamic-plugins /opt/dynamic-plugins
-COPY --chown=default:default dynamic-plugins-root /opt/dynamic-plugins-root
+# that should be just the empty folder and gitkeep
+COPY --chown=default:default dynamic-plugins-root /opt/app/dynamic-plugins-root
 
 # RUN cp /opt/app/.yarnrc.yml $HOME/.yarnrc.yml
 
@@ -101,7 +102,7 @@ RUN cd /opt/dynamic-plugins && \
     yarn install && \
     yarn build && \
     yarn export-dynamic && \
-    yarn copy-dynamic-plugins /opt/dynamic-plugins-root && \
+    yarn copy-dynamic-plugins /opt/app/dynamic-plugins-root && \
     rm -Rf node_modules .turbo .yarn dist dist-types && \
     find . -type d -name "dist-types" -exec rm -rf {} + && \
     find . -type d -name "node_modules" -exec rm -rf {} + && \
@@ -116,5 +117,7 @@ ENV PATH="/opt/app/node_modules/.bin:$PATH"
 # Copy source AFTER deps so small edits don't re-run installs
 COPY --chown=default:default . /opt/app/
 
-RUN cp app-config.local.template.yaml app-config.local.yaml && \
-    cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.local.yaml
+RUN cp app-config.production.yaml app-config.local.yaml && \
+    cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.local.yaml && \
+    yq eval '.dynamicPlugins.rootDirectory = "/opt/app/dynamic-plugins-root"' -i app-config.dynamic-plugins.local.yaml
+

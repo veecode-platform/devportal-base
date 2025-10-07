@@ -111,26 +111,3 @@ dynamicPlugins:
             props:
               width: 1500
               height: 800
-    # Commented out because they are now static plugins
-    # in the base image distro
-    #
-    # backstage.plugin-notifications:
-    #   dynamicRoutes:
-    #     - importName: NotificationsPage
-    #       menuItem:
-    #         config:
-    #           props:
-    #             titleCounterEnabled: true
-    #             webNotificationsEnabled: false
-    #         importName: NotificationsSidebarItem
-    #       path: /notifications
-    # backstage-community.plugin-rbac:
-    #   appIcons:
-    #     - name: rbacIcon
-    #       importName: RbacIcon
-    #   dynamicRoutes:
-    #     - path: /rbac
-    #       importName: RbacPage
-    #       menuItem:
-    #         icon: rbacIcon
-    #         text: RBAC

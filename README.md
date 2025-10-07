@@ -12,7 +12,7 @@ This repository provides a lightweight and extensible Backstage distribution wit
 - **Dynamic plugin loading** for flexibility and extensibility
 - **Essential static plugins** for core functionality
 - **Preinstalled plugins** ready to enable
-- **Good defaults** requiring minimal configuration
+- **Good defaults** requiring minimal configuration (or none at all)
 
 The repository is structured for local development with a Node runtime, but it also helps running containerized builds and helps building a definitive and production-ready container image.
 

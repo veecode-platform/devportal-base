@@ -78,9 +78,9 @@ show_help() {
 
 ping_registry() {
     print_status "Pinging NPM registry..."
-    result=$(curl -s -o /dev/null -w "%{http_code}" http://$MY_HOST:4873)
+    result=$(curl -s -o /dev/null -w "%{http_code}" http://$MY_HOST:4873 2>/dev/null || echo "000")
     if [ "$result" != "200" ]; then
-        print_error "NPM registry is not running at http://$MY_HOST:4873"
+        print_error "NPM registry is not running or not accessible at http://$MY_HOST:4873 (HTTP status: $result)"
         exit 1
     fi
     print_success "NPM registry found running at http://$MY_HOST:4873"

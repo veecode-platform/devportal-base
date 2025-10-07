@@ -15,6 +15,7 @@ services:
     environment:
       - NODE_ENV=development
       - NODE_OPTIONS=--no-node-snapshot
+      - HOST=0.0.0.0
     ports:
       # Backend port
       - "7007:7007"

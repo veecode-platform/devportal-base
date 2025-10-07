@@ -8008,7 +8008,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@internal/plugin-about-backend@workspace:plugins/about-backend":
+"@internal/plugin-about-backend@workspace:^, @internal/plugin-about-backend@workspace:plugins/about-backend":
   version: 0.0.0-use.local
   resolution: "@internal/plugin-about-backend@workspace:plugins/about-backend"
   dependencies:
@@ -8054,7 +8054,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@internal/plugin-dynamic-plugins-info-backend@workspace:plugins/dynamic-plugins-info-backend":
+"@internal/plugin-dynamic-plugins-info-backend@workspace:^, @internal/plugin-dynamic-plugins-info-backend@workspace:plugins/dynamic-plugins-info-backend":
   version: 0.0.0-use.local
   resolution: "@internal/plugin-dynamic-plugins-info-backend@workspace:plugins/dynamic-plugins-info-backend"
   dependencies:
@@ -8107,7 +8107,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@internal/plugin-scalprum-backend@workspace:plugins/scalprum-backend":
+"@internal/plugin-scalprum-backend@workspace:^, @internal/plugin-scalprum-backend@workspace:plugins/scalprum-backend":
   version: 0.0.0-use.local
   resolution: "@internal/plugin-scalprum-backend@workspace:plugins/scalprum-backend"
   dependencies:
@@ -8131,7 +8131,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@internal/plugin-translation-backend@workspace:plugins/translation-backend":
+"@internal/plugin-translation-backend@workspace:^, @internal/plugin-translation-backend@workspace:plugins/translation-backend":
   version: 0.0.0-use.local
   resolution: "@internal/plugin-translation-backend@workspace:plugins/translation-backend"
   dependencies:
@@ -18909,6 +18909,10 @@ __metadata:
     "@backstage/plugin-signals-backend": "npm:^0.3.8"
     "@backstage/plugin-techdocs-backend": "npm:^2.1.0"
     "@backstage/plugin-user-settings-backend": "npm:^0.3.6"
+    "@internal/plugin-about-backend": "workspace:^"
+    "@internal/plugin-dynamic-plugins-info-backend": "workspace:^"
+    "@internal/plugin-scalprum-backend": "workspace:^"
+    "@internal/plugin-translation-backend": "workspace:^"
     "@types/global-agent": "npm:^3"
     app: "link:../app"
     better-sqlite3: "npm:^12.0.0"
