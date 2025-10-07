@@ -47,6 +47,15 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # Login to Red Hat base registry if required
+      - name: Login to Red Hat registry (if needed)
+        env:
+          rh_user: ${{ secrets.REDHAT_USER }}
+          rh_pass: ${{ secrets.REDHAT_PASS }}
+        if: ${{ env.rh_user != '' && env.rh_pass != '' }}
+        run: |
+          echo "${{ env.rh_pass }}" | docker login registry.redhat.io -u "${{ env.rh_user }}" --password-stdin
+
       - name: Build image (with cache)
         uses: docker/build-push-action@v6
         with:
