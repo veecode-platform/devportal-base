@@ -10,7 +10,8 @@ jobs:
     env:
       # Ensure BuildKit features (like RUN --mount=type=cache) work
       DOCKER_BUILDKIT: "1"
-
+      CACHE_SCOPE: backstage-backend
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,12 +22,24 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'yarn'   # Helps for monorepos too
-      - run: |
+      
+      - name: Enable Corepack & Yarn 4
+        run: |
           npm i -g corepack
           corepack enable
           corepack prepare yarn@4.4.1 --activate
           yarn config set nodeLinker node-modules
+      
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+            node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install deps & build monorepo
         run: |
@@ -34,6 +47,16 @@ jobs:
           yarn tsc
           yarn build:all
 
+      - name: Cache dynamic-plugins dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            dynamic-plugins/.yarn/cache
+            dynamic-plugins/node_modules
+          key: ${{ runner.os }}-dynamic-plugins-${{ hashFiles('dynamic-plugins/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-dynamic-plugins-
+      
       - name: Prepare dynamic plugins
         run: |
           mkdir -p dynamic-plugins-docker
