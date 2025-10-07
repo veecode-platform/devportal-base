@@ -2,11 +2,11 @@
     "plugins": [
         {
             "name": "@veecode-platform/plugin-veecode-homepage-dynamic",
-            "version": "0.2.2"
+            "version": "0.2.3"
         },
         {
             "name": "@veecode-platform/plugin-veecode-global-header-dynamic",
-            "version": "0.2.6"
+            "version": "0.2.7"
         }
     ]
 }
