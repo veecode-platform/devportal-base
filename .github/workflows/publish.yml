@@ -4,6 +4,12 @@ on:
   push:
     branches: [ main ]
 
+env:
+  # Ensure BuildKit features (like RUN --mount=type=cache) work
+  DOCKER_BUILDKIT: "1"
+  CACHE_SCOPE: backstage-backend
+  IMAGE_NAME: docker.io/veecode/devportal-base
+
 jobs:
   build:
     strategy:
@@ -17,11 +23,6 @@ jobs:
             platform: linux/arm64
             arch: arm64
     runs-on: ${{ matrix.os }}
-    env:
-      # Ensure BuildKit features (like RUN --mount=type=cache) work
-      DOCKER_BUILDKIT: "1"
-      CACHE_SCOPE: backstage-backend
-      IMAGE_NAME: docker.io/veecode/devportal-base
       
     steps:
       - name: Checkout
