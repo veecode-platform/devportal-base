@@ -4,8 +4,7 @@
     "packages/*/src",
     "plugins/*/src",
     "plugins/*/dev",
-    "plugins/*/migrations",
-    "dynamic-plugins/wrappers/*/src"
+    "plugins/*/migrations"
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {
