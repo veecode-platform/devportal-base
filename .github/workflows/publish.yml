@@ -2,8 +2,10 @@ name: build-backend-image
 
 on:
   push:
-    branches: [ main ]
-
+    #branches: [ main ]
+    tags:
+          - 'v*.*.*'
+          - '*.*.*'
 env:
   # Ensure BuildKit features (like RUN --mount=type=cache) work
   DOCKER_BUILDKIT: "1"
@@ -11,6 +13,26 @@ env:
   IMAGE_NAME: docker.io/veecode/devportal-base
 
 jobs:
+
+  validate-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Ensure tag exists in main
+        run: |
+          git fetch origin main
+          TAG="${GITHUB_REF#refs/tags/}"
+          echo "Pushed TAG=$TAG"
+          SHA="$(git rev-parse "$TAG^{commit}")"
+          if git merge-base --is-ancestor "$SHA" origin/main; then
+            echo "OK: tag commit is reachable from main."
+          else
+            echo "ERROR: tag commit is not on main." >&2
+            exit 1
+          fi
+
   build:
     strategy:
       fail-fast: false
