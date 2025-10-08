@@ -18,9 +18,11 @@ The repository is structured for local development with a Node runtime, but it a
 
 ## Quick Links
 
+There are a few sections for later reading if you want some deeper understanding of this project:
+
 - **[Plugin Architecture & Management](PLUGINS.md)** - Understanding and working with plugins
-- **[Docker Build Guide](docker/README.md)** - Building container images with this repository
-- **[Local Development](#local-development)** - Getting started developing locally
+- **[Docker Development](DOCKER_DEVELOPMENT.md)** - Explains the current container development options
+- **[Local Docker Build Guide](docker/README.md)** - Building container images locally for development
 
 ## Local development
 

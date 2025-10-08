@@ -1,11 +1,10 @@
-# Docker Build Guide
+# Local Docker Build Guide
 
-This document explains how to build VeeCode DevPortal container images for both development and production.
+This document explains how to build VeeCode DevPortal container images for local development.
 
-We have two different Dockerfiles:
+We use a single [Dockerfile-dev](Dockerfile-dev) file to build DevPortal locally even without a local Node.js environment.
 
-- `Dockerfile-dev`: used for development purposes only
-- `Dockerfile`: used for image release
+**This is not the Dockerfile used to build the production image.**. A definitive multiplatform image is built and published on Docker Hub from the CI/CD pipeline. It is defined by the [Dockerfile](packages/backend/Dockerfile) file and exposes a single port (the backend port, 7007).
 
 ## Development Docker Image
 
@@ -31,6 +30,14 @@ Run the `docker-dev.sh` script from the project root path to start a "hanging" c
 ./docker-dev.sh shell
 ```
 
+From this shell you can run the same yarn commands you would run in a local environment.
+
+When you are done, just discard it:
+
+```bash
+./docker-dev.sh down
+```
+
 ### What It Does
 
 The Dockerfile performs these steps:
@@ -49,35 +56,23 @@ verdaccio -l 0.0.0.0:4873
 
 The commands in `docker-dev.sh` script will use this registry.
 
-## Production Docker Image
+## Tips
 
-A definitive multiplatform image is built and published on Docker Hub from the CI/CD pipeline. It is defined by the `Dockerfile` file and exposes a single port (the backend port, 7007).
+To find out the latest Red Hat Node.js version, run:
 
-### Build Process
+```bash
+skopeo list-tags docker://registry.redhat.io/ubi9/nodejs-22 \
+  | jq -r '.Tags[]
+           | select(startswith("9.6-"))
+           | select(endswith("-source") | not)' \
+  | sort -V \
+  | tail -n 1
+```
 
-The production build:
+## Integration with Existing Workflow
 
-- Creates a lightweight container image with minimal DevPortal runtime
-- Bundles all required static plugins
-- Includes preinstalled dynamic plugins
-- Provides fast start time and good defaults
-- Uses caching to speed up builds
+This Docker setup is designed to work alongside your existing development workflow:
 
-### Image Characteristics
-
-The resulting base image:
-
-- Very lightweight with minimal runtime footprint
-- Defines mechanics for loading plugins dynamically
-- Bundles all required static plugins
-- Includes mechanics for bundling dynamic plugins (preinstalled plugins)
-- Contains a minimal set of preinstalled plugins (homepage and global header)
-- Provides default configuration for all preinstalled plugins
-- Starts with none or minimal configuration required
-
-### Derived Images
-
-Derived images are expected to:
-
-- Embed all preinstalled plugins for a self-sufficient distro
-- Embed default configuration for all preinstalled plugins
+- All your existing `yarn` commands work inside the container
+- The Makefile commands can be run inside the container
+- Dynamic plugins development is fully supported
