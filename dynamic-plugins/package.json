@@ -37,6 +37,7 @@
   "resolutions": {
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "form-data": "^4.0.4",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-router": "6.30.1",
