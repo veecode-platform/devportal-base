@@ -42,5 +42,5 @@
     "react-router": "6.30.1",
     "react-router-dom": "6.30.1"
   },
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.10.3"
 }
