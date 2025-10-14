@@ -284,16 +284,14 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
 
   const configApi = useApi(configApiRef);
   const configDynamicPlugins = configApi.getOptional('dynamicPlugins') as DynamicPluginsConfig;
-  const globalHeaderAboveSidebarConfigKeys = Object.keys(configDynamicPlugins.frontend).find(key => key.includes('global-header'));
-  const globalHeaderAboveSidebarConfig = configDynamicPlugins.frontend[`${globalHeaderAboveSidebarConfigKeys}`];
+  const globalHeaderConfigKeys = Object.keys(configDynamicPlugins.frontend).find(key => key.includes('global-header'));
+  const globalHeaderConfig = configDynamicPlugins.frontend[`${globalHeaderConfigKeys}`];
 
-  // check if the mountPoint global.header/component exists and if the position is above-sidebar
-  const globalHeaderAboveSidebar = globalHeaderAboveSidebarConfig?.mountPoints?.some(
-    (mount: any) => mount.importName === 'GlobalHeader' && mount.config.position === 'above-sidebar'
+  // Check if the global.header/component mountPoint exists and if logo.light and logo.dark are defined
+  const globalHeaderHasLogo = globalHeaderConfig?.mountPoints?.some(
+    (mount: any) => mount.importName === 'CompanyLogo' && mount.config.props.logo.light !== undefined && mount.config.props.logo.dark !== undefined
   );
-  const logoSidebar = configApi.getOptionalBoolean('app.sidebar.logo') ? configApi.getOptionalBoolean('app.sidebar.logo') : false;
-
-  const showLogo = (logoSidebar && !globalHeaderAboveSidebar) ?? true;
+  const showLogo = globalHeaderHasLogo ? false : true;
 
   const showSearch =
     configApi.getOptionalBoolean('app.sidebar.search') ?? false;
