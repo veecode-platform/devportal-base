@@ -5,8 +5,9 @@ app:
     ga4:
       measurementId: soueu
   branding:
-    fullLogo: https://veecode-platform.github.io/support/logos/logo.svg
-    fullLogoDark: https://veecode-platform.github.io/support/logos/logo-black.svg
+    fullLogo:
+      light: https://veecode-platform.github.io/support/logos/logo-black.svg
+      dark: https://veecode-platform.github.io/support/logos/logo.svg
     iconLogo: https://veecode-platform.github.io/support/logos/logo-mobile.png
     fullLogoWidth: 150
     theme:
@@ -15,11 +16,13 @@ app:
         palette:
           navigation:
             background: "#222222" # your fixed light theme sidebar background
+            appBarBackgroundScheme: light
       dark:
         variant: "backstage"
         palette:
           navigation:
             background: "#222222" # same fixed color for dark theme
+            appBarBackgroundScheme: dark
   packages: all
 
 organization:
