@@ -65,6 +65,7 @@ import { MenuIcon } from './MenuIcon';
 import { SidebarLogo } from './SidebarLogo';
 import SignOutElement from './signOut';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { DynamicPluginsConfig } from './types';
 
 type StylesProps = {
   aboveSidebarHeaderHeight?: number;
@@ -282,8 +283,18 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
   const { dynamicRoutes, menuItems } = useContext(DynamicRootContext);
 
   const configApi = useApi(configApiRef);
+  const configDynamicPlugins = configApi.getOptional('dynamicPlugins') as DynamicPluginsConfig;
+  const globalHeaderAboveSidebarConfigKeys = Object.keys(configDynamicPlugins.frontend).find(key => key.includes('global-header'));
+  const globalHeaderAboveSidebarConfig = configDynamicPlugins.frontend[`${globalHeaderAboveSidebarConfigKeys}`];
 
-  const showLogo = configApi.getOptionalBoolean('app.sidebar.logo') ?? true;
+  // check if the mountPoint global.header/component exists and if the position is above-sidebar
+  const globalHeaderAboveSidebar = globalHeaderAboveSidebarConfig?.mountPoints?.some(
+    (mount: any) => mount.importName === 'GlobalHeader' && mount.config.position === 'above-sidebar'
+  );
+  const logoSidebar = configApi.getOptionalBoolean('app.sidebar.logo') ? configApi.getOptionalBoolean('app.sidebar.logo') : false;
+
+  const showLogo = (logoSidebar && !globalHeaderAboveSidebar) ?? true;
+
   const showSearch =
     configApi.getOptionalBoolean('app.sidebar.search') ?? false;
   const showSettings =
