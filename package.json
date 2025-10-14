@@ -1,17 +1,16 @@
 {
   "name": "devportal-base",
-  "version": "1.1.1",
+  "version": "1.1.4",
   "private": true,
   "engines": {
     "node": "20 || 22"
   },
   "scripts": {
-    "init-local": "make full && yarn check-dynamic-plugins && yarn dev-local",
-    "check-dynamic-plugins": "sh scripts/check_dynamic_plugins.sh",
+    "init-local": "make full && yarn check-dynamic-plugins",
     "start": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend",
     "start-backend": "yarn workspace backend start",
-    "dev": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app --config ../../app-config.yaml --config ../../dynamic-plugins-root/app-config.dynamic-plugins.yaml",
-    "dev-local": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.local.yaml --config ../../dynamic-plugins-root/app-config.dynamic-plugins.yaml",
+    "dev": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app --config ../../app-config.yaml --config ../../app-config.dynamic-plugins.yaml",
+    "dev-local": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../app-config.dynamic-plugins.local.yaml",
     "dev-docker": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../app-config.dynamic-plugins.local.yaml",
     "build": "turbo run build",
     "build:backend": "yarn tsc && yarn workspace backend build",
@@ -62,7 +61,10 @@
     "@backstage/config": "^1.3.4",
     "undici": "7.16.0",
     "better-sqlite3": "^12.2.0",
-    "webpack": "5.101.3"
+    "webpack": "5.101.3",
+    "form-data": "^4.0.4",
+    "jsonpath-plus": "^10.2.0",
+    "@kubernetes/client-node": "^1.1.2"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {
@@ -74,5 +76,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.10.3"
 }
