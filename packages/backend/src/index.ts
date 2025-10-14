@@ -29,6 +29,9 @@ import {
   rbacDynamicPluginsProvider,
 } from './modules';
 import { userSettingsBackend } from './modules/userSettings';
+import {
+ customGithubAuth
+} from './modules/auth/githubCustom';
 
 // Create a logger to cover logging static initialization tasks
 const staticLogger = WinstonLogger.create({
@@ -175,11 +178,12 @@ backend.add(import('@backstage/plugin-auth-backend'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 // See https://backstage.io/docs/auth/guest/provider
-if (process.env.ENABLE_AUTH_PROVIDER_MODULE_OVERRIDE !== 'true') {
-  backend.add(import('./modules/authProvidersModule'));
-} else {
-  staticLogger.info(`Default authentication provider module disabled`);
-}
+// if (process.env.ENABLE_AUTH_PROVIDER_MODULE_OVERRIDE !== 'true') {
+//   backend.add(import('./modules/authProvidersModule'));
+// } else {
+//   staticLogger.info(`Default authentication provider module disabled`);
+// }
+backend.add(customGithubAuth);  // Auth Github Custom (Usado apenas para os testes)
 
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));
