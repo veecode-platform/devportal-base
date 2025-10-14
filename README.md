@@ -24,6 +24,16 @@ There are a few sections for later reading if you want some deeper understanding
 - **[Docker Development](DOCKER_DEVELOPMENT.md)** - Explains the current container development options
 - **[Local Docker Build Guide](docker/README.md)** - Building container images locally for development
 
+## Quick Start
+
+If you just want to see a running container, you can use the following command:
+
+```sh
+docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.4
+```
+
+And open `http://localhost:7007` in your browser. It will open a barebones DevPortal instance, with just a sample catalog and a few basic plugins enabled. **This is not a full Backstage distro, but a minimal one.**
+
 ## Local development
 
 ### Copy app-config examples
