@@ -2,6 +2,46 @@
 
 Este documento explica o processo de desenvolvimento local do DevPortal com suporte completo a plugins dinâmicos.
 
+## Pré-requisitos
+
+### Dependências Obrigatórias
+
+1. **Node.js** (versão 20 ou 22)
+2. **Yarn** (versão 4.4.1+)
+3. **Python 3** (para execução do script de plugins)
+4. **Make** (para build do projeto)
+
+### Dependências para Plugins OCI
+
+Para usar plugins baseados em container OCI, você precisa instalar:
+
+1. **Skopeo** - Ferramenta para trabalhar com registries de container
+   ```bash
+   # Ubuntu/Debian
+   sudo apt-get install skopeo
+   
+   # macOS (via Homebrew)
+   brew install skopeo
+   
+   # RHEL/CentOS/Fedora
+   sudo dnf install skopeo
+   ```
+
+2. **Docker** (opcional, mas recomendado para desenvolvimento)
+   - Necessário se você quiser testar plugins OCI localmente
+   - Registro Docker deve estar acessível
+
+### Verificação de Dependências
+
+```bash
+# Verificar se todas as dependências estão instaladas
+node --version    # Deve ser 20.x ou 22.x
+yarn --version    # Deve ser 4.4.1+
+python3 --version # Deve ser 3.x
+make --version    # Deve estar disponível
+skopeo --version  # Necessário apenas para plugins OCI
+```
+
 ## Arquitetura de Plugins Dinâmicos
 
 ### Arquivos de Configuração
@@ -27,8 +67,15 @@ O script `check_dynamic_plugins.py` implementa um sistema robusto de gerenciamen
 
 1. **Download e Instalação**
    - **Plugins OCI**: Usa `skopeo` para baixar imagens de container
+     - Requer `skopeo` instalado no sistema
+     - Suporta registries Docker (`docker://`) e OCI (`oci://`)
+     - Exemplo: `oci://docker.io/user/plugin:v1.0.0!path/in/container`
    - **Plugins NPM**: Usa `npm pack` para baixar pacotes
+     - Funciona com registries NPM públicos e privados
+     - Exemplo: `@backstage/plugin-catalog` ou `./local-plugin`
    - **Plugins Locais**: Suporta caminhos relativos (`./`)
+     - Para desenvolvimento local de plugins
+     - Exemplo: `./dynamic-plugins/dist/my-plugin`
 
 2. **Verificação de Integridade**
    - Validação de hash SHA para pacotes remotos
@@ -115,3 +162,47 @@ No `app-config.yaml`:
    ```bash
    yarn dev-local
    ```
+
+## Variáveis de Ambiente
+
+- `MAX_ENTRY_SIZE`: Tamanho máximo de arquivo (padrão: 20MB)
+- `SKIP_INTEGRITY_CHECK`: Pular verificação de integridade (desenvolvimento)
+
+## Troubleshooting
+
+### Problemas Comuns
+
+1. **Erro de permissão no script**:
+   ```bash
+   chmod +x ./scripts/check_dynamic_plugins.sh
+   ```
+
+2. **Skopeo não encontrado (para plugins OCI)**:
+   ```bash
+   # Instalar skopeo
+   sudo apt-get install skopeo  # Ubuntu/Debian
+   brew install skopeo          # macOS
+   sudo dnf install skopeo      # RHEL/Fedora
+   
+   # Verificar instalação
+   skopeo --version
+   ```
+
+3. **Erro de autenticação no registry Docker**:
+   ```bash
+   # Fazer login no Docker Hub
+   docker login
+   
+   # Ou configurar credenciais para skopeo
+   skopeo login docker.io
+   ```
+
+4. **Plugin não carrega**:
+   - Verifique se o plugin está habilitado em `dynamic-plugins.yaml`
+   - Confirme se a configuração está correta
+   - Verifique logs do backend para erros específicos
+
+5. **Conflitos de configuração**:
+   - O script detecta automaticamente conflitos
+   - Verifique mensagens de erro durante a instalação
+   - Consulte a documentação do plugin específico
