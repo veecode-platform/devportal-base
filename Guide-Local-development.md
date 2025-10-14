@@ -143,7 +143,7 @@ No `app-config.yaml`:
 
 ### Componentes
 
-- **Root Component**: Lógica para ocultar logo duplicado quando `global-header` está em `above-sidebar`
+- **Root Component**: Lógica para ocultar logo duplicado quando o ponto de montagem `CompanyLogo` tiver conteúdo para o `logo.light` e `logo.dark`;
 - **CompanyLogo**: Suporte completo a logos temáticos e configuração dinâmica
 
 ## Como Usar
