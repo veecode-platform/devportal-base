@@ -2,7 +2,7 @@ includes:
   - dynamic-plugins.default.yaml
 plugins:
   # VeeCode GlobalHeader
-  - package: oci://docker.io/valberjunior/veecode-global-header:v3.0.5!veecode-platform-plugin-veecode-global-header
+  - package: oci://docker.io/valberjunior/veecode-global-header:v5.0.0!veecode-platform-plugin-veecode-global-header
     disabled: false
     pluginConfig:
       dynamicPlugins:
@@ -70,7 +70,7 @@ plugins:
                   props:
                     title: Developer Hub
                     titleKey: applicationLauncher.developerHub
-                    icon: developerHub
+                    type: doc
                     link: https://docs.redhat.com/en/documentation/red_hat_developer_hub
 
               - mountPoint: global.header/application-launcher
@@ -81,7 +81,7 @@ plugins:
                   props:
                     title: RHDH Local
                     titleKey: applicationLauncher.rhdhLocal
-                    icon: developerHub
+                    type: 'extension'
                     link: https://github.com/redhat-developer/rhdh-local
 
               - mountPoint: global.header/component
@@ -93,6 +93,8 @@ plugins:
                 importName: SupportButton
                 config:
                   priority: 10
+                  props:
+                    type: support
 
               - mountPoint: global.header/component
                 importName: NotificationButton
@@ -114,7 +116,7 @@ plugins:
                     title: Settings
                     titleKey: profile.settings
                     link: /settings
-                    icon: manageAccounts
+                    type: settings
               - mountPoint: global.header/profile
                 importName: MenuItemLink
                 config:
@@ -122,8 +124,7 @@ plugins:
                   props:
                     title: My profile
                     titleKey: profile.myProfile
-                    type: myProfile
-                    icon: account
+                    type: user
               - mountPoint: global.header/profile
                 importName: LogoutButton
                 config:
