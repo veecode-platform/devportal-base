@@ -32,6 +32,7 @@ export default createTranslationMessages({
     'menuItem.userSettings': 'Configurações de Usuário',
     'menuItem.administration': 'Administração',
     'menuItem.extensions': 'Extensões',
+    // VEECODE
     'menuItem.create': 'Criar',
 
     // dynamic-plugins.default.main-menu-items
@@ -40,13 +41,17 @@ export default createTranslationMessages({
     'menuItem.bulkImport': 'Importação em massa',
     'menuItem.docs': 'Documentação',
     'menuItem.lighthouse': 'Lighthouse',
-    'menuItem.techRadar': 'Radar Tecnológico',
+    'menuItem.techRadar': 'Radar Tech',
     'menuItem.orchestrator': 'Orquestrador',
     'menuItem.adoptionInsights': 'Insights de Adoção',
+    
+    // VEECODE
+    'menuItem.notifications': 'Notificações',
 
     'sidebar.menu': 'Menu',
     'sidebar.home': 'Início',
     'sidebar.homeLogo': 'Logo inicial',
+    'sidebar.signOut': 'Sair',
 
     // SignIn page translations
     'signIn.page.title': 'Selecione um método de login',

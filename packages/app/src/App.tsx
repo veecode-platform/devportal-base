@@ -69,11 +69,13 @@ const baseFrontendConfig = {
           menuItems: {
             admin: {
               title: 'Administration',
+              titleKey: 'menuItem.administration',
               icon: 'adminIcon',
             },
             extensions: {
               parent: 'admin',
               title: 'Extensions',
+              titleKey: 'menuItem.extensions',
               icon: 'pluginsInfoIcon',
             },
             rbac:{

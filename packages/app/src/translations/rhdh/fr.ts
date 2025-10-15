@@ -43,10 +43,12 @@ export default createTranslationMessages({
     'menuItem.techRadar': 'Radar technologique',
     'menuItem.orchestrator': 'Orchestrateur',
     'menuItem.adoptionInsights': "Insights d'adoption",
+    'menuItem.notifications': 'Notifications',
 
     'sidebar.menu': 'Menu',
     'sidebar.home': 'Accueil',
     'sidebar.homeLogo': "Logo d'accueil",
+    'sidebar.signOut': 'Se déconnecter',
 
     // SignIn page translations
     'signIn.page.title': 'Sélectionner une méthode de connexion',

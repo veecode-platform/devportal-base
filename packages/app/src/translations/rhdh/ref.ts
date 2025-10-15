@@ -43,11 +43,15 @@ export const rhdhMessages = {
     techRadar: 'Tech Radar',
     orchestrator: 'Orchestrator',
     adoptionInsights: 'Adoption Insights',
+    
+    // Notifications
+    notifications: 'Notifications',
   },
   sidebar: {
     menu: 'Menu',
     home: 'Home',
     homeLogo: 'Home logo',
+    signOut: 'Sign Out',
   },
   signIn: {
     page: {

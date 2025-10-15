@@ -33,6 +33,7 @@ export default createTranslationMessages({
     'menuItem.administration': 'Administration',
     'menuItem.extensions': 'Erweiterungen',
     'menuItem.create': 'Erstellen',
+    'menuItem.notifications': 'Benachrichtigungen',
 
     // dynamic-plugins.default.main-menu-items
     'menuItem.clusters': 'Cluster',
@@ -47,6 +48,7 @@ export default createTranslationMessages({
     'sidebar.menu': 'Menü',
     'sidebar.home': 'Startseite',
     'sidebar.homeLogo': 'Startseite-Logo',
+    'sidebar.signOut': 'Abmelden',
 
     // SignIn page translations
     'signIn.page.title': 'Anmeldeverfahren auswählen',

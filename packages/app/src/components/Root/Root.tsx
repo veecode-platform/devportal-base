@@ -36,13 +36,11 @@ import {
   SidebarSpace,
 } from '@backstage/core-components';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
 
 import { MyGroupsSidebarItem } from '@backstage/plugin-org';
 import { usePermission } from '@backstage/plugin-permission-react';
 import { SidebarSearchModal } from '@backstage/plugin-search';
 import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
-import { userSettingsTranslationRef } from '@backstage/plugin-user-settings/alpha';
 
 import { policyEntityCreatePermission } from '@backstage-community/plugin-rbac-common';
 import { AdminIcon } from '@internal/plugin-dynamic-plugins-info';
@@ -71,7 +69,6 @@ import { MenuIcon } from './MenuIcon';
 import { SidebarLogo } from './SidebarLogo';
 import SignOutElement from './signOut';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
-import { searchTranslationRef } from '@backstage/plugin-search/alpha';
 
 type StylesProps = {
   aboveSidebarHeaderHeight?: number;
@@ -254,9 +251,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
   const aboveMainContentHeaderRef = useRef<HTMLDivElement>(null);
   const [aboveMainContentHeaderHeight, setAboveMainContentHeaderHeight] =
     useState(0);
-
-  const { t: searchT } = useTranslationRef(searchTranslationRef);
-  const { t: userSettingsT } = useTranslationRef(userSettingsTranslationRef);
 
   useLayoutEffect(() => {
     if (!aboveSidebarHeaderRef.current) return () => {};
@@ -575,6 +569,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
               {/* Global nav, not org-specific */}
               {renderMenuItems(true, false)}
               <NotificationsSidebarItem 
+                text={t('menuItem.notifications', {})}
                 webNotificationsEnabled // Enables WebNotification API
                 titleCounterEnabled     // Enables counter in page title
                 snackbarProps={{ enabled: true }} // Disables/enables snackbar notifications

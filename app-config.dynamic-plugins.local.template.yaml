@@ -107,6 +107,7 @@ dynamicPlugins:
           menuItem:
             icon: techRadar
             text: Tech Radar
+            textKey: menuItem.techRadar
           config:
             props:
               width: 1500
