@@ -62,7 +62,7 @@
     "@internal/plugin-about-backend": "workspace:^",
     "@internal/plugin-dynamic-plugins-info-backend": "workspace:^",
     "@internal/plugin-scalprum-backend": "workspace:^",
-    "@internal/plugin-translation-backend": "workspace:^",
+    "@red-hat-developer-hub/backstage-plugin-translations-backend": "^0.0.2",
     "app": "link:../app",
     "better-sqlite3": "^12.0.0",
     "global-agent": "^3.0.0",

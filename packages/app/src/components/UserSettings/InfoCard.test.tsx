@@ -97,7 +97,7 @@ describe('InfoCard', () => {
             'Authentication provider': 'Github',
             RBAC: 'disabled',
           },
-          full: false,
+          overrideBuildInfo: false,
         },
       },
     });
@@ -126,7 +126,7 @@ describe('InfoCard', () => {
             'Authentication provider': 'Github',
             RBAC: 'disabled',
           },
-          full: true,
+          overrideBuildInfo: true,
         },
       },
     });
