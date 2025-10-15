@@ -32,6 +32,7 @@ export const rhdhMessages = {
     userSettings: 'User Settings',
     administration: 'Administration',
     extensions: 'Extensions',
+    create: 'Create',
 
     // dynamic-plugins.default.main-menu-items
     clusters: 'Clusters',

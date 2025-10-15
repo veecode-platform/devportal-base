@@ -28,6 +28,7 @@ export const rhdhTranslations = createTranslationResource({
     fr: () => import('./fr') as any,
     it: () => import('./it') as any,
     es: () => import('./es') as any,
+    pt: () => import('./pt') as any,
   },
 });
 

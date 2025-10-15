@@ -59,6 +59,12 @@ import extractDynamicConfig, {
 } from '../../utils/dynamicUI/extractDynamicConfig';
 import initializeRemotePlugins from '../../utils/dynamicUI/initializeRemotePlugins';
 import { catalogTranslations } from '../catalog/translations/catalog';
+import { userSettingsTranslations } from '../../translations/user-settings/user-settings';
+import { searchTranslations } from '../../translations/search/search';
+import { scaffolderTranslations } from '../../translations/scaffolder/scaffolder';
+import { catalogImportTranslations } from '../../translations/catalog-import/catalog-import';
+import { coreComponentsTranslations } from '../../translations/core-components/core-components';
+import { rhdhTranslations } from '../../translations/rhdh';
 import { MenuIcon } from '../Root/MenuIcon';
 import CommonIcons from './CommonIcons';
 import defaultAppComponents from './defaultAppComponents';
@@ -555,8 +561,16 @@ export const DynamicRoot = ({
       console.log('filteredStaticThemes', filteredStaticThemes);
       app.current = createApp({
         __experimentalTranslations: {
-          availableLanguages: ['en'],
-          resources: [catalogTranslations],
+          availableLanguages: ['en', 'de', 'es', 'fr', 'it','pt'],
+          resources: [
+            catalogTranslations,
+            userSettingsTranslations,
+            searchTranslations,
+            scaffolderTranslations,
+            catalogImportTranslations,
+            coreComponentsTranslations,
+            rhdhTranslations,
+          ],
         },
         apis: [...filteredStaticApis, ...remoteApis, ...multipleAnalyticsApi],
         bindRoutes({ bind }) {

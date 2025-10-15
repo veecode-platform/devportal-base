@@ -22,7 +22,7 @@ The core set of static plugins is defined in the base image. It provides core fu
 | Both     | Signals | A pub/sub infrastructure for event-like communication between Backstage plugins/services. |
 | Backend  | Permissions | Defines and enforces fine-grained access control rules across the platform. |
 | Frontend | Permissions-React | React components for access control rules in the frontend. |
-| Both     | RBAC | Role-based access control for the platform. |
+| Backend  | RBAC | Role-based access control for the platform. |
 | Backend  | Github Auth | Github Authentication for the platform. |
 
 Note: we may attempt to remove the auth plugins from static loading into dynamic loading in the future.
@@ -58,7 +58,7 @@ Preinstalled plugins are dynamic plugins embedded in the distro image but not ne
 
 **Base image:** Contains only the minimal set of plugins required for core functionality and a working out-of-the-box experience.
 
-**Derived images:** Embed additional dynamic plugins to create a comprehensive, self-sufficient distribution tailored for specific use cases.
+**Derived images:** Embed additional dynamic plugins to create a comprehensive, self-sufficient DevPortal distribution tailored for specific use cases.
 
 ## Building Preinstalled Plugins
 

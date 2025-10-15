@@ -9,5 +9,6 @@ export const userSettingsTranslations = createTranslationResource({
     fr: () => import('./user-settings-fr'),
     es: () => import('./user-settings-es'),
     it: () => import('./user-settings-it'),
+    pt: () => import('./user-settings-pt'),
   },
 });

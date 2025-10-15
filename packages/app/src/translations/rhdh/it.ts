@@ -32,6 +32,7 @@ export default createTranslationMessages({
     'menuItem.userSettings': 'Impostazioni utente',
     'menuItem.administration': 'Amministrazione',
     'menuItem.extensions': 'Estensioni',
+    'menuItem.create': 'Crea',
 
     // dynamic-plugins.default.main-menu-items
     'menuItem.clusters': 'Cluster',

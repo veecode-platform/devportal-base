@@ -9,5 +9,6 @@ export const searchTranslations = createTranslationResource({
     fr: () => import('./search-fr'),
     es: () => import('./search-es'),
     it: () => import('./search-it'),
+    pt: () => import('./search-pt'),
   },
 });

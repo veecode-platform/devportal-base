@@ -19,20 +19,30 @@
 
 export const DefaultMainMenuItems = {
   menuItems: {
+    'default.home': {
+      title: 'Home',
+      titleKey: 'menuItem.home',
+      icon: 'home',
+      to: '/',
+      priority: 100,
+    },
     'default.catalog': {
       title: 'Catalog',
+      titleKey: 'menuItem.catalog',
       icon: 'category',
       to: 'catalog',
       priority: 80,
     },
     'default.apis': {
       title: 'APIs',
+      titleKey: 'menuItem.apis',
       icon: 'extension',
       to: 'api-docs',
       priority: 70,
     },
     'default.create': {
       title: 'Create',
+      titleKey: 'menuItem.create',
       icon: 'add',
       to: 'create',
       priority: 50,
@@ -48,7 +58,15 @@ export const DefaultMainMenuItems = {
       icon: 'groups',
       to: 'explore/groups',
       priority: 60,
-    },/*
+    },
+    'default.my-group': {
+      title: 'My Group',
+      titleKey: 'menuItem.myGroup',
+      icon: 'group',
+      priority: 90,
+    },
+    
+    /*
     'default.vulnerabilities': {
       title: 'Vulnerabilities',
       icon: 'vulnerabilities',

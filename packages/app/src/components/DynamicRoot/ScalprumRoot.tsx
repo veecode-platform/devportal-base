@@ -60,10 +60,10 @@ const ScalprumRoot = ({
         baseFrontendConfig ?? { context: '', data: {} },
         ...appConfig,
       ]);
-      console.log("TOP DEBUG - Configuration Loading");
-      console.log("baseFrontendConfig:", baseFrontendConfig);
-      console.log("appConfig from defaultConfigLoader:", appConfig);
-      console.log("merged reader config:", reader.get('dynamicPlugins'));
+      // console.log("TOP DEBUG - Configuration Loading");
+      // console.log("baseFrontendConfig:", baseFrontendConfig);
+      // console.log("appConfig from defaultConfigLoader:", appConfig);
+      // console.log("merged reader config:", reader.get('dynamicPlugins'));
       const baseUrl = reader.getString('backend.baseUrl');
       const dynamicPlugins = reader.get<DynamicPluginConfig>('dynamicPlugins');
       try {
@@ -80,10 +80,10 @@ const ScalprumRoot = ({
         console.warn(
           `Failed to fetch scalprum configuration: ${JSON.stringify(err)}`,
         );
-        console.log("SCALPRUM FETCH FAILED DEBUG");
-        console.log("dynamicPlugins:", dynamicPlugins);
-        console.log("baseUrl:", baseUrl);
-        console.log("scalprumConfig:", scalprumConfig);
+        // console.log("SCALPRUM FETCH FAILED DEBUG");
+        // console.log("dynamicPlugins:", dynamicPlugins);
+        // console.log("baseUrl:", baseUrl);
+        // console.log("scalprumConfig:", scalprumConfig);
         return {
           dynamicPlugins,
           baseUrl,
