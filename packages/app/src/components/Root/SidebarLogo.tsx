@@ -24,6 +24,7 @@ import { makeStyles } from 'tss-react/mui';
 
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
+import { useTheme } from '@mui/material';
 
 const useStyles = makeStyles()({
   sidebarLogo: {
@@ -54,11 +55,11 @@ const LogoRender = ({
 
 export const SidebarLogo = () => {
   const { classes } = useStyles();
+  const theme = useTheme();
+  const isDarkMode = theme.palette.mode === 'dark';
   const { isOpen } = useSidebarOpenState();
   const configApi = useApi(configApiRef);
-  const logoFullBase64URI = configApi.getOptionalString(
-    'app.branding.fullLogo',
-  );
+  const logoFullBase64URI = isDarkMode ? configApi.getOptionalString('app.branding.fullLogo.dark') : configApi.getOptionalString('app.branding.fullLogo.light');
   const fullLogoWidth = configApi
     .getOptional('app.branding.fullLogoWidth')
     ?.toString();

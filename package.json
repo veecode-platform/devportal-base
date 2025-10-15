@@ -6,11 +6,12 @@
     "node": "20 || 22"
   },
   "scripts": {
-    "init-local": "make full && yarn check-dynamic-plugins",
+    "init-local": "make full && yarn check-dynamic-plugins && yarn dev-local",
+    "check-dynamic-plugins": "sh scripts/check_dynamic_plugins.sh",
     "start": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend",
     "start-backend": "yarn workspace backend start",
-    "dev": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app --config ../../app-config.yaml --config ../../app-config.dynamic-plugins.yaml",
-    "dev-local": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../app-config.dynamic-plugins.local.yaml",
+    "dev": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app --config ../../app-config.yaml --config ../../dynamic-plugins-root/app-config.dynamic-plugins.yaml",
+    "dev-local": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.local.yaml --config ../../dynamic-plugins-root/app-config.dynamic-plugins.yaml",
     "dev-docker": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../app-config.dynamic-plugins.local.yaml",
     "build": "turbo run build",
     "build:backend": "yarn tsc && yarn workspace backend build",

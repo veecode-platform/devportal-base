@@ -65,6 +65,7 @@ import { MenuIcon } from './MenuIcon';
 import { SidebarLogo } from './SidebarLogo';
 import SignOutElement from './signOut';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { DynamicPluginsConfig } from './types';
 
 type StylesProps = {
   aboveSidebarHeaderHeight?: number;
@@ -282,8 +283,16 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
   const { dynamicRoutes, menuItems } = useContext(DynamicRootContext);
 
   const configApi = useApi(configApiRef);
+  const configDynamicPlugins = configApi.getOptional('dynamicPlugins') as DynamicPluginsConfig;
+  const globalHeaderConfigKeys = Object.keys(configDynamicPlugins.frontend).find(key => key.includes('global-header'));
+  const globalHeaderConfig = configDynamicPlugins.frontend[`${globalHeaderConfigKeys}`];
 
-  const showLogo = configApi.getOptionalBoolean('app.sidebar.logo') ?? true;
+  // Check if the global.header/component mountPoint exists and if logo.light and logo.dark are defined
+  const globalHeaderHasLogo = globalHeaderConfig?.mountPoints?.some(
+    (mount: any) => mount.importName === 'CompanyLogo' && mount.config.props.logo.light !== undefined && mount.config.props.logo.dark !== undefined
+  );
+  const showLogo = globalHeaderHasLogo ? false : true;
+
   const showSearch =
     configApi.getOptionalBoolean('app.sidebar.search') ?? false;
   const showSettings =
