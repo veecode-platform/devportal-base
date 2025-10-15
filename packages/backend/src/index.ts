@@ -145,7 +145,7 @@ backend.add(import('@backstage/plugin-scaffolder-backend'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-notifications'));
 backend.add(
-  import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
+   import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
 );
 
 // techdocs plugin

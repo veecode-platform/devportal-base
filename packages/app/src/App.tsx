@@ -37,11 +37,12 @@ const baseFrontendConfig = {
       frontend: {
         'default.main-menu-items': DefaultMainMenuItems,
         // please keep this in sync with plugins/dynamic-plugins-info/app-config.janus-idp.yaml
+        
         'internal.plugin-dynamic-plugins-info': {
           appIcons: [
             { name: 'pluginsInfoIcon', importName: 'PluginsInfoIcon' },
             { name: 'adminIcon', importName: 'AdminIcon' },
-            {name: 'rbacIcon', importName: 'RbacIcon' },
+            { name: 'rbacIcon', importName: 'RbacIcon' },
           ],
           dynamicRoutes: [
             {

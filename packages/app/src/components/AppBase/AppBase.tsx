@@ -82,12 +82,12 @@ import ConfigUpdater from '../Root/ConfigUpdater';
 import { LayoutCustom } from '../scaffolder/LayoutCustom';
 import { SearchPage } from '../search/SearchPage';
 import { settingsPage } from '../UserSettings/SettingsPages';
-import { RbacPage } from '@backstage-community/plugin-rbac';
 import {
   DefaultTechDocsHome,
   TechDocsIndexPage,
   TechDocsReaderPage,
 } from '@backstage/plugin-techdocs';
+import { RbacPage } from '@backstage-community/plugin-rbac';
 
 const createApiDocsCustomColumns = (): TableColumn<CatalogTableRow>[] => {
   const nameColumn = CatalogTable.columns.createNameColumn({

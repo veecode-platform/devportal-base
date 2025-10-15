@@ -1,6 +1,6 @@
 {
   "name": "devportal-base",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "private": true,
   "engines": {
     "node": "20 || 22"
@@ -42,7 +42,7 @@
     "webpack": "^5.94.0"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.34.3",
+    "@backstage/cli": "^0.34.4",
     "@backstage/e2e-test-utils": "^0.1.1",
     "@playwright/test": "^1.32.3",
     "node-gyp": "^10.0.0",
