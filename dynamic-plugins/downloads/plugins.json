@@ -6,7 +6,7 @@
         },
         {
             "name": "@veecode-platform/plugin-veecode-global-header-dynamic",
-            "version": "0.2.7"
+            "version": "1.0.2"
         }
     ]
 }

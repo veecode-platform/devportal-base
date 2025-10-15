@@ -6,7 +6,11 @@ app:
       measurementId: soueu
   branding:
     fullLogo: https://veecode-platform.github.io/support/logos/logo.svg
-    fullLogoDark: https://veecode-platform.github.io/support/logos/logo-black.svg
+    #fullLogoDark: https://veecode-platform.github.io/support/logos/logo-black.svg
+    # new form breaks sidebar, check later
+    #fullLogo:
+    #  light: https://veecode-platform.github.io/support/logos/logo-black.svg
+    #  dark: https://veecode-platform.github.io/support/logos/logo.svg
     iconLogo: https://veecode-platform.github.io/support/logos/logo-mobile.png
     fullLogoWidth: 150
     theme:
@@ -64,7 +68,8 @@ backend:
     connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
   auth:
-    secret: mysecret
+    keys:
+      - secret: mysecret
     dangerouslyDisableDefaultAuthPolicy: true
     externalAccess:
       - type: static
