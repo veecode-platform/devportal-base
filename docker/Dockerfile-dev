@@ -70,10 +70,6 @@ COPY --chown=default:default plugins/scalprum-backend/package.json \
     plugins/scalprum-backend/tsconfig.json \
     /opt/app/plugins/scalprum-backend/
 COPY --chown=default:default plugins/support/package.json /opt/app/plugins/support/
-COPY --chown=default:default plugins/translation-backend/package.json \
-    plugins/translation-backend/turbo.json \
-    plugins/translation-backend/tsconfig.json \
-    /opt/app/plugins/translation-backend/
 
 # Strict, reproducible install (no node_modules from host)
 RUN yarn config set npmRegistryServer $NPM_REGISTRY && \
