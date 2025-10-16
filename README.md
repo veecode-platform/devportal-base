@@ -20,8 +20,8 @@ The repository is structured for local development with a Node runtime, but it a
 
 There are a few sections for later reading if you want some deeper understanding of this project:
 
-- **[Plugin Architecture & Management](PLUGINS.md)** - Understanding and working with plugins
-- **[Docker Development](DOCKER_DEVELOPMENT.md)** - Explains the current container development options
+- **[Plugin Architecture & Management](docs/PLUGINS.md)** - Understanding and working with plugins
+- **[Docker Development](docs/DOCKER_DEVELOPMENT.md)** - Explains the current container development options
 - **[Local Docker Build Guide](docker/README.md)** - Building container images locally for development
 
 ## Quick Start
@@ -49,7 +49,7 @@ cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.loc
 
 ### Build and run
 
-**Step 1: Build preinstalled plugins** (see [PLUGINS.md](PLUGINS.md) for details):
+**Step 1: Build preinstalled plugins** (see [PLUGINS.md](docs/PLUGINS.md) for details):
 
 This step isnt exactly a build itself, but it prepares pre-built plugins for dynamic loading under DevPortal. It deals with native dynamic plugins and with wrappers around older plugins, exporting them as ready-to-load dynamic plugins under a `dynamic-plugins-root` directory:
 
@@ -61,7 +61,7 @@ yarn export-dynamic
 yarn copy-dynamic-plugins $(pwd)/../dynamic-plugins-root
 ```
 
-You can read [Plugin Architecture & Management](PLUGINS.md) for more details.
+You can read [Plugin Architecture & Management](docs/PLUGINS.md) for more details.
 
 **Step 2: Build and start the application**:
 

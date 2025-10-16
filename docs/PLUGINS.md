@@ -10,7 +10,7 @@ Static plugins are compiled directly into the application bundle and will not be
 
 Derived images should not add more static plugins. Derived images will just add a set of dynamic plugins to the base image, composing a production-ready and competitive distribution.
 
-We maintain a minimal set restricted to foundational features in the base image.
+We maintain only a minimal set restricted to foundational features in the base image.
 
 **Core static plugins:**
 
@@ -25,17 +25,19 @@ The core set of static plugins is defined in the base image. It provides core fu
 | Backend  | RBAC | Role-based access control for the platform. |
 | Backend  | Github Auth | Github Authentication for the platform. |
 
-Note: we may attempt to remove the auth plugins from static loading into dynamic loading in the future.
-
 ### Dynamic Plugins
 
-Dynamic plugins "autowire" themselves to Backstage at runtime without requiring code changes or rebuilds. This removes friction from experimenting with new plugins and is a key component for DevPortal's extensibility and adaptability.
+Dynamic plugins "autowire" themselves to Backstage when loaded at runtime without requiring code changes or rebuilds. This removes friction from experimenting with new plugins and is a key component for DevPortal's extensibility and adaptability.
 
-**Loading methods:**
+Dynamic Plugins can be distributed in several ways:
 
-- Downloaded from OCI registries
-- Downloaded from NPM repositories
-- Loaded from local filesystem ("preinstalled plugins")
+- Baked into the distro image in order to be (optionally or not) loaded at runtime.
+- Downloaded from external registries (OCI, NPM, etc) at start time before being loaded.
+
+These **loading methods** affect the way plugins are loaded at runtime, so we will classify them as.
+
+- Downloaded from OCI registries or from NPM repositories are "downloaded plugins"
+- Loaded directly from the filesystem are "preinstalled plugins"
 
 The most common approach for production deployments is embedding plugins in the distro image as preinstalled plugins.
 

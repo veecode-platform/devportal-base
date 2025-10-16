@@ -159,10 +159,12 @@ permission:
   # setting this to `false` will disable permissions
   # enabled: false
   enabled: true
-  permissionedPlugins:
-    - catalog
-    - scaffolder
   rbac:
+    policies-csv-file: ../../rbac-policy.csv
+    pluginsWithPermission:
+      - catalog
+      - scaffolder
+      - permission
     admin:
       users:
         - name: group:default/admins

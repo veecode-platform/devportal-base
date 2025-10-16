@@ -155,20 +155,13 @@ backend.add(import('@backstage/plugin-techdocs-backend'));
 backend.add(import('@backstage/plugin-events-backend'));
 
 // permission plugin & RBAC
+// Note: Load permission plugins AFTER the plugins that define permissions (catalog, scaffolder, etc.)
 backend.add(import('@backstage/plugin-permission-backend'));
-backend.add(import('@backstage-community/plugin-rbac-backend'));
-// See https://backstage.io/docs/permissions/getting-started for how to create your own permission policy
-if (process.env.ENABLE_ALLOW_ALL_POLICY === 'true') {
-  backend.add(
-    import('@backstage/plugin-permission-backend-module-allow-all-policy'),
-  );
-  staticLogger.info(`Allow-all RBAC policy is ENABLED`);
-} else {
-  staticLogger.info(`Allow-all RBAC policy is DISABLED`);
-}
-
 backend.add(pluginIDProviderService);
 backend.add(rbacDynamicPluginsProvider);
+backend.add(import('@backstage-community/plugin-rbac-backend'));
+// Note: RBAC plugin provides its own permission policy, so we don't use allow-all-policy
+staticLogger.info(`RBAC permission policy is ENABLED`);
 
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
