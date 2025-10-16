@@ -39,6 +39,7 @@ import { ProviderSetting } from '@red-hat-developer-hub/plugin-utils';
 
 import { oidcAuthApiRef } from '../../apis';
 import { GeneralPage } from './GeneralPage';
+import { UserNotificationSettingsCard } from '@backstage/plugin-notifications';
 
 const DynamicProviderSettingsItem = ({
   title,
@@ -118,6 +119,11 @@ export const settingsPage = (providerSettings: ProviderSetting[]) => (
         providerSettings={
           <DynamicProviderSettings providerSettings={providerSettings} />
         }
+      />
+    </SettingsLayout.Route>
+    <SettingsLayout.Route path="/notifications" title="Notifications">
+      <UserNotificationSettingsCard
+        originNames={{ 'plugin:scaffolder': 'Scaffolder' }}
       />
     </SettingsLayout.Route>
   </SettingsLayout>

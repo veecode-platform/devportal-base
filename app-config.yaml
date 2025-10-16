@@ -36,12 +36,6 @@ i18n:
   defaultLocale: en
 
 backend:
-  # Used for enabling authentication, secret is shared by all backend plugins
-  # See https://backstage.io/docs/auth/service-to-service-auth for
-  # information on the format
-  # auth:
-  #   keys:
-  #     - secret: ${BACKEND_SECRET}
   baseUrl: http://localhost:7007
   csp:
     connect-src: ["'self'", 'http:', 'https:']
@@ -73,15 +67,16 @@ backend:
     client: better-sqlite3
     connection: ':memory:'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+
   auth:
     dangerouslyDisableDefaultAuthPolicy: true
-    externalAccess:
-      - type: static
-        options:
-          # Notice: This test-token can be used to add notifications to the backstage demo application.
-          # Production enironments should define a token in a more secure way that supports rotation.
-          token: test-token
-          subject: test-subject
+    # Notice: This test-token can be used to add notifications to the backstage demo application.
+    # Production enironments should define a token in a more secure way that supports rotation.
+    # externalAccess:
+    #   - type: static
+    #     options:
+    #       token: myowntoken
+    #       subject: test-subject
   reading:
     allow:
       - host: github.com
