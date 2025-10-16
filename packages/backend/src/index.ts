@@ -201,7 +201,7 @@ backend.add(import('@backstage/plugin-signals-backend'));
 
 backend.add(import('@internal/plugin-dynamic-plugins-info-backend'));
 backend.add(import('@internal/plugin-scalprum-backend'));
-backend.add(import('@internal/plugin-translation-backend'));
+backend.add(import('@red-hat-developer-hub/backstage-plugin-translations-backend'));
 
 backend.add(userSettingsBackend);
 
