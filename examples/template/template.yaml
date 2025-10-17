@@ -35,6 +35,8 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
+            allowedOwners:
+              - veecode-demos
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.

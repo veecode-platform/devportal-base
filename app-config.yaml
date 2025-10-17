@@ -140,6 +140,12 @@ catalog:
     # Local example apis
     - type: file
       target: ../../examples/apis.yaml
+    # Local example resources
+    - type: file
+      target: ../../examples/resources.yaml
+    # Local example clusters
+    - type: file
+      target: ../../examples/clusters.yaml
 
     ## Uncomment these lines to add more example data
     # - type: url
