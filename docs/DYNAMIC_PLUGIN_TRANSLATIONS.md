@@ -56,6 +56,40 @@ dynamicPlugins:
             textKey: menuItem.myPage         # Translation key (optional)
 ```
 
+### Translation Resources Configuration
+
+To merge the translations from your dynamic plugin into DevPoertal's translations, you must configure the `translationResources` in your plugin's dynamic configuration. This tells the system which translation modules to load from your plugin.
+
+**Example configuration in `app-config.dynamic-plugins.local.yaml`:**
+
+```yaml
+dynamicPlugins:
+  frontend:
+    veecode-platform.plugin-veecode-homepage:
+      translationResources:
+        - importName: homepageTranslations
+          ref: homepageTranslationRef
+      dynamicRoutes:
+        - path: /homepage
+          importName: HomePage
+          menuItem:
+            icon: homeIcon
+            text: Homepage
+            textKey: menuItem.homepage
+```
+
+**Configuration fields:**
+
+- **`translationResources`**: Array of translation resource configurations
+  - **`importName`**: The named export from your plugin package that contains the translations
+  - **`ref`**: A unique reference identifier for this translation resource
+
+**Important notes:**
+
+1. The `importName` must match the actual export name in your plugin's package
+2. The `ref` should be unique across all plugins to avoid conflicts
+3. Without this configuration, your plugin's translations will not be loaded, even if translation keys are specified in menu items
+
 ## Adding New Translation Keys
 
 ### 1. Add the translation key to the messages file
@@ -78,6 +112,7 @@ export const rhdhMessages = {
 Create or update language-specific translation files in `/packages/app/src/translations/rhdh/`:
 
 **de.ts** (German):
+
 ```typescript
 export const rhdhMessagesDE = {
   menuItem: {
@@ -97,6 +132,33 @@ export const rhdhMessagesPT = {
   },
 };
 ```
+
+### Alternative: Using `createTranslationMessages` (Simpler Approach)
+
+For dynamic plugins, you can use the `createTranslationMessages` helper function to define translations in a simpler, flatter structure:
+
+```typescript
+import { createTranslationMessages } from '@backstage/core-plugin-api/alpha';
+
+const homepageTranslationPt = createTranslationMessages({
+  ref: homepageTranslationRef,
+  messages: {
+    'greeting.welcome': 'Bem-vindo de volta',
+    'greeting.subtitle': 'Vamos começar.',
+    'summary.title': 'Resumo',
+    'menuItem.homepage': 'Página Inicial',
+  },
+});
+```
+
+**Benefits of this approach:**
+
+- **Simpler syntax**: No need for nested objects
+- **Flat structure**: All translation keys are at the same level
+- **Type-safe**: Uses the translation reference to ensure consistency
+- **Plugin-specific**: Ideal for dynamic plugins with their own translation namespaces
+
+This approach is particularly useful when creating translations for dynamic plugins, as it keeps the translation structure simple and maintainable.
 
 ## How It Works
 
