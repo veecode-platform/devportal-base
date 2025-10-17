@@ -29,6 +29,7 @@ permission:
 ```
 
 ### 2. `rbac-policy.csv`
+
 Defines roles, permissions, and role assignments using Casbin policy format.
 
 ## Roles
