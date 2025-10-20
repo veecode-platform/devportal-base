@@ -1,9 +1,11 @@
 # This dockerfile builds an image for the backend package.
-# It should be executed with the root of the repo as docker context.
-# It was based on the generated dockerfile from the Backstage app creation,
+# It should be executed by Github Actions after building all the package and plugins.
+# This is NOT a multi-staged Dockerfile.
+#
+# The Dockerfile was based on the generated dockerfile from the Backstage app creation,
 # with some added features to make it work with dynamic plugins.
 #
-# Before building this image, be sure to have run the following commands in the repo root:
+# To build it locally, be sure to have run the following commands in the repo root:
 #
 # yarn install --immutable
 # yarn tsc
@@ -21,11 +23,9 @@
 #
 # Once the commands have been run, you can build the image using `yarn build-image`
 #
-# Alternatively, there is also a multi-stage Dockerfile documented here:
-# https://backstage.io/docs/deployment/docker#multi-stage-build
 
 # FROM node:22-bookworm-slim
-FROM registry.redhat.io/ubi9/nodejs-22:9.6-1759119998
+FROM registry.redhat.io/ubi9/nodejs-22:9.6-1760386551
 
 USER root
 

@@ -86,3 +86,9 @@ catalog:
     # Local example apis
     - type: file
       target: /app/examples/apis.yaml
+    # Local example resources
+    - type: file
+      target: /app/examples/resources.yaml
+    # Local example clusters
+    - type: file
+      target: /app/examples/clusters.yaml

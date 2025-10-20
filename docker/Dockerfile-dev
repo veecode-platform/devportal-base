@@ -21,7 +21,7 @@
 #
 
 # We will use an ubi10 Node.js image for VeeCode DevPortal distro
-FROM registry.redhat.io/ubi9/nodejs-22:9.6-1759119998 AS base
+FROM registry.redhat.io/ubi9/nodejs-22:9.6-1760386551 AS base
 
 ARG NPM_REGISTRY=https://registry.npmjs.org/
 

@@ -60,7 +60,7 @@ This is a **Backstage-based developer portal** (DevPortal Base) using a monorepo
 ### Key Configuration Files
 
 - `app-config.yaml` - Base Backstage configuration
-- `app-config.production.yaml` - Production overrides
+- `app-config.production.yaml` - Production overrides (ignore, still unused)
 - `app-config.local.yaml` - Local development (gitignored)
 - `package.json` - Root workspace configuration
 - `lerna.json` - Lerna settings
@@ -119,19 +119,8 @@ yarn tsc             # Type check
 
 ### Plugin Development
 
-We should create plugins in dedicated repos.
-
-```bash
-yarn backstage-cli create-plugin           # Create new plugin
-cd plugins/my-plugin && yarn start         # Develop standalone
-```
-
-### Dynamic Plugin Development
-
-```bash
-cd dynamic-plugins && yarn new-wrapper     # Create wrapper
-yarn build && yarn copy-plugins            # Build and deploy
-```
+We should create plugins in dedicated repos. VeeCode Platform custom plugins are mostly developed at [VeeCode Plugins](https://github.com/veecode-platform/devportal-plugins) project.
+Follow thst project's instructions and patterns to develop custom plugins.
 
 ## Code Patterns to Follow
 
@@ -146,25 +135,6 @@ import AddIcon from '@mui/icons-material/Add';
 // Backstage imports
 import { useApi, configApiRef } from '@backstage/core-plugin-api';
 import { Content, Header, Page } from '@backstage/core-components';
-```
-
-### Plugin Definition Pattern
-
-```typescript
-import { createPlugin, createRoutableExtension } from '@backstage/core-plugin-api';
-
-export const myPlugin = createPlugin({
-  id: 'my-plugin',
-  routes: { root: rootRouteRef },
-});
-
-export const MyPage = myPlugin.provide(
-  createRoutableExtension({
-    name: 'MyPage',
-    component: () => import('./components/MyPage').then(m => m.MyPage),
-    mountPoint: rootRouteRef,
-  }),
-);
 ```
 
 ### Styling Pattern (Current)
@@ -259,17 +229,20 @@ test('navigate to page', async ({ page }) => {
 - Alternative: Use `StyledEngineProvider` with `injectFirst`
 
 **Plugin not loading**:
+
 - Check `plugin-manifest.json` exists and is valid
 - Verify Scalprum configuration matches
 - Check browser console for errors
 - Ensure plugin is in `dynamic-plugins-root/`
 
 **Build failures**:
+
 - Clear `.turbo` cache: `rm -rf .turbo`
 - Remove node_modules: `rm -rf node_modules && yarn install`
 - Check TypeScript errors: `yarn tsc`
 
 **Type errors**:
+
 - Regenerate types: `yarn tsc --build --clean && yarn tsc`
 - Check for version mismatches in dependencies
 

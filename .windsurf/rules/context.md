@@ -1,3 +1,7 @@
+---
+trigger: manual
+---
+
 # Project Context
 
 ## Quick Reference
@@ -15,7 +19,7 @@
 - **Backstage**: v1.44.1+ (developer portal framework)
 - **React**: 18.x
 - **TypeScript**: 5.x
-- **Node.js**: 18+
+- **Node.js**: 22+
 - **Express**: Backend server
 
 ### UI & Styling
