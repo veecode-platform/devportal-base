@@ -33,14 +33,23 @@ USER root
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     dnf install -y --setopt=install_weak_deps=False \
-      python3 make gcc-c++ git pkg-config \
+      make cmake cpp gcc gcc-c++ skopeo git pkg-config \
       jq wget tar gzip ca-certificates \
     && dnf clean all \
     && wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -q -O /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
-#    apt-get update && \
-#    apt-get install -y --no-install-recommends python3 g++ build-essential && \
-#    rm -rf /var/lib/apt/lists/*
+
+# python setup (important for techdocs and scripts)
+COPY python /opt/python
+RUN dnf install -y python3.11 python3.11-pip python3.11-devel && \
+  alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+  alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
+  cd /opt/python/ && \
+  set -e; \
+  python3.11 -V; pip3.11 -V; \
+  pip install --no-cache-dir --upgrade pip setuptools pyyaml; \
+  pip install --no-cache-dir -r requirements.txt -r requirements-build.txt; mkdocs --version; \
+  dnf clean all
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.

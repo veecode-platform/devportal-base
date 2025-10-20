@@ -27,15 +27,22 @@ ARG NPM_REGISTRY=https://registry.npmjs.org/
 
 USER root
 RUN dnf install -y \
-      python3 make gcc-c++ git pkg-config \
+      make cmake cpp gcc gcc-c++ skopeo git pkg-config \
       jq wget tar gzip ca-certificates \
     && dnf clean all \
     && wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -q -O /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
-# RUN mkdir -p /opt/dynamic-plugins-root && \
-#     mkdir -p /opt/dynamic-plugins && \
-#     chown default:default /opt/dynamic-plugins-root && \
-#     chown default:default /opt/dynamic-plugins
+
+COPY python /opt/python
+RUN dnf install -y python3.11 python3.11-pip python3.11-devel && \
+  alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+  alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
+  cd /opt/python/ && \
+  set -e; \
+  python3.11 -V; pip3.11 -V; \
+  pip install --no-cache-dir --upgrade pip setuptools pyyaml; \
+  pip install --no-cache-dir -r requirements.txt -r requirements-build.txt; mkdocs --version; \
+  dnf clean all
 
 USER default
 
