@@ -34,15 +34,18 @@ RUN dnf install -y \
     && chmod +x /usr/local/bin/yq
 
 COPY python /opt/python
-RUN dnf install -y python3.11 python3.11-pip python3.11-devel && \
-  alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
-  alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
-  cd /opt/python/ && \
-  set -e; \
-  python3.11 -V; pip3.11 -V; \
-  pip install --no-cache-dir --upgrade pip setuptools pyyaml; \
-  pip install --no-cache-dir -r requirements.txt -r requirements-build.txt; mkdocs --version; \
-  dnf clean all
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    dnf install -y python3.11 python3.11-pip python3.11-devel && \
+    # dnf clean all && \
+    alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+    alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
+    python3.11 -V; pip3.11 -V
+RUN --mount=type=cache,target=/root/.cache/pip \
+    cd /opt/python/ && \
+    set -e; \
+    pip install --upgrade pip setuptools pyyaml; \
+    pip install -r requirements.txt -r requirements-build.txt; mkdocs --version
 
 USER default
 

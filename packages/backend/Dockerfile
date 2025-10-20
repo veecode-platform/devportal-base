@@ -35,29 +35,32 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     dnf install -y --setopt=install_weak_deps=False \
       make cmake cpp gcc gcc-c++ skopeo git pkg-config \
       jq wget tar gzip ca-certificates \
-    && dnf clean all \
+    # && dnf clean all \
     && wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -q -O /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
 
 # python setup (important for techdocs and scripts)
 COPY python /opt/python
-RUN dnf install -y python3.11 python3.11-pip python3.11-devel && \
-  alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
-  alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
-  cd /opt/python/ && \
-  set -e; \
-  python3.11 -V; pip3.11 -V; \
-  pip install --no-cache-dir --upgrade pip setuptools pyyaml; \
-  pip install --no-cache-dir -r requirements.txt -r requirements-build.txt; mkdocs --version; \
-  dnf clean all
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    dnf install -y python3.11 python3.11-pip python3.11-devel && \
+    # dnf clean all && \
+    alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
+    alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
+    python3.11 -V; pip3.11 -V
+RUN --mount=type=cache,target=/root/.cache/pip \
+    cd /opt/python/ && \
+    set -e; \
+    pip install --upgrade pip setuptools pyyaml; \
+    pip install -r requirements.txt -r requirements-build.txt; mkdocs --version
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     dnf install -y --setopt=install_weak_deps=False \
-      sqlite-devel \
-    && dnf clean all
+      sqlite-devel
+    # && dnf clean all
 #    apt-get update && \
 #    apt-get install -y --no-install-recommends libsqlite3-dev && \
 #    rm -rf /var/lib/apt/lists/*
