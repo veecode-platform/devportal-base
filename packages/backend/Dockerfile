@@ -112,8 +112,8 @@ RUN yarn config set npmRegistryServer $NPM_REGISTRY && \
     fi && \
     cp .yarnrc.yml $HOME/.yarnrc.yml
 
-RUN --mount=type=cache,target=/opt/app-root/src/.yarn/berry/cache,sharing=locked,uid=1000,gid=1000 \
-    --mount=type=cache,target=/app/.turbo,sharing=locked,uid=1000,gid=1000 \
+RUN --mount=type=cache,target=/opt/app-root/src/.yarn/berry/cache,sharing=locked,uid=1001,gid=0 \
+    --mount=type=cache,target=/app/.turbo,sharing=locked,uid=1001,gid=0 \
     yarn workspaces focus --all --production 
     # && rm -rf "$(yarn cache clean)"
 

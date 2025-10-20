@@ -69,7 +69,7 @@ jobs:
         run: |
           npm i -g corepack
           corepack enable
-          corepack prepare yarn@4.4.1 --activate
+          corepack prepare yarn@4.10.3 --activate
           yarn config set nodeLinker node-modules
       
       - name: Cache Yarn dependencies
