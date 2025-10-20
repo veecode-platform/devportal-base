@@ -87,7 +87,9 @@ RUN yarn config set npmRegistryServer $NPM_REGISTRY && \
     HOST=$(printf '%s\n' "$NPM_REGISTRY" | awk -F[/:] '{print $4}') && \
     yarn config set unsafeHttpWhitelist --json "[\"localhost\",\"$HOST\"]" && \
     cp .yarnrc.yml $HOME/.yarnrc.yml
-RUN yarn install --immutable
+RUN --mount=type=cache,target=/opt/app-root/src/.yarn/berry/cache,sharing=locked,uid=1000,gid=1000 \
+    --mount=type=cache,target=/opt/app/.turbo,sharing=locked,uid=1000,gid=1000 \
+    yarn install --immutable
 # RUN yarn install --immutable && yarn cache clean
 #RUN yarn install && yarn cache clean
 #RUN yarn install

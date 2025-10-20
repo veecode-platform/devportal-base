@@ -79,7 +79,7 @@ ENV NPM_REGISTRY=$NPM_REGISTRY NPM_CONFIG_REGISTRY=$NPM_REGISTRY YARN_REGISTRY=$
 RUN echo "Using NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY" && \
     npm install -g corepack && \
     corepack enable && \
-    corepack prepare yarn@4.4.1 --activate
+    corepack prepare yarn@4.10.3 --activate
 
 # This should create the app dir as `node`.
 # If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
@@ -112,8 +112,10 @@ RUN yarn config set npmRegistryServer $NPM_REGISTRY && \
     fi && \
     cp .yarnrc.yml $HOME/.yarnrc.yml
 
-RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
+RUN --mount=type=cache,target=/opt/app-root/src/.yarn/berry/cache,sharing=locked,uid=1000,gid=1000 \
+    --mount=type=cache,target=/app/.turbo,sharing=locked,uid=1000,gid=1000 \
+    yarn workspaces focus --all --production 
+    # && rm -rf "$(yarn cache clean)"
 
 # This will include the examples, if you don't need these simply remove this line
 COPY --chown=default:default examples ./examples
