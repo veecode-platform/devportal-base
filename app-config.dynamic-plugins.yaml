@@ -22,7 +22,10 @@ dynamicPlugins:
     #         toolTip: 'Github'
     #         to: https://github.com/redhat-developer/rhdh-plugins
     veecode-platform.plugin-veecode-homepage:
-      dynamicRoutes:
+      translationResources:
+        - importName: homepageTranslations
+          ref: homepageTranslationRef
+      dynamicRoutes: 
         - path: /
           importName: VeecodeHomepagePage
           config:
@@ -30,17 +33,23 @@ dynamicPlugins:
               width: 1500
               height: 800
     veecode-platform.plugin-veecode-global-header:
+      translationResources:
+        - importName: globalHeaderTranslations
+          ref: globalHeaderTranslationRef
       mountPoints:
         - mountPoint: application/header
           importName: GlobalHeader
           config:
             position: above-main-content # above-main-content | above-sidebar
-        - mountPoint: global.header/component
-          importName: CompanyLogo
-          config:
-            priority: 200
-            props:
-              to: '/'
+        # - mountPoint: global.header/component
+        #   importName: CompanyLogo
+        #   config:
+        #     priority: 200
+        #     props:
+        #       to: '/'
+        #       logo:
+        #         light: https://veecode-platform.github.io/support/logos/logo-black.svg
+        #         dark: https://veecode-platform.github.io/support/logos/logo.svg
         - mountPoint: global.header/component
           importName: SearchComponent
           config:
@@ -66,7 +75,7 @@ dynamicPlugins:
             props:
               growFactor: 0
         - mountPoint: global.header/component
-          importName: ToogleThemeButton
+          importName: ToggleThemeButton
           config:
             priority: 75
             props:
@@ -83,6 +92,14 @@ dynamicPlugins:
               title: Settings
               link: /settings
               icon: manageAccounts
+        - mountPoint: global.header/profile
+          importName: MenuItemLink
+          config:
+            priority: 90
+            props:
+              title: My profile
+              titleKey: profile.myProfile
+              type: user
         - mountPoint: global.header/profile
           importName: LogoutButton
           config:
@@ -112,3 +129,4 @@ dynamicPlugins:
             props:
               width: 1500
               height: 800
+
