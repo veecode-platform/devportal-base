@@ -124,6 +124,5 @@ ENV PATH="/opt/app/node_modules/.bin:$PATH"
 COPY --chown=default:default . /opt/app/
 
 RUN cp app-config.production.yaml app-config.local.yaml && \
-    cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.local.yaml && \
-    yq eval '.dynamicPlugins.rootDirectory = "/opt/app/dynamic-plugins-root"' -i app-config.dynamic-plugins.local.yaml
+    yq eval '.dynamicPlugins.rootDirectory = "/opt/app/dynamic-plugins-root"' -i app-config.dynamic-plugins.yaml
 
