@@ -9,5 +9,16 @@ metadata:
   #   backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner: andrevtg
+  owner: group:developers
   lifecycle: experimental
+  system: devportal
+
+---
+
+# https://backstage.io/docs/features/software-catalog/descriptor-format#kind-system
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: devportal
+spec:
+  owner: group:developers
