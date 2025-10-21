@@ -4,10 +4,10 @@ metadata:
   name: devportal-base
   description: An open source Backstage distro.
   # Example for optional annotations
-  # annotations:
-  #   github.com/project-slug: backstage/backstage
+  annotations:
+    github.com/project-slug: veecode-platform/devportal-base
   #   backstage.io/techdocs-ref: dir:.
 spec:
-  type: website
+  type: service
   owner: andre@vertigo.com.br
   lifecycle: experimental
