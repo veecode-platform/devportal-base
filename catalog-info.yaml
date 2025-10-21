@@ -9,5 +9,5 @@ metadata:
   #   backstage.io/techdocs-ref: dir:.
 spec:
   type: service
-  owner: andre@vertigo.com.br
+  owner: andrevtg
   lifecycle: experimental
