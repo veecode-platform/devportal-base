@@ -92,3 +92,7 @@ catalog:
     # Local example clusters
     - type: file
       target: /app/examples/clusters.yaml
+
+permission:
+  rbac:
+    policies-csv-file: /app/rbac-policy.csv
