@@ -10,7 +10,7 @@ metadata:
 spec:
   type: service
   owner: group:developers
-  lifecycle: experimental
+  lifecycle: production
   system: devportal
 
 ---
