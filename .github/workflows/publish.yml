@@ -1,7 +1,8 @@
 name: build-backend-image
+permissions:
+  contents: read
 
 on:
-  push:
     #branches: [ main ]
     tags:
           - 'v*.*.*'
