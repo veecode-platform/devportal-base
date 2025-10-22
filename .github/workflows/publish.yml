@@ -1,12 +1,13 @@
 name: build-backend-image
+
 permissions:
   contents: read
 
 on:
-    #branches: [ main ]
+  push:
     tags:
-          - 'v*.*.*'
-          - '*.*.*'
+      - 'v*.*.*'
+      - '*.*.*'
 env:
   # Ensure BuildKit features (like RUN --mount=type=cache) work
   DOCKER_BUILDKIT: "1"
