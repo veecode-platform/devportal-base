@@ -139,7 +139,7 @@ export const rhdhMessages = {
     },
     userSettings: {
       infoCard: {
-        title: 'RHDH Metadata',
+        title: 'VeeCode DevPortal Metadata',
         metadataCopied: 'Metadata copied to clipboard',
         copyMetadata: 'Copy metadata to your clipboard',
         showLess: 'Show less',

@@ -92,7 +92,7 @@ export default createTranslationMessages({
     'app.learningPaths.error.title': 'Impossibile recuperare i dati.',
     'app.learningPaths.error.unknownError': 'Errore sconosciuto',
     'app.entityPage.diagram.title': 'Diagramma di sistema',
-    'app.userSettings.infoCard.title': 'Metadati RHDH',
+    'app.userSettings.infoCard.title': 'Metadati VeeCode DevPortal',
     'app.userSettings.infoCard.metadataCopied':
       'Metadati copiati negli appunti',
     'app.userSettings.infoCard.copyMetadata': 'Copia metadati negli appunti',

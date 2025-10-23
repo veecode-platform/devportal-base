@@ -92,7 +92,7 @@ export default createTranslationMessages({
     'app.learningPaths.error.title': 'Daten konnten nicht abgerufen werden.',
     'app.learningPaths.error.unknownError': 'Unbekannter Fehler',
     'app.entityPage.diagram.title': 'Systemdiagramm',
-    'app.userSettings.infoCard.title': 'RHDH-Metadaten',
+    'app.userSettings.infoCard.title': 'VeeCode DevPortal - Metadaten',
     'app.userSettings.infoCard.metadataCopied':
       'Metadaten in die Zwischenablage kopiert',
     'app.userSettings.infoCard.copyMetadata':

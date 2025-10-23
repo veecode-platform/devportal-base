@@ -93,7 +93,7 @@ export default createTranslationMessages({
     'app.learningPaths.error.title': 'No se pudieron obtener los datos.',
     'app.learningPaths.error.unknownError': 'Error desconocido',
     'app.entityPage.diagram.title': 'Diagrama del sistema',
-    'app.userSettings.infoCard.title': 'Metadatos RHDH',
+    'app.userSettings.infoCard.title': 'Metadatos VeeCode DevPortal',
     'app.userSettings.infoCard.metadataCopied':
       'Metadatos copiados al portapapeles',
     'app.userSettings.infoCard.copyMetadata':
