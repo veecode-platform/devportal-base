@@ -55,7 +55,8 @@ backend:
         'https://www.google-analytics.com',
         'https://platform.vee.codes',
         'https://avatars.githubusercontent.com/',
-        'https://veecode-platform.github.io'
+        'https://veecode-platform.github.io',
+        'https://img.shields.io'
       ]
   cors:
     origin: http://localhost:3000
