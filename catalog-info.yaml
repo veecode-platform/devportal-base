@@ -6,6 +6,14 @@ metadata:
   # Example for optional annotations
   annotations:
     github.com/project-slug: veecode-platform/devportal-base
+    github.com/workflows: |
+     [
+       {
+         "workflow": "echo.yml",
+         "label": "Echo",
+         "tooltip": "Click here and start an useless workflow"
+       }
+     ]
   #   backstage.io/techdocs-ref: dir:.
 spec:
   type: service
