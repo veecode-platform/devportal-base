@@ -3,7 +3,13 @@ name: Echo Workflow
 permissions:
   contents: none
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message to echo'
+        required: true
+        type: string
 
 jobs:
 
@@ -11,4 +17,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo
-        run: echo "Hello, this is an useless workflow!"
+        run: echo "${{ inputs.message }}"
