@@ -1,6 +1,6 @@
 {
   "name": "devportal-base",
-  "version": "1.1.21",
+  "version": "1.1.22",
   "private": true,
   "engines": {
     "node": "20 || 22"
@@ -11,7 +11,7 @@
     "start-backend": "yarn workspace backend start",
     "dev": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app --config ../../app-config.yaml --config ../../app-config.dynamic-plugins.yaml",
     "dev-local": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../app-config.dynamic-plugins.yaml",
-    "dev-docker": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.local.yaml --config ../../app-config.dynamic-plugins.yaml",
+    "dev-github": "NODE_OPTIONS=--no-node-snapshot turbo run start --filter=backend --filter=app -- --config ../../app-config.yaml --config ../../app-config.dynamic-plugins.yaml --config ../../app-config.github.yaml",
     "build": "turbo run build",
     "build:backend": "yarn tsc && yarn workspace backend build",
     "build:all": "yarn tsc && turbo run build",
