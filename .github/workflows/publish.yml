@@ -23,24 +23,21 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - name: Ensure tag exists in main
+      - name: Ensure tag exists in main and equals package version
         run: |
+          VERSION=$(grep '"version"' package.json | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
           git fetch origin main
           TAG="${GITHUB_REF#refs/tags/}"
-          echo "Pushed TAG=$TAG"
+          echo "Pushed TAG=$TAG, VERSION=$VERSION"
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "ERROR: tag does not match package version." >&2
+            exit 1
+          fi
           SHA="$(git rev-parse "$TAG^{commit}")"
           if git merge-base --is-ancestor "$SHA" origin/main; then
             echo "OK: tag commit is reachable from main."
           else
             echo "ERROR: tag commit is not on main." >&2
-            exit 1
-          fi
-      - name: Ensure tag equals package version
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          TAG="${GITHUB_REF#refs/tags/}"
-          if [ "$TAG" != "$VERSION" ]; then
-            echo "ERROR: tag does not match package version." >&2
             exit 1
           fi
 
@@ -67,7 +64,7 @@ jobs:
       - name: Extract version from package.json
         id: package-version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(grep '"version"' package.json | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Project root version: $VERSION"
 
@@ -164,7 +161,7 @@ jobs:
       - name: Extract version from package.json
         id: package-version
         run: |
-          VERSION=$(node -p "require('./package.json').version")
+          VERSION=$(grep '"version"' package.json | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Project root version: $VERSION"
   
