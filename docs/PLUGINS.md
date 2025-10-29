@@ -22,8 +22,18 @@ The core set of static plugins is defined in the base image. It provides core fu
 | Both     | Signals | A pub/sub infrastructure for event-like communication between Backstage plugins/services. |
 | Backend  | Permissions | Defines and enforces fine-grained access control rules across the platform. |
 | Frontend | Permissions-React | React components for access control rules in the frontend. |
+| Both  | Catalog | Catalog core features for the platform. |
+| Both  | Tech Docs | Tech Docs core features for the platform. |
 | Backend  | RBAC | Role-based access control for the platform. |
 | Backend  | Github Auth | Github Authentication for the platform. |
+| Backend  | Gitlab Auth | Gitlab Authentication for the platform. |
+| Backend  | Google Auth | Google Authentication for the platform. |
+| Backend  | GCP IAP Auth | Google Cloud IAP Authentication for the platform. |
+| Backend  | Microsoft Auth | Microsoft Azure Authentication for the platform. |
+| Backend  | OAuth2 Auth | OAuth2 Authentication for the platform. |
+| Backend  | OIDC Auth | OIDC Authentication for the platform. |
+
+Core static plugins are not supposed to be loaded dynamically or replaced in derived images. They are always loaded from the base image so that core funcionality can be provided out of the box and tested before creating full distro derived images.
 
 ### Dynamic Plugins
 
@@ -67,7 +77,7 @@ Preinstalled plugins are dynamic plugins embedded in the distro image but not ne
 All preinstalled plugins are defined in `dynamic-plugins/wrappers` and `dynamic-plugins/downloads` directories:
 
 - **Wrappers**: Compatibility layer that exports dynamic plugins from pre-existing static plugins (backend or frontend)
-- **Downloads**: Native dynamic plugins that don't require wrappers - just add them to `dynamic-plugins/downloads/plugins.json`
+- **Downloads**: Native dynamic plugins that don't require wrappers (just add them to `dynamic-plugins/downloads/plugins.json`)
 
 To build all preinstalled plugins:
 
@@ -83,6 +93,8 @@ yarn copy-dynamic-plugins $(pwd)/../dynamic-plugins-root
 
 When running DevPortal, the dynamic loader will load all plugins from the `dynamic-plugins-root` directory.
 
+**Important:** This may bne a bit confusing, but make sure you get this: "wrappers" and "downloads" are different mechanics to bake plugins into the distro image **during build time**. They will all become **preinstalled plugins** available at at the file system for optional use at runtime. DO NOT confuse this with downloading new plugins from external registries at runtime - this is also possible, but not the same thing.
+
 ## Adding New Preinstalled Plugins
 
 ### For Native Dynamic Plugins
@@ -96,7 +108,16 @@ If the plugin is already available as a dynamic package:
 
 For older plugins that need a compatibility wrapper:
 
-#### Option 1: Use the Helper Script (Experimental)
+#### Option 1: Copy from RHDH (Recommended)
+
+Borrow existing wrappers from the [RHDH repository](https://github.com/redhat-developer/rhdh/tree/main/dynamic-plugins/wrappers):
+
+1. Find the wrapper you need
+2. Copy it to `dynamic-plugins/wrappers`
+3. Run the [Build preinstalled plugins](#building-preinstalled-plugins) commands
+4. Add the plugin default config to `app-config.dynamic-plugins.yaml` (if needed)
+
+#### Option 2: Use the Helper Script (Experimental)
 
 ```sh
 yarn new-wrapper @backstage-community/plugin-tech-radar@1.7.0
@@ -105,11 +126,3 @@ yarn new-wrapper @backstage-community/plugin-tech-radar@1.7.0
 Then run the [Build preinstalled plugins](#building-preinstalled-plugins) commands.
 
 ⚠️ **Warning:** This script is highly experimental. It creates the necessary files and directories for both backend and frontend plugins, but use at your own risk.
-
-#### Option 2: Copy from RHDH (Recommended)
-
-Borrow existing wrappers from the [RHDH repository](https://github.com/redhat-developer/rhdh/tree/main/dynamic-plugins/wrappers):
-
-1. Find the wrapper you need
-2. Copy it to `dynamic-plugins/wrappers`
-3. Run the [Build preinstalled plugins](#building-preinstalled-plugins) commands

@@ -23,13 +23,13 @@ The repository is structured for local development with a Node runtime, but it a
 If you just want to see a running container, you can use the following command:
 
 ```sh
-docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.25
+docker run --name devportal -d -p 7007:7007 veecode/devportal-base:latest
 ```
 
 Or, it you want to run it interactively with pretty logs:
 
 ```sh
-docker run --rm -ti -p 7007:7007 -e NODE_ENV=development veecode/devportal-base:1.1.25
+docker run --rm -ti -p 7007:7007 -e NODE_ENV=development veecode/devportal-base:latest
 ```
 
 And open `http://localhost:7007` in your browser. It will open a barebones DevPortal instance, with just a sample catalog and a few basic plugins enabled. This image is **not** a full Backstage distro, but a minimal one used as starting point to build a real distro and to validate the core set of DevPortal plugins.
@@ -187,6 +187,32 @@ curl -X POST http://localhost:7007/api/notifications/notifications \
           "topic": "general"
         }
       }'
+```
+
+### Tech Docs Tips
+
+If you want to test Tech Docs processing with `mkdocs` locally:
+
+```sh
+python3 -m venv $(pwd)/venv
+source venv/bin/activate
+pip install -r python/requirements.txt
+```
+
+Make sure to have the virtual environment activated when running DevPortal so it the TechDocs plugin can work properly. The PATH variable is ajusted by `activate` to use `mkdocs` from the virtual environment.
+
+There are some conditions after `activate` that will trick your shell into not using `mkdocs` from the virtual environment. You can check if it is using the correct `mkdocs` version by running:
+
+```sh
+which mkdocs
+```
+
+If it is not using the correct version from the virtual environment, you can try to fix it by running:
+
+```sh
+hash -r
+# should now show the correct path
+which mkdocs
 ```
 
 ## Additional Notes

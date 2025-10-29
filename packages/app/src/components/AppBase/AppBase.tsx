@@ -87,6 +87,8 @@ import {
   TechDocsIndexPage,
   TechDocsReaderPage,
 } from '@backstage/plugin-techdocs';
+import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
+import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
 import { RbacPage } from '@backstage-community/plugin-rbac';
 
 const createApiDocsCustomColumns = (): TableColumn<CatalogTableRow>[] => {
@@ -227,7 +229,11 @@ const AppBase = () => {
               <Route
                 path="/docs/:namespace/:kind/:name/*"
                 element={<TechDocsReaderPage />}
-              /> 
+              >
+                <TechDocsAddons>
+                  <Mermaid config={{ theme: "forest", themeVariables: { lineColor: "#000000" } }} />
+                </TechDocsAddons>
+              </Route> 
               <Route
                 path="/catalog-import"
                 element={

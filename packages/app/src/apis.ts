@@ -2,35 +2,26 @@ import { OAuth2 } from '@backstage/core-app-api';
 import {
   analyticsApiRef,
   AnyApiFactory,
-  ApiRef,
-  BackstageIdentityApi,
   configApiRef,
   createApiFactory,
-  createApiRef,
   discoveryApiRef,
-  fetchApiRef,
   identityApiRef,
   oauthRequestApiRef,
-  OpenIdConnectApi,
-  ProfileInfoApi,
-  SessionApi,
 } from '@backstage/core-plugin-api';
 import {
   ScmAuth,
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
-import { ScaffolderClient } from '@backstage/plugin-scaffolder';
-import { scaffolderApiRef } from '@backstage/plugin-scaffolder-react';
 
 // google analytics
 import { GoogleAnalytics4 } from '@backstage-community/plugin-analytics-module-ga4';
 
-export const oidcAuthApiRef: ApiRef<
-  OpenIdConnectApi & ProfileInfoApi & BackstageIdentityApi & SessionApi
-> = createApiRef({
-  id: 'auth.oidc-provider',
-});
+import {
+  oidcAuthApiRef,
+  auth0AuthApiRef,
+  samlAuthApiRef,
+} from './api/AuthApiRefs';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
@@ -60,6 +51,49 @@ export const apis: AnyApiFactory[] = [
         defaultScopes: ['openid', 'profile', 'email'],
       }),
   }),
+  // Auth0
+  createApiFactory({
+    api: auth0AuthApiRef,
+    deps: {
+      discoveryApi: discoveryApiRef,
+      oauthRequestApi: oauthRequestApiRef,
+      configApi: configApiRef,
+    },
+    factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
+      OAuth2.create({
+        discoveryApi,
+        oauthRequestApi,
+        configApi,
+        provider: {
+          id: 'auth0',
+          title: 'Auth0',
+          icon: () => null,
+        },
+        defaultScopes: ['openid', 'email', 'profile'],
+        environment: configApi.getOptionalString('auth.environment'),
+      }),
+  }),
+  // SAML
+  createApiFactory({
+    api: samlAuthApiRef,
+    deps: {
+      discoveryApi: discoveryApiRef,
+      oauthRequestApi: oauthRequestApiRef,
+      configApi: configApiRef,
+    },
+    factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
+      OAuth2.create({
+        discoveryApi,
+        oauthRequestApi,
+        configApi,
+        provider: {
+          id: 'saml',
+          title: 'SAML',
+          icon: () => null,
+        },
+        environment: configApi.getOptionalString('auth.environment'),
+      }),
+  }),
   createApiFactory({
     api: analyticsApiRef,
     deps: { configApi: configApiRef, identityApi: identityApiRef },
@@ -68,21 +102,5 @@ export const apis: AnyApiFactory[] = [
         identityApi,
       }),
   }),
-  createApiFactory({
-    api: scaffolderApiRef,
-    deps: {
-      discoveryApi: discoveryApiRef,
-      identityApi: identityApiRef,
-      scmIntegrationsApi: scmIntegrationsApiRef,
-      fetchApi: fetchApiRef,
-    },
-    factory: ({ scmIntegrationsApi, discoveryApi, identityApi, fetchApi }) =>
-      new ScaffolderClient({
-        discoveryApi,
-        identityApi,
-        scmIntegrationsApi,
-        fetchApi,
-        useLongPollingLogs: true,
-      }),
-  }),
+  
 ];

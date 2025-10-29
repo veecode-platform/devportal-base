@@ -9,7 +9,9 @@
     "GITHUB_CLIENT_SECRET",
     "GITHUB_APP_ID",
     "GITHUB_PRIVATE_KEY",
-    "GITHUB_ORG"
+    "GITHUB_ORG",
+    "VIRTUAL_ENV",
+    "VIRTUAL_ENV_PROMPT_PROMPT"
   ],
   "globalDependencies": [
     "app-config.yaml",

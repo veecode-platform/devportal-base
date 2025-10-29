@@ -111,7 +111,7 @@ auth:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'docker' # Alternatives - 'local'
+    runIn: 'local' # Alternatives - 'local'
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
@@ -147,6 +147,12 @@ catalog:
     # Local example clusters
     - type: file
       target: ../../examples/clusters.yaml
+    # Local example techdocs documentation
+    - type: file
+      target: ../../examples/techdocs/catalog-info.yaml
+    # Template documentation
+    - type: file
+      target: ../../examples/template/catalog-info.yaml
 
     ## Uncomment these lines to add more example data
     # - type: url

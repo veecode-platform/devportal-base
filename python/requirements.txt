@@ -119,6 +119,8 @@ mkdocs-monorepo-plugin==1.1.0
     #   mkdocs-techdocs-core
 mkdocs-techdocs-core==1.4.0
     # via -r requirements.in
+mkdocs-mermaid2-plugin==1.1.1
+    # via -r requirements.in
 packaging==24.1
     # via
     #   -r requirements.in

@@ -16,6 +16,9 @@
 #
 # Copied from RHDH python requirements-build.txt
 #
+# This file is supposed to contain all requirements.txt dependencies
+# and a few more build-time tools
+#
 babel==2.15.0
     # via
     #   -r requirements-build.in
@@ -118,6 +121,8 @@ mkdocs-monorepo-plugin==1.1.0
     #   -r requirements-build.in
     #   mkdocs-techdocs-core
 mkdocs-techdocs-core==1.4.0
+    # via -r requirements-build.in
+mkdocs-mermaid2-plugin==1.1.1
     # via -r requirements-build.in
 packaging==24.1
     # via

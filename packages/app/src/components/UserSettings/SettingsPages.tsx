@@ -37,7 +37,7 @@ import {
 import Star from '@mui/icons-material/Star';
 import { ProviderSetting } from '@red-hat-developer-hub/plugin-utils';
 
-import { oidcAuthApiRef } from '../../apis';
+import { oidcAuthApiRef } from '../../api/AuthApiRefs';
 import { GeneralPage } from './GeneralPage';
 import { UserNotificationSettingsCard } from '@backstage/plugin-notifications';
 

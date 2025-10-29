@@ -25,7 +25,7 @@
 #
 
 # FROM node:22-bookworm-slim
-FROM registry.redhat.io/ubi9/nodejs-22:9.6-1760386551
+FROM registry.redhat.io/ubi9/nodejs-22:9.6-1761625559
 
 USER root
 
@@ -52,7 +52,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     cd /opt/python/ && \
     set -e; \
     pip install --upgrade pip setuptools pyyaml; \
-    pip install -r requirements.txt -r requirements-build.txt; mkdocs --version
+    pip install -r requirements.txt; mkdocs --version
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
