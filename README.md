@@ -23,7 +23,13 @@ The repository is structured for local development with a Node runtime, but it a
 If you just want to see a running container, you can use the following command:
 
 ```sh
-docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.23
+docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.25
+```
+
+Or, it you want to run it interactively with pretty logs:
+
+```sh
+docker run --rm -ti -p 7007:7007 -e NODE_ENV=development veecode/devportal-base:1.1.25
 ```
 
 And open `http://localhost:7007` in your browser. It will open a barebones DevPortal instance, with just a sample catalog and a few basic plugins enabled. This image is **not** a full Backstage distro, but a minimal one used as starting point to build a real distro and to validate the core set of DevPortal plugins.
@@ -34,15 +40,29 @@ We have shipped a few auth providers with this image, but the most common is the
 
 ```sh
 docker run --name devportal -d -p 7007:7007 \
+  -e VEECODE_PROFILE=github \
   --env GITHUB_CLIENT_ID \
   --env GITHUB_CLIENT_SECRET \
   --env GITHUB_ORG \
   --env GITHUB_APP_ID \
   --env GITHUB_PRIVATE_KEY \
-  veecode/devportal-base:1.1.23
+  veecode/devportal-base:1.1.25
 ```
 
 Providing the environment variables above will enable GitHub login and populate the catalog with your GitHub organization.
+Check our documentation on [GitHub Authentication](https://docs.platform.vee.codes/devportal/integrations/GitHub/github-auth) for more details.
+
+### Understand Start Behavior
+
+The container start script (CMD) merges the app-config files provided by the image in the following order:
+
+- app-config.yaml
+- app-config.production.yaml
+- app-config.dynamic-plugins.yaml
+
+If provided, VEECODE_PROFILE will be used to load the app-config.{profile}.yaml file (allowed values are "github" and "local").
+
+You can use mounts and env vars at will to override configs at your will. The bundled configs and start scripts are just convenient examples and can be changed or discarded.
 
 ## Quick Links
 
@@ -64,7 +84,7 @@ Several other app-config examples are provided in this repo, so you can merge th
 - `app-config.dynamic-plugins.yaml`: dynamic plugins default configs (required for header/home plugins)
 - `app-config.local.yaml`: local development config (gitignored, so you can use secrets inline)
 - `app-config.github.yaml`: github auth config (relies on env vars)
-- `app-config.production.yaml`: "production" (in-container) config
+- `app-config.production.yaml`: "production" (in-container) config and paths
 
 ### Build and run
 

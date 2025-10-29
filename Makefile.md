@@ -2,10 +2,12 @@
 
 make full
 
-# Individual Commands
+## Individual Commands
 
+```sh
 make clean
 make tsc
 make export-dynamic
 make copy-dynamic-plugins
 make check-dynamic-plugins
+```

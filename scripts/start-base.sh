@@ -10,6 +10,12 @@ if [ "$VEECODE_PROFILE" = "github" ]; then
   CONFIGS="$CONFIGS --config app-config.github.yaml"
 fi
 
+# Conditionally add app-config.github.yaml if ENABLE_GITHUB_CONFIG is set
+if [ "$VEECODE_PROFILE" = "local" ]; then
+  echo "Loading Local configuration..."
+  CONFIGS="$CONFIGS --config app-config.local.yaml"
+fi
+
 # You can add more conditional configs here
 # Example: if [ -n "$ENABLE_CUSTOM_CONFIG" ]; then
 #   CONFIGS="$CONFIGS --config app-config.custom.yaml"
