@@ -28,22 +28,6 @@ backend:
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
 
-# will merge with main file, both guest and github will be available
-auth:
-  # repeat environment from main file
-  environment: development
-  # now the new provider (will add to main file)
-  providers:
-    github:
-      development:
-        clientId: ${GITHUB_CLIENT_ID}
-        clientSecret: ${GITHUB_CLIENT_SECRET}
-        signIn:
-          resolvers:
-            - resolver: usernameMatchingUserEntityName
-            - resolver: emailMatchingUserEntityProfileEmail
-            - resolver: emailLocalPartMatchingUserEntityName
-
 catalog:
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`

@@ -23,7 +23,7 @@ The repository is structured for local development with a Node runtime, but it a
 If you just want to see a running container, you can use the following command:
 
 ```sh
-docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.21
+docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.23
 ```
 
 And open `http://localhost:7007` in your browser. It will open a barebones DevPortal instance, with just a sample catalog and a few basic plugins enabled. This image is **not** a full Backstage distro, but a minimal one used as starting point to build a real distro and to validate the core set of DevPortal plugins.
@@ -39,7 +39,7 @@ docker run --name devportal -d -p 7007:7007 \
   --env GITHUB_ORG \
   --env GITHUB_APP_ID \
   --env GITHUB_PRIVATE_KEY \
-  veecode/devportal-base:1.1.21
+  veecode/devportal-base:1.1.23
 ```
 
 Providing the environment variables above will enable GitHub login and populate the catalog with your GitHub organization.

@@ -35,6 +35,14 @@ jobs:
             echo "ERROR: tag commit is not on main." >&2
             exit 1
           fi
+      - name: Ensure tag equals package version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="${GITHUB_REF#refs/tags/}"
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "ERROR: tag does not match package version." >&2
+            exit 1
+          fi
 
   build:
     needs: validate-tag
