@@ -89,7 +89,6 @@ import {
 } from '@backstage/plugin-techdocs';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { Mermaid } from 'backstage-plugin-techdocs-addon-mermaid';
-import { RbacPage } from '@backstage-community/plugin-rbac';
 
 const createApiDocsCustomColumns = (): TableColumn<CatalogTableRow>[] => {
   const nameColumn = CatalogTable.columns.createNameColumn({
@@ -292,7 +291,7 @@ const AppBase = () => {
                 }
               />
               
-              <Route path="/rbac" element={<RbacPage />} />;
+              {/* <Route path="/rbac" element={<RbacPage />} />; */}
               {dynamicRoutes.map(
                 ({ Component, staticJSXContent, path, config: { props } }) => {
                   return (

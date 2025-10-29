@@ -42,18 +42,12 @@ const baseFrontendConfig = {
           appIcons: [
             { name: 'pluginsInfoIcon', importName: 'PluginsInfoIcon' },
             { name: 'adminIcon', importName: 'AdminIcon' },
-            { name: 'rbacIcon', importName: 'RbacIcon' },
           ],
           dynamicRoutes: [
             {
               path: '/extensions',
               importName: 'DynamicPluginsInfoPage',
               menuItem: { text: 'Plugins', icon: 'pluginsInfoIcon' },
-            },
-            {
-              path: '/rbac',
-              importName: 'RbacPage',
-              menuItem: { text: 'RBAC', icon: 'rbacIcon' },
             },
           ],
           mountPoints: [
@@ -78,11 +72,6 @@ const baseFrontendConfig = {
               titleKey: 'menuItem.extensions',
               icon: 'pluginsInfoIcon',
             },
-            rbac:{
-              parent: 'admin',
-              title: 'RBAC',
-              icon: 'rbacIcon',
-            }
           },
         },
       },

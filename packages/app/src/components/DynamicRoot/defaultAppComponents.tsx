@@ -18,15 +18,23 @@
  */
 
 import { AppComponents } from '@backstage/core-plugin-api';
+import { BrowserRouter } from 'react-router-dom';
 
 import { NotFoundErrorPage } from '../ErrorPages/NotFoundErrorPage';
 // import { VeeCodeSignInPage } from '../VeeCodeSignInPage';
 import { SignInPage } from '../SignInPage/SignInPage';
 
+const Router = (props: any) => (
+  <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    {props.children}
+  </BrowserRouter>
+);
+
 const defaultAppComponents: Partial<AppComponents> = {
   // SignInPage: props => <VeeCodeSignInPage {...props} />,
   SignInPage: props => <SignInPage {...props} />,
   NotFoundErrorPage: props => <NotFoundErrorPage {...props} />,
+  Router: props => <Router {...props} />,
 };
 
 export default defaultAppComponents;

@@ -21,6 +21,27 @@ dynamicPlugins:
     #         label: 'Git'
     #         toolTip: 'Github'
     #         to: https://github.com/redhat-developer/rhdh-plugins
+    backstage-community.plugin-rbac:
+      dynamicRoutes:
+        - path: /rbac
+          importName: RbacPage
+          menuItem:
+            text: RBAC
+            textKey: menuItem.rbac
+            icon: admin
+          config:
+            props:
+              width: 1500
+              height: 800
+      appIcons:
+        - name: admin
+          importName: RbacIcon
+      menuItems:
+        rbac:
+          parent: admin
+          title: RBAC
+          titleKey: menuItem.rbac
+          icon: admin
     veecode-platform.plugin-veecode-homepage:
       translationResources:
         - importName: homepageTranslations
@@ -113,8 +134,6 @@ dynamicPlugins:
         #       icon: add
         #       to: create
     backstage-community.plugin-tech-radar:
-      apiFactories:
-        - importName: TechRadarApi
       appIcons:
         - name: techRadar
           importName: TechRadarIcon

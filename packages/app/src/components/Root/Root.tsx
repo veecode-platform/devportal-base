@@ -239,7 +239,11 @@ const ExpandableMenuList: React.FC<ExpandableMenuListProps> = ({
   return (
     <Collapse in={isOpen} timeout="auto" unmountOnExit>
       <List disablePadding sx={sx}>
-        {menuItems.map(item => renderItem(item))}
+        {menuItems.map(item => (
+          <React.Fragment key={item.name}>
+            {renderItem(item)}
+          </React.Fragment>
+        ))}
       </List>
     </Collapse>
   );
@@ -572,7 +576,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => {
                 text={t('menuItem.notifications', {})}
                 webNotificationsEnabled // Enables WebNotification API
                 titleCounterEnabled     // Enables counter in page title
-                snackbarProps={{ enabled: true }} // Disables/enables snackbar notifications
               />
               {/* End global nav */}
               <SidebarScrollWrapper>
