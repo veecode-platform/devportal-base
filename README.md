@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Backstage](https://img.shields.io/badge/Backstage-Latest-9BF0E1?logo=backstage)
-![Docker](https://img.shields.io/badge/docker-TBD-blue?logo=docker)
+![Docker](https://img.shields.io/docker/v/veecode/devportal-base?label=docker)
 
 VeeCode DevPortal is an open-source [Backstage](https://backstage.io) distribution designed to be production-ready from day one.
 
@@ -11,10 +11,38 @@ This repository provides a lightweight and extensible Backstage distribution wit
 - **Minimal runtime footprint** with fast startup
 - **Dynamic plugin loading** for flexibility and extensibility
 - **Essential static plugins** for core functionality
-- **Preinstalled plugins** ready to enable
+- **Preinstalled plugins** a few dynamic plugins ready to enable
 - **Good defaults** requiring minimal configuration (or none at all)
 
+Important: this repo is a minimal distribution, **not a full Backstage distro**. Check our [VeeCode DevPortal Distro](https://github.com/veecode-platform/devportal-distro) for a full production-ready Backstage distro.
+
 The repository is structured for local development with a Node runtime, but it also helps running containerized builds and helps building a definitive and production-ready container image.
+
+## Quick Start
+
+If you just want to see a running container, you can use the following command:
+
+```sh
+docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.21
+```
+
+And open `http://localhost:7007` in your browser. It will open a barebones DevPortal instance, with just a sample catalog and a few basic plugins enabled. This image is **not** a full Backstage distro, but a minimal one used as starting point to build a real distro and to validate the core set of DevPortal plugins.
+
+### Enabling GitHub Login
+
+We have shipped a few auth providers with this image, but the most common is the GitHub auth provider. To enable it, you need to set a few extra environment variables:
+
+```sh
+docker run --name devportal -d -p 7007:7007 \
+  --env GITHUB_CLIENT_ID \
+  --env GITHUB_CLIENT_SECRET \
+  --env GITHUB_ORG \
+  --env GITHUB_APP_ID \
+  --env GITHUB_PRIVATE_KEY \
+  veecode/devportal-base:1.1.21
+```
+
+Providing the environment variables above will enable GitHub login and populate the catalog with your GitHub organization.
 
 ## Quick Links
 
@@ -24,28 +52,19 @@ There are a few sections for later reading if you want some deeper understanding
 - **[Docker Development](docs/DOCKER_DEVELOPMENT.md)** - Explains the current container development options
 - **[Local Docker Build Guide](docker/README.md)** - Building container images locally for development
 
-## Quick Start
-
-If you just want to see a running container, you can use the following command:
-
-```sh
-docker run --name devportal -d -p 7007:7007 veecode/devportal-base:1.1.4
-```
-
-And open `http://localhost:7007` in your browser. It will open a barebones DevPortal instance, with just a sample catalog and a few basic plugins enabled. **This is not a full Backstage distro, but a minimal one.**
-
 ## Local development
 
-### Copy app-config examples
+### Understanding app-config files
 
-Some app-config examples are provided in the `app-config.local.template.yaml` and `app-config.dynamic-plugins.local.template.yaml` files. You can copy them to their proper places and edit them at will.
+The main config file for DevPortal is `app-config.yaml`. It contains the default configuration for the application with minimal settings.
 
-```sh
-cp app-config.local.template.yaml app-config.local.yaml
-cp app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.local.yaml
-```
+Several other app-config examples are provided in this repo, so you can merge them as you see fit by using an extra `--config` flag for each one.
 
-**Note:** The target files are gitignored to prevent team conflicts, so you can modify them freely.
+- `app-config.yaml`: minimal default config, guest auth enabled as admin user
+- `app-config.dynamic-plugins.yaml`: dynamic plugins default configs (required for header/home plugins)
+- `app-config.local.yaml`: local development config (gitignored, so you can use secrets inline)
+- `app-config.github.yaml`: github auth config (relies on env vars)
+- `app-config.production.yaml`: "production" (in-container) config
 
 ### Build and run
 
@@ -157,17 +176,6 @@ curl -X POST http://localhost:7007/api/notifications/notifications \
 Many code patterns and mechanics in this project are inspired by [Red Hat Developer Hub (RHDH)](https://github.com/redhat-developer/rhdh). Some files have been copied or adapted from RHDH, both manually and with AI assistance, in accordance with its open-source license. We include attribution notices in files derived from RHDH where required. If you find any missing attributions, please let us know so we can correct them.
 
 **Important:** VeeCode DevPortal is **not** a fork of RHDH. It is an independent open-source project that leverages proven patterns and code from RHDH to deliver a production-ready Backstage distribution.
-
-### Temporary fix for better-sqlite3
-
-A root import for `better-sqlite3` has been added to define it globally in package resolutions.
-
-⚠️ **Known issue:** you may need to create a symbolic link to resolve a runtime issue (under investigation):
-
-```sh
-cd node_modules/better-sqlite3/build
-ln -s Release/better_sqlite3.node better_sqlite3.node
-```
 
 ## License
 

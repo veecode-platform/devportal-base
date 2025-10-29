@@ -1,0 +1,50 @@
+# Backstage override configuration for your local development environment
+
+signInPage: github
+
+auth:
+  # repeat environment from main file
+  environment: development
+  # now the new provider (will add to main file)
+  providers:
+    github:
+      development:
+        clientId: ${GITHUB_CLIENT_ID}
+        clientSecret: ${GITHUB_CLIENT_SECRET}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: emailLocalPartMatchingUserEntityName
+
+integrations:
+  github:
+    - host: github.com
+      apps:
+        - appId: ${GITHUB_APP_ID}
+          clientId: ${GITHUB_CLIENT_ID}
+          clientSecret: ${GITHUB_CLIENT_SECRET}
+          privateKey: |
+            ${GITHUB_PRIVATE_KEY}
+          # webhookSecret:
+
+catalog:
+  providers:
+    githubOrg:
+      id: development
+      githubUrl: https://github.com
+      orgs:
+        - "${GITHUB_ORG}"
+      schedule:
+        frequency:
+          minutes: 5
+        timeout:
+          minutes: 3
+    github:
+      development:
+        organization: "${GITHUB_ORG}"
+        schedule:
+          frequency:
+            minutes: 5
+          timeout:
+            minutes: 3

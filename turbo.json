@@ -4,10 +4,17 @@
     "YARN_ENABLE_GLOBAL_CACHE",
     "YARN_ENABLE_IMMUTABLE_CACHE",
     "YARN_ENABLE_MIRROR",
-    "YARN_GLOBAL_FOLDER"
+    "YARN_GLOBAL_FOLDER",
+    "GITHUB_CLIENT_ID",
+    "GITHUB_CLIENT_SECRET",
+    "GITHUB_APP_ID",
+    "GITHUB_PRIVATE_KEY",
+    "GITHUB_ORG"
   ],
   "globalDependencies": [
+    "app-config.yaml",
     "app-config.dynamic-plugins.yaml",
+    "app-config.github.yaml",
     "dynamic-plugins.default.yaml"
   ],
   "tasks": {

@@ -139,6 +139,8 @@ backend.add(
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 // TODO: Probably we should now provide this as a dynamic plugin
 backend.add(import('@backstage/plugin-catalog-backend-module-openapi'));
+backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
+backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 
 // scaffolder plugin
 backend.add(import('@backstage/plugin-scaffolder-backend'));

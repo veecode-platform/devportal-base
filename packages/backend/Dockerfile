@@ -128,8 +128,11 @@ RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
 # dynamic plugin processing
 COPY --chown=default:default dynamic-plugins-docker dynamic-plugins-root
-#COPY --chown=default:default app-config.dynamic-plugins.local.template.yaml app-config.dynamic-plugins.yaml
+
+# start script
+COPY --chown=default:default --chmod=755 scripts/start-base.sh ./
 
 # runs:
 # node packages/backend --config app-config.yaml --config app-config.production.yaml --config app-config.dynamic-plugins.yaml
-CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml", "--config", "app-config.dynamic-plugins.yaml"]
+# CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml", "--config", "app-config.dynamic-plugins.yaml"]
+CMD ["/app/start-base.sh"]
