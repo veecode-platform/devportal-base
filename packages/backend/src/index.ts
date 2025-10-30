@@ -146,20 +146,15 @@ backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 backend.add(import('@backstage/plugin-scaffolder-backend'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-notifications'));
-backend.add(
-   import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
-);
+backend.add(import('@backstage-community/plugin-scaffolder-backend-module-annotator'));
 backend.add(import('@roadiehq/scaffolder-backend-module-utils'));
 backend.add(import('@roadiehq/scaffolder-backend-module-http-request'));
 backend.add(import('@roadiehq/scaffolder-backend-module-aws'));
-backend.add(
-  import('@backstage-community/plugin-scaffolder-backend-module-sonarqube'),
-);
-backend.add(
-  import('@roadiehq/scaffolder-backend-argocd'),
-);
+backend.add(import('@backstage-community/plugin-scaffolder-backend-module-sonarqube'));
+backend.add(import('@roadiehq/scaffolder-backend-argocd'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-azure'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-gitlab'));
+backend.add(import('@backstage-community/plugin-scaffolder-backend-module-azure-devops'));
 
 // techdocs plugin
 backend.add(import('@backstage/plugin-techdocs-backend'));
