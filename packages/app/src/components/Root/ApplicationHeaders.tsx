@@ -54,8 +54,7 @@ export const ApplicationHeaders = ({ position }: { position: Position }) => {
   }, [mountPoints, position]);
 
   return appHeaderMountPoints.map(({ Component, config }, index) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <ErrorBoundary key={index}>
+    <ErrorBoundary key={`${Component.displayName || 'Component'}-${index}`}>
       <Component
         position={position}
         {...config?.props}

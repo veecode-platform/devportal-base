@@ -94,7 +94,7 @@ const DynamicProviderSettings = ({
         />
       )}
       {providerSettings.map(({ title, description, provider }) => (
-        <ErrorBoundary>
+        <ErrorBoundary key={provider}>
           <DynamicProviderSettingsItem
             title={title}
             description={description}

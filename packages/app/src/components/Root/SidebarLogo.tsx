@@ -17,7 +17,8 @@
  * limitations under the License.
  */
 
-import { Link, useSidebarOpenState } from '@backstage/core-components';
+import { Link as RouterLink } from 'react-router-dom';
+import { useSidebarOpenState } from '@backstage/core-components';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
 
 import { makeStyles } from 'tss-react/mui';
@@ -106,7 +107,7 @@ export const SidebarLogo = () => {
 
   return (
     <div className={classes.sidebarLogo}>
-      <Link to="/" underline="none" aria-label="Home">
+      <RouterLink to="/" style={{ textDecoration: 'none' }} aria-label="Home">
         {isOpen ? (
           <LogoRender
             base64Logo={logoFullBase64URI}
@@ -120,7 +121,7 @@ export const SidebarLogo = () => {
             width={28}
           />
         )}
-      </Link>
+      </RouterLink>
     </div>
   );
 };

@@ -67,8 +67,7 @@ export const ApplicationListener = () => {
   return listeners.map(({ Component }, index) => {
     return (
       <ErrorBoundary
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
+        key={`${Component.displayName || Component.name || 'Component'}-${index}`}
         Component={Component}
       />
     );
