@@ -25,7 +25,7 @@ import { NotFoundErrorPage } from '../ErrorPages/NotFoundErrorPage';
 import { SignInPage } from '../SignInPage/SignInPage';
 
 const Router = (props: any) => (
-  <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+  <BrowserRouter future={{ v7_startTransition: true }}>
     {props.children}
   </BrowserRouter>
 );

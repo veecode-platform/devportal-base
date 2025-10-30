@@ -130,7 +130,11 @@ catalog:
       target: ../../examples/entities.yaml
     # Local example template
     - type: file
-      target: ../../examples/template/template.yaml
+      target: ../../examples/template-nodejs/template.yaml
+      rules:
+        - allow: [Template]
+    - type: file
+      target: ../../examples/template-openapi/template.yaml
       rules:
         - allow: [Template]
     # Local example organizational data
@@ -152,7 +156,7 @@ catalog:
       target: ../../examples/techdocs/catalog-info.yaml
     # Template documentation
     - type: file
-      target: ../../examples/template/catalog-info.yaml
+      target: ../../examples/template-nodejs/catalog-info.yaml
 
     ## Uncomment these lines to add more example data
     # - type: url
