@@ -157,6 +157,8 @@ catalog:
     # Template documentation
     - type: file
       target: ../../examples/template-nodejs/catalog-info.yaml
+    - type: file
+      target: ../../examples/template-openapi/catalog-info.yaml
 
     ## Uncomment these lines to add more example data
     # - type: url
@@ -195,6 +197,9 @@ techRadar:
 platform:
   guest:
     enabled: true
+# bug from jenkins scaffolder plugin
+jenkins:
+  baseUrl: http://localhost:8080 # anything
 
 dynamicPlugins:
   rootDirectory: dynamic-plugins-root
