@@ -19122,6 +19122,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@veecode-platform/plugin-scaffolder-backend-module-kong@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@veecode-platform/plugin-scaffolder-backend-module-kong@npm:0.1.0"
+  peerDependencies:
+    "@backstage/backend-plugin-api": ^1.4.4
+    "@backstage/plugin-scaffolder-node": ^0.12.0
+  checksum: 10c0/a4f547df5e3e6b6f89e3b894ebc3e4e68d138d9c37920f8bc6a47ce56d1abac4e37fb3b6d4bca369b3408f79e0f9bb03aaa6a784ff7887cd4dc4c29fe4ae8602
+  languageName: node
+  linkType: hard
+
 "@veecode-platform/veecode-scaffolder-extensions@npm:^0.5.0":
   version: 0.5.0
   resolution: "@veecode-platform/veecode-scaffolder-extensions@npm:0.5.0"
@@ -20646,6 +20656,7 @@ __metadata:
     "@roadiehq/scaffolder-backend-module-http-request": "npm:^5.4.2"
     "@roadiehq/scaffolder-backend-module-utils": "npm:^4.0.4"
     "@types/global-agent": "npm:^3"
+    "@veecode-platform/plugin-scaffolder-backend-module-kong": "npm:^0.1.0"
     app: "link:../app"
     better-sqlite3: "npm:^12.0.0"
     global-agent: "npm:^3.0.0"

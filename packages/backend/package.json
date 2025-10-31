@@ -74,6 +74,7 @@
     "@roadiehq/scaffolder-backend-module-aws": "^2.7.1",
     "@roadiehq/scaffolder-backend-module-http-request": "^5.4.2",
     "@roadiehq/scaffolder-backend-module-utils": "^4.0.4",
+    "@veecode-platform/plugin-scaffolder-backend-module-kong": "^0.1.0",
     "app": "link:../app",
     "better-sqlite3": "^12.0.0",
     "global-agent": "^3.0.0",

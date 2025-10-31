@@ -163,6 +163,10 @@ curl -H "Authorization: Bearer $USER_TOKEN" \
 curl -H "Authorization: Bearer $USER_TOKEN" \
   http://localhost:7007/api/catalog/entities\?filter\=kind\=Component
 
+# list all scaffolder actions
+curl -H "Authorization: Bearer $USER_TOKEN" \
+  http://localhost:7007/api/scaffolder/v2/actions
+
 # healthcheck (no auth)
 curl -vvv http://localhost:7007/healthcheck
 

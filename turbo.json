@@ -11,7 +11,8 @@
     "GITHUB_PRIVATE_KEY",
     "GITHUB_ORG",
     "VIRTUAL_ENV",
-    "VIRTUAL_ENV_PROMPT_PROMPT"
+    "VIRTUAL_ENV_PROMPT_PROMPT",
+    "DECK_KONG_ADDR"
   ],
   "globalDependencies": [
     "app-config.yaml",

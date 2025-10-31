@@ -156,6 +156,7 @@ backend.add(import('@backstage/plugin-scaffolder-backend-module-azure'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-gitlab'));
 backend.add(import('@backstage-community/plugin-scaffolder-backend-module-azure-devops'));
 backend.add(import('@backstage-community/plugin-scaffolder-backend-module-jenkins'));
+backend.add(import('@veecode-platform/plugin-scaffolder-backend-module-kong'));
 
 // techdocs plugin
 backend.add(import('@backstage/plugin-techdocs-backend'));
