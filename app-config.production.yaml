@@ -30,9 +30,13 @@ catalog:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: /app/examples/entities.yaml
-    # Local example template
+    # Local example templates
     - type: file
-      target: /app/examples/template/template.yaml
+      target: /app/examples/template-nodejs/template.yaml
+      rules:
+        - allow: [Template]
+    - type: file
+      target: /app/examples/template-openapi/template.yaml
       rules:
         - allow: [Template]
     # Local example organizational data
@@ -49,6 +53,13 @@ catalog:
     # Local example clusters
     - type: file
       target: /app/examples/clusters.yaml
+    # Local example techdocs documentation
+    - type: file
+      target: /app/examples/techdocs/catalog-info.yaml
+    - type: file
+      target: /app/examples/template-nodejs/catalog-info.yaml
+    - type: file
+      target: /app/examples/template-openapi/catalog-info.yaml
 
 permission:
   rbac:
