@@ -46,11 +46,27 @@ docker run --name devportal -d -p 7007:7007 \
   --env GITHUB_ORG \
   --env GITHUB_APP_ID \
   --env GITHUB_PRIVATE_KEY \
-  veecode/devportal-base:1.1.25
+  veecode/devportal-base:latest
 ```
 
-Providing the environment variables above will enable GitHub login and populate the catalog with your GitHub organization.
-Check our documentation on [GitHub Authentication](https://docs.platform.vee.codes/devportal/integrations/GitHub/github-auth) for more details.
+Providing the environment variables above will enable GitHub login and populate the catalog with your GitHub organization. Check our documentation on [GitHub Authentication](https://docs.platform.vee.codes/devportal/integrations/GitHub/github-auth) for more details.
+
+### Enabling Keycloak Login
+
+We have also shipped a Keycloak auth provider in the base image. To enable it, you need to set a few extra environment variables:
+
+```sh
+docker run --name devportal -d -p 7007:7007 \
+  -e VEECODE_PROFILE=keycloak \
+  --env KEYCLOAK_BASE_URL \
+  --env KEYCLOAK_CLIENT_ID \
+  --env KEYCLOAK_CLIENT_SECRET \
+  --env KEYCLOAK_REALM \
+  --env AUTH_SESSION_SECRET \
+  veecode/devportal-base:latest
+```
+
+Providing the environment variables above will enable GitHub login and populate the catalog with your GitHub organization. Check our documentation on [Keycloak Authentication](https://docs.platform.vee.codes/devportal/integrations/Keycloak/keycloak-auth) for more details.
 
 ### Understand Start Behavior
 
@@ -60,7 +76,7 @@ The container start script (CMD) merges the app-config files provided by the ima
 - app-config.production.yaml
 - app-config.dynamic-plugins.yaml
 
-If provided, VEECODE_PROFILE will be used to load the app-config.{profile}.yaml file (allowed values are "github" and "local").
+If provided, VEECODE_PROFILE will be used to load the app-config.{profile}.yaml file (allowed values are "github", "keycloak" and "local").
 
 You can use mounts and env vars at will to override configs at your will. The bundled configs and start scripts are just convenient examples and can be changed or discarded.
 

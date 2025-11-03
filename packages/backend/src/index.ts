@@ -141,6 +141,7 @@ backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 backend.add(import('@backstage/plugin-catalog-backend-module-openapi'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github'));
+backend.add(import('@backstage-community/plugin-catalog-backend-module-keycloak'));
 
 // scaffolder plugin
 backend.add(import('@backstage/plugin-scaffolder-backend'));

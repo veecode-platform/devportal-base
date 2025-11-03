@@ -1,0 +1,49 @@
+# Backstage override configuration for keycloak auth
+
+signInPage: keycloak
+
+auth:
+  # repeat environment from main file
+  environment: development
+  session:
+    secret: mySuperSecret
+    cookieName: backstage-auth-session
+    sameSite: lax
+    secure: false
+  # now the new provider (will add to main file)
+  providers:
+    oidc:
+      development:
+        metadataUrl: ${KEYCLOAK_BASE_URL}/realms/${KEYCLOAK_REALM}
+        clientId: ${KEYCLOAK_CLIENT_ID}
+        clientSecret: ${KEYCLOAK_CLIENT_SECRET}
+        prompt: auto # or 'login' to force login every time
+        # Optional: customize scopes
+        scope: 'openid profile email'
+        signIn:
+          resolvers:
+            # Try multiple resolvers in order
+            # First: Match Keycloak sub claim to annotation
+            - resolver: oidcSubClaimMatchingKeycloakUserId
+            # Second: Match preferred_username to user entity name
+            - resolver: preferredUsernameMatchingUserEntityName
+            # Third: Match email to user profile email
+            - resolver: emailMatchingUserEntityProfileEmail
+            # Fourth: Match email local part to user entity name
+            - resolver: emailLocalPartMatchingUserEntityName
+catalog:
+  providers:
+    keycloakOrg:
+      default:
+        baseUrl: ${KEYCLOAK_BASE_URL}
+        loginRealm: ${KEYCLOAK_REALM}
+        realm: ${KEYCLOAK_REALM}
+        clientId: ${KEYCLOAK_CLIENT_ID}
+        clientSecret: ${KEYCLOAK_CLIENT_SECRET}
+        schedule:
+          frequency:
+            minutes: 10
+          initialDelay:
+            seconds: 15
+          timeout:
+            minutes: 10
