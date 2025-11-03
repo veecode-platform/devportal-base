@@ -6,8 +6,8 @@ permissions:
 on:
   push:
     tags:
-      - 'v*.*.*'
       - '*.*.*'
+
 env:
   # Ensure BuildKit features (like RUN --mount=type=cache) work
   DOCKER_BUILDKIT: "1"
