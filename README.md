@@ -100,6 +100,7 @@ Several other app-config examples are provided in this repo, so you can merge th
 - `app-config.dynamic-plugins.yaml`: dynamic plugins default configs (required for header/home plugins)
 - `app-config.local.yaml`: local development config (gitignored, so you can use secrets inline)
 - `app-config.github.yaml`: github auth config (relies on env vars)
+- `app-config.keycloak.yaml`: keycloak auth config (relies on env vars)
 - `app-config.production.yaml`: "production" (in-container) config and paths
 
 ### Build and run

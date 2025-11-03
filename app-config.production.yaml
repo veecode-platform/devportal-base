@@ -1,10 +1,7 @@
 app:
   # Should be the same as backend.baseUrl when using the `app-backend` plugin.
-  baseUrl: http://localhost:3000
-  listen:
-    port: 3000
-    # Bind to all interfaces (0.0.0.0) for Docker compatibility
-    host: 0.0.0.0
+  baseUrl: http://localhost:7007
+  listen: {}
 
 backend:
   # Note that the baseUrl should be the URL that the browser and other clients
