@@ -4,13 +4,18 @@ set -e
 # Base configs that are always loaded
 CONFIGS="--config app-config.yaml --config app-config.production.yaml --config app-config.dynamic-plugins.yaml"
 
-# Conditionally add app-config.github.yaml if ENABLE_GITHUB_CONFIG is set
+# Conditionally add app-config.github.yaml
 if [ "$VEECODE_PROFILE" = "github" ]; then
   echo "Loading GitHub configuration..."
   CONFIGS="$CONFIGS --config app-config.github.yaml"
 fi
 
-# Conditionally add app-config.github.yaml if ENABLE_GITHUB_CONFIG is set
+if [ "$VEECODE_PROFILE" = "keycloak" ]; then
+  echo "Loading Keycloak configuration..."
+  CONFIGS="$CONFIGS --config app-config.keycloak.yaml"
+fi
+
+# Conditionally add app-config.local.yaml
 if [ "$VEECODE_PROFILE" = "local" ]; then
   echo "Loading Local configuration..."
   CONFIGS="$CONFIGS --config app-config.local.yaml"
