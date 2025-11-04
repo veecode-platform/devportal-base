@@ -22,8 +22,6 @@ export const InternalPluginsMap: Record<string, string> = {
     './dynamic-plugins/dist/backstage-plugin-scaffolder-backend-module-gitlab-dynamic',
   'backstage-plugin-kubernetes-backend-dynamic':
     './dynamic-plugins/dist/backstage-plugin-kubernetes-backend-dynamic',
-  'backstage-plugin-kubernetes':
-    './dynamic-plugins/dist/backstage-plugin-kubernetes',
   'backstage-community-plugin-topology':
     './dynamic-plugins/dist/backstage-community-plugin-topology',
   'roadiehq-scaffolder-backend-argocd-dynamic':

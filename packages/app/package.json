@@ -37,7 +37,6 @@
     "@backstage/plugin-catalog-react": "^1.21.2",
     "@backstage/plugin-catalog-unprocessed-entities": "^0.2.22",
     "@backstage/plugin-home": "^0.8.13",
-    "@backstage/plugin-kubernetes": "^0.12.12",
     "@backstage/plugin-notifications": "^0.5.10",
     "@backstage/plugin-org": "^0.6.45",
     "@backstage/plugin-permission-react": "^0.4.37",

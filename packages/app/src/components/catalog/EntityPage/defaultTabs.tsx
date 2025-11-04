@@ -27,8 +27,6 @@ import { DependenciesTabContent } from './DependenciesTabContent';
 import { DiagramTabContent } from './DiagramTabContent';
 import { DynamicEntityTabProps } from './DynamicEntityTab';
 import { OverviewTabContent } from './OverviewTabContent';
-import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
-import Grid from '../Grid';
 
 /**
  * The default set of entity tabs in the default order
@@ -60,10 +58,6 @@ export const defaultTabs: Record<
   '/cd': {
     title: 'CD',
     mountPoint: 'entity.page.cd',
-  },
-  '/kubernetes': {
-    title: 'Kubernetes',
-    mountPoint: 'entity.page.kubernetes',
   },
   '/image-registry': {
     title: 'Image Registry',
@@ -119,9 +113,6 @@ export const tabRules: Record<
   '/system': {
     if: isKind('system'),
   },
-  '/kubernetes': {
-    if: isKind('cluster')
-  }
 };
 
 /**
@@ -145,10 +136,5 @@ export const tabChildren: Record<
   },
   '/system': {
     children: <DiagramTabContent />,
-  },
-  '/kubernetes': {
-    children: <Grid item sx={{ gridColumn: '1 / -1' }}>
-      <EntityKubernetesContent refreshIntervalMs={30000} />
-    </Grid>
   }
 };
