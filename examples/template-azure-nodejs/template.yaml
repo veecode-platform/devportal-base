@@ -2,10 +2,10 @@ apiVersion: scaffolder.backstage.io/v1beta3
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-template
 kind: Template
 metadata:
-  name: example-nodejs-template
-  title: Example Node.js Template
+  name: example-azure-nodejs-template
+  title: Example Node.js Template (Azure)
   description: An example template for the scaffolder that creates a simple Node.js service
-  tags: [github]
+  tags: [azure]
 spec:
   #owner: user:guest
   owner: admins
@@ -35,7 +35,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - github.com
+              - dev.azure.com
             allowedOwners:
               - veecode-demos
 
@@ -51,12 +51,12 @@ spec:
         values:
           name: ${{ parameters.name }}
 
-    # This step publishes the contents of the working directory to GitHub.
+    # This step publishes the contents of the working directory to Azure DevOps.
     # If you or your organization prefer another default branch name over 'main'
     # you can change that here.
     - id: publish
       name: Publish
-      action: publish:github
+      action: publish:azure
       input:
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}

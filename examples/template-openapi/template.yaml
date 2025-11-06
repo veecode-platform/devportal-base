@@ -4,7 +4,7 @@ metadata:
   name: kong-gateway-from-openapi
   title: Kong Gateway from OpenAPI
   description: "Scaffold a repo that generates Kong Services/Routes from an OpenAPI spec using decK, and syncs to Kong."
-  tags: [kong, deck, openapi, gateway, k8s, kic, gitops]
+  tags: [kong, deck, openapi, github]
 spec:
   owner: group:default/admins
   type: service

@@ -29,10 +29,10 @@ integrations:
   azure:
     - host: dev.azure.com
       credentials:
-        #- personalAccessToken: ${AZURE_TOKEN}
-        - clientId: "${AZURE_CLIENT_ID}"
-          clientSecret: "${AZURE_CLIENT_SECRET}"
-          tenantId: "${AZURE_TENANT_ID}"
+        - personalAccessToken: ${AZURE_TOKEN}
+        # - clientId: "${AZURE_CLIENT_ID}"
+        #   clientSecret: "${AZURE_CLIENT_SECRET}"
+        #   tenantId: "${AZURE_TENANT_ID}"
 
 catalog:
   providers:

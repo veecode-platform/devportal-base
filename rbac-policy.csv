@@ -44,5 +44,6 @@ p, role:default/viewer, scaffolder-template, read, allow
 p, role:default/viewer, scaffolder.template.parameter.read, read, allow
 
 g, group:default/admins, role:default/admin
+g, group:default/backstage-admins, role:default/admin
 g, group:default/developers, role:default/developer
 g, user:default/admin, role:default/admin

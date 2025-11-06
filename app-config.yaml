@@ -137,6 +137,10 @@ catalog:
       target: ../../examples/template-openapi/template.yaml
       rules:
         - allow: [Template]
+    - type: file
+      target: ../../examples/template-azure-nodejs/template.yaml
+      rules:
+        - allow: [Template]
     # Local example organizational data
     - type: file
       target: ../../examples/org.yaml
@@ -187,8 +191,10 @@ permission:
     admin:
       users:
         - name: group:default/admins
+        - name: group:default/backstage-admins
       superUsers:
         - name: group:default/admins
+        - name: group:default/backstage-admins
 # tech radar backend plugin
 techRadar:
   url: https://github.com/backstage/community-plugins/blob/main/workspaces/tech-radar/plugins/tech-radar-common/src/sampleTechRadarResponse.json
