@@ -7,46 +7,42 @@ import {
   useApi,
 } from '@backstage/core-plugin-api';
 
-import { githubProvider, gitlabProvider, keycloakProvider } from '../../api';
 import { SignInPage } from './SigninPage';
+import { createProviders } from '../SignInPage/SignInPage';
+import { useTranslation } from '../../hooks/useTranslation';
 
 export const VeeCodeSignInPage: any = (props: SignInPageProps) => {
   const config = useApi(configApiRef);
+  const { t } = useTranslation();
   console.log('VeeCodeSignInPage');
   console.log(config);
   const guest = config.getBoolean('platform.guest.enabled');
   const signInProviders = config.getStringArray('platform.signInProviders');
   const demoGuest = config.getOptionalBoolean('platform.guest.demo');
-  const providers: Array<
-    typeof githubProvider | typeof keycloakProvider | typeof gitlabProvider
-  > = [];
+  
+  // Get all available providers using the new createProviders function
+  const allProviders = createProviders(t);
+  
+  // Filter providers based on configuration
+  const configuredProviders: Array<any> = [];
   if (signInProviders && signInProviders.length > 0) {
     signInProviders.forEach(provider => {
-      if (provider === 'keycloak') {
-        providers.push(keycloakProvider);
-      } else if (provider === 'github') {
-        providers.push(githubProvider);
-      } else if (provider === 'gitlab') {
-        providers.push(gitlabProvider);
+      const providerConfig = allProviders.get(provider);
+      if (providerConfig) {
+        configuredProviders.push(providerConfig);
       }
     });
   }
 
-  let signInProvidersList: (
-    | 'guest'
-    | 'custom'
-    | typeof githubProvider
-    | typeof keycloakProvider
-    | typeof gitlabProvider
-  )[] = [];
+  let signInProvidersList: any[] = [];
   if (guest) {
     if (demoGuest) {
-      signInProvidersList = [...providers, 'guest'];
+      signInProvidersList = [...configuredProviders, 'guest'];
     } else {
       signInProvidersList = ['guest'];
     }
   } else {
-    signInProvidersList = providers;
+    signInProvidersList = configuredProviders;
   }
 
   return (

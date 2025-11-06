@@ -66,7 +66,7 @@ const PROVIDERS = new Map<string, SignInProviderConfig | string>([
  * SignInProviderConfig - Local sign-in provider configuration.
  * string - Proxy sign-in provider configuration.
  *  */
-const createProviders = (t: (key: string, params?: any) => string) =>
+export const createProviders = (t: (key: string, params?: any) => string) =>
   new Map<string, SignInProviderConfig | string>([
     [
       'github',
