@@ -37,14 +37,16 @@ integrations:
 catalog:
   providers:
     # discovery
+    # YOU MUST INSTALL CODE SEARCH EXTENSION IN AZURE DEVOPS ORG
     azureDevOps:
       microsoft:
         organization: "${AZURE_ORGANIZATION}"
         project: "${AZURE_PROJECT}"
-        path: /catalog-info.yaml
+        repository: "*"
+        path: "/catalog-info.yaml"
         schedule:
           frequency:
-            minutes: 10
+            minutes: 2
           initialDelay:
             seconds: 15
           timeout:
