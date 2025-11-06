@@ -39,6 +39,10 @@ catalog:
       target: /app/examples/template-openapi/template.yaml
       rules:
         - allow: [Template]
+    - type: file
+      target: /app/examples/template-azure-nodejs/template.yaml
+      rules:
+        - allow: [Template]
     # Local example organizational data
     - type: file
       target: /app/examples/org.yaml

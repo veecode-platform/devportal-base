@@ -80,6 +80,7 @@ docker run --name devportal -d -p 7007:7007 \
   --env AZURE_TENANT_ID \
   --env AZURE_ORGANIZATION \
   --env AZURE_PROJECT \
+  --env AZURE_TOKEN \
   --env AUTH_SESSION_SECRET \
   veecode/devportal-base:latest
 ```
