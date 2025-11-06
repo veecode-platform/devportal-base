@@ -116,6 +116,15 @@ The Azure DevOps catalog provider will synchronize:
 
 Note: You may disable the catalog provider and configure users and groups "manually" in catalog files if you prefer.
 
+## More on Catalog Sync
+
+There are probably a few more things to configure, but this is a good starting point.
+
+- Some settings may be incomplete, specially regarding the Entra Application registration
+ and permissions.
+- You can always fall back to a PAT token in the integration settings if you prefer.
+- Repository sync also depends on "Code Search" extension to be configured in the organization.
+
 ## Additional Resources
 
 - [Backstage Microsoft Auth Provider Documentation](https://backstage.io/docs/auth/microsoft/provider)
@@ -133,3 +142,5 @@ All these plugins are currently statically loaded, this list is just informative
   - Plugin @backstage/plugin-catalog-backend-module-azure
 - [Microsoft Graph Org Catalog Provider](https://backstage.io/docs/integrations/azure/org)
   - Plugin @backstage/plugin-catalog-backend-module-msgraph
+- [Azure DevOps Scaffolder Actions](https://www.npmjs.com/package/@backstage-community/plugin-scaffolder-backend-module-azure-devops)
+  - Plugin @backstage-community/plugin-scaffolder-backend-module-azure-devops

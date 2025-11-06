@@ -143,6 +143,7 @@ backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
 backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
+backend.add(import('@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor'));
 backend.add(import('@backstage-community/plugin-catalog-backend-module-keycloak'));
 
 // scaffolder plugin
