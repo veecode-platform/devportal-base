@@ -15,6 +15,11 @@ if [ "$VEECODE_PROFILE" = "keycloak" ]; then
   CONFIGS="$CONFIGS --config app-config.keycloak.yaml"
 fi
 
+if [ "$VEECODE_PROFILE" = "azure" ]; then
+  echo "Loading Azure configuration..."
+  CONFIGS="$CONFIGS --config app-config.azure.yaml"
+fi
+
 # Conditionally add app-config.local.yaml
 if [ "$VEECODE_PROFILE" = "local" ]; then
   echo "Loading Local configuration..."

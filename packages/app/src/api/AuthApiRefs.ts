@@ -19,9 +19,9 @@ import {
   BackstageIdentityApi,
   configApiRef,
   createApiRef,
-  githubAuthApiRef,
-  gitlabAuthApiRef,
-  microsoftAuthApiRef,
+  // githubAuthApiRef,
+  // gitlabAuthApiRef,
+  // microsoftAuthApiRef,
   OpenIdConnectApi,
   ProfileInfoApi,
   SessionApi,
@@ -45,13 +45,13 @@ export const samlAuthApiRef: ApiRef<
   id: 'auth.saml-provider',
 });
 
-export const keycloakProvider = {
-  id: 'keycloak',
-  title: 'Keycloak',
-  message: 'Sign in using Keycloak',
-  apiRef: oidcAuthApiRef,
-  configApiRef: configApiRef,
-};
+// export const keycloakProvider = {
+//   id: 'keycloak',
+//   title: 'Keycloak',
+//   message: 'Sign in using Keycloak',
+//   apiRef: oidcAuthApiRef,
+//   configApiRef: configApiRef,
+// };
 
 export const auth0Provider = {
   id: 'auth0',
@@ -69,26 +69,26 @@ export const samlProvider = {
   configApiRef: configApiRef,
 };
 
-export const githubProvider = {
-  id: 'github-auth-provider',
-  title: 'GitHub',
-  message: 'Sign in using GitHub',
-  apiRef: githubAuthApiRef,
-  configApiRef: configApiRef,
-};
+// export const githubProvider = {
+//   id: 'github-auth-provider',
+//   title: 'GitHub',
+//   message: 'Sign in using GitHub',
+//   apiRef: githubAuthApiRef,
+//   configApiRef: configApiRef,
+// };
 
-export const gitlabProvider = {
-  id: 'gitlab-auth-provider',
-  title: 'Gitlab',
-  message: 'Sign in using Gitlab',
-  apiRef: gitlabAuthApiRef,
-  configApiRef: configApiRef,
-};
+// export const gitlabProvider = {
+//   id: 'gitlab-auth-provider',
+//   title: 'Gitlab',
+//   message: 'Sign in using Gitlab',
+//   apiRef: gitlabAuthApiRef,
+//   configApiRef: configApiRef,
+// };
 
-export const azureProvider = {
-  id: 'microsoft',
-  title: 'Azure',
-  message: 'Sign in using Azure',
-  apiRef: microsoftAuthApiRef,
-  configApiRef: configApiRef,
-};
+// export const azureProvider = {
+//   id: 'microsoft',
+//   title: 'Azure',
+//   message: 'Sign in using Azure',
+//   apiRef: microsoftAuthApiRef,
+//   configApiRef: configApiRef,
+// };

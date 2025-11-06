@@ -12,7 +12,14 @@
     "GITHUB_ORG",
     "VIRTUAL_ENV",
     "VIRTUAL_ENV_PROMPT_PROMPT",
-    "DECK_KONG_ADDR"
+    "DECK_KONG_ADDR",
+    "AZURE_CLIENT_ID",
+    "AZURE_CLIENT_SECRET",
+    "AZURE_TENANT_ID",
+    "AZURE_ORGANIZATION",
+    "AZURE_PROJECT",
+    "AZURE_TOKEN",
+    "AUTH_SESSION_SECRET"
   ],
   "globalDependencies": [
     "app-config.yaml",

@@ -66,10 +66,6 @@ export const rhdhMessages = {
         title: 'Atlassian',
         message: 'Sign in using Atlassian',
       },
-      microsoft: {
-        title: 'Microsoft',
-        message: 'Sign in using Microsoft',
-      },
       bitbucket: {
         title: 'Bitbucket',
         message: 'Sign in using Bitbucket',
@@ -85,6 +81,14 @@ export const rhdhMessages = {
       gitlab: {
         title: 'GitLab',
         message: 'Sign in using GitLab',
+      },
+      keycloak: {
+        title: 'Keycloak',
+        message: 'Sign in using Keycloak',
+      },
+      microsoft: {
+        title: 'Azure',
+        message: 'Sign in using Azure',
       },
       google: {
         title: 'Google',

@@ -1,0 +1,72 @@
+# Backstage override configuration for Azure AD auth
+
+signInPage: microsoft
+
+auth:
+  session:
+    secret: ${AUTH_SESSION_SECRET}
+    cookieName: backstage-auth-session
+    sameSite: lax
+    secure: false
+  # repeat environment from main file
+  environment: development
+  # now the new provider (will add to main file)
+  providers:
+    microsoft:
+      development:
+        clientId: "${AZURE_CLIENT_ID}"
+        clientSecret: "${AZURE_CLIENT_SECRET}"
+        tenantId: "${AZURE_TENANT_ID}"
+        signIn:
+          resolvers:
+            # Try multiple resolvers in order
+            # First: Match email to user profile email
+            - resolver: emailMatchingUserEntityProfileEmail
+            # Second: Match email local part to user entity name
+            - resolver: emailLocalPartMatchingUserEntityName
+
+integrations:
+  azure:
+    - host: dev.azure.com
+      credentials:
+        #- personalAccessToken: ${AZURE_TOKEN}
+        - clientId: "${AZURE_CLIENT_ID}"
+          clientSecret: "${AZURE_CLIENT_SECRET}"
+          tenantId: "${AZURE_TENANT_ID}"
+
+catalog:
+  providers:
+    # discovery
+    azureDevOps:
+      microsoft:
+        organization: "${AZURE_ORGANIZATION}"
+        project: "${AZURE_PROJECT}"
+        path: /catalog-info.yaml
+        schedule:
+          frequency:
+            minutes: 10
+          initialDelay:
+            seconds: 15
+          timeout:
+            minutes: 10
+    # org data
+    microsoftGraphOrg:
+      default:
+        tenantId: ${AZURE_TENANT_ID}
+        user:
+          filter: accountEnabled eq true and userType eq 'member'
+        group:
+          filter: startsWith(displayName,'backstage-')
+          #filter: "securityEnabled eq true"
+          #filter: "securityEnabled eq false and mailEnabled eq true and groupTypes/any(c:c eq 'Unified')"
+        schedule:
+          frequency: PT1H
+          timeout: PT50M
+
+permission:
+  rbac:
+    admin:
+      users:
+        - name: group:default/backstage-admins
+      superUsers:
+        - name: group:default/backstage-admins

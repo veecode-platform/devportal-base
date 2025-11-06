@@ -26,11 +26,12 @@ import {
   configApiRef,
   githubAuthApiRef,
   gitlabAuthApiRef,
+  microsoftAuthApiRef,
   useApi,
   type SignInPageProps,
 } from '@backstage/core-plugin-api';
 
-import { keycloakProvider } from '../../api';
+import { oidcAuthApiRef } from '../../api';
 import { useTranslation } from '../../hooks/useTranslation';
 
 // const DEFAULT_PROVIDER = 'keycloak';
@@ -85,7 +86,24 @@ const createProviders = (t: (key: string, params?: any) => string) =>
         apiRef: gitlabAuthApiRef,
       },
     ],
-    ['keycloak', keycloakProvider],
+    [
+      'microsoft',
+      {
+        id: 'microsoft-auth-provider',
+        title: t('signIn.providers.microsoft.title'),
+        message: t('signIn.providers.microsoft.message'),
+        apiRef: microsoftAuthApiRef,
+      },
+    ],
+    [
+      'keycloak',
+      {
+        id: 'oidc-auth-provider',
+        title: t('signIn.providers.keycloak.title'),
+        message: t('signIn.providers.keycloak.message'),
+        apiRef: oidcAuthApiRef,
+      },
+    ],
   ]);
 
 export function SignInPage(props: SignInPageProps): React.JSX.Element {
