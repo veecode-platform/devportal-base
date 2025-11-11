@@ -52,7 +52,7 @@ full: clean tsc export-dynamic copy-dynamic-plugins check-dynamic-plugins
 
 bump-release-version:
 	@echo "Bump version to release $(NEXT_VERSION)"
-	yq -i -o=json '.version = env(NEXT_VERSION)' package.json
+	NEXT_VERSION=$(NEXT_VERSION) yq -i -o=json '.version = env(NEXT_VERSION)' package.json
 	git add package.json
 
 generate-release-notes:

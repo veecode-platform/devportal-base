@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.46 (2025-11-11)
+* fix: Makefile release (676d051)
+
 ## v1.1.45 (2025-11-11)
 * fix: Makefile release (22930f5)
 ## v1.1.43 (2025-11-11)
