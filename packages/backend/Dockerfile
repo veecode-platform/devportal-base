@@ -53,6 +53,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     set -e; \
     pip install --upgrade pip setuptools pyyaml; \
     pip install -r requirements.txt; mkdocs --version
+# Deck install
+RUN curl -sL https://github.com/kong/deck/releases/download/v1.53.1/deck_1.53.1_linux_amd64.tar.gz -o deck.tar.gz && \
+    tar -xf deck.tar.gz -C /tmp && \
+    cp /tmp/deck /usr/local/bin/ && \
+    chmod +x /usr/local/bin/deck && \
+    rm deck.tar.gz
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
