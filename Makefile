@@ -56,7 +56,7 @@ bump-release-version:
 	git add package.json
 
 generate-release-notes:
-	./scripts/generate-release-notes.sh $(CURRENT_VERSION)
+	./scripts/generate-release-notes.sh $(NEXT_VERSION)
 	git add CHANGELOG.md
 
 push-release-and-tag:
