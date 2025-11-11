@@ -2,6 +2,9 @@
 DYNAMIC_PLUGINS_DIR=dynamic-plugins
 DIST_DIR=$(DYNAMIC_PLUGINS_DIR)/dist
 
+CURRENT_VERSION=$(shell cat package.json | jq -r .version)
+NEXT_VERSION=$(shell echo $(CURRENT_VERSION) | awk -F. '{print $$1"."$$2"."$$3+1}')
+
 # Command aliases
 YARN=yarn
 TURBO=turbo
@@ -46,3 +49,21 @@ check-dynamic-plugins:
 # The 'full' target now implicitly runs 'install' via 'clean' and 'tsc'
 full: clean tsc export-dynamic copy-dynamic-plugins check-dynamic-plugins
 	@echo "✅ Dynamic plugins exported, copied to $(DIST_DIR), and checked."
+
+bump-release-version:
+	@echo "Bump version to release $(NEXT_VERSION)"
+	$(YARN) version -i "$(NEXT_VERSION)"
+	git add package.json
+
+generate-release-notes:
+	./scripts/generate-release-notes.sh $(CURRENT_VERSION)
+	git add CHANGELOG.md
+
+push-release-and-tag:
+	git commit -am "Release version $(NEXT_VERSION)"
+	git push origin main
+	git tag -a $(NEXT_VERSION) -m "$(NEXT_VERSION)"
+	git push origin $(NEXT_VERSION)
+
+release: bump-release-version generate-release-notes push-release-and-tag
+	@echo "✅ Release $(NEXT_VERSION) completed."
