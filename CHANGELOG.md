@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.54 (2025-11-14)
+* release 1.1.54 (5a875c1)
+
 ## v1.1.53 (2025-11-14)
 * fix: @kubernetes/client-node pinned to 1.1.2, newer fails kubeconfig with good CA when self signed (8a22acc)
 
