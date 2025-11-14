@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.55 (2025-11-14)
+* fix: @kubernetes/client-node pinned to 1.4.0, struggling with CA and KUBECONFIG (86d421d)
+
 ## v1.1.54 (2025-11-14)
 * release 1.1.54 (5a875c1)
 
