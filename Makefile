@@ -50,20 +50,19 @@ check-dynamic-plugins:
 full: clean tsc export-dynamic copy-dynamic-plugins check-dynamic-plugins
 	@echo "✅ Dynamic plugins exported, copied to $(DIST_DIR), and checked."
 
-bump-release-version:
-	@echo "Bump version to release $(NEXT_VERSION)"
-	NEXT_VERSION=$(NEXT_VERSION) yq -i -o=json '.version = env(NEXT_VERSION)' package.json
-	git add package.json
-
 generate-release-notes:
 	./scripts/generate-release-notes.sh $(NEXT_VERSION)
 	git add CHANGELOG.md
 
 push-release-and-tag:
-	git commit -am "Release version $(NEXT_VERSION)"
+	@echo "Current version: $(CURRENT_VERSION)"
+	@echo "Bump version to release $(NEXT_VERSION)"
+	NEXT_VERSION=$(NEXT_VERSION) yq -i -o=json '.version = env(NEXT_VERSION)' package.json
+	git add package.json
+	git commit -m "Release version $(NEXT_VERSION)"
 	git push origin main
 	git tag -a $(NEXT_VERSION) -m "$(NEXT_VERSION)"
 	git push origin $(NEXT_VERSION)
 
-release: bump-release-version generate-release-notes push-release-and-tag
-	@echo "✅ Release $(NEXT_VERSION) completed."
+release: generate-release-notes push-release-and-tag
+	@echo "✅ Release $(CURRENT_VERSION) completed."
