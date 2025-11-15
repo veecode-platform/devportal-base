@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.56 (2025-11-15)
+* add: kubectl bin (eea8ed2)
+
 ## v1.1.55 (2025-11-14)
 * fix: @kubernetes/client-node pinned to 1.4.0, struggling with CA and KUBECONFIG (86d421d)
 
