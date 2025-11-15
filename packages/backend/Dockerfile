@@ -25,7 +25,7 @@
 #
 
 # FROM node:22-bookworm-slim
-FROM registry.redhat.io/ubi9/nodejs-22:9.6-1762359834
+FROM registry.redhat.io/ubi9/nodejs-22:9.6-1762763285
 
 USER root
 
@@ -59,6 +59,12 @@ RUN curl -sL https://github.com/kong/deck/releases/download/v1.53.1/deck_1.53.1_
     cp /tmp/deck /usr/local/bin/ && \
     chmod +x /usr/local/bin/deck && \
     rm deck.tar.gz
+# download kubectl
+RUN CURL_VERSION="$(curl -L -s https://dl.k8s.io/release/stable.txt)" && \
+    ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
+    curl -LO "https://dl.k8s.io/release/${CURL_VERSION}/bin/linux/${ARCH}/kubectl" && \
+    chmod +x kubectl && \
+    mv kubectl /usr/local/bin/
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
