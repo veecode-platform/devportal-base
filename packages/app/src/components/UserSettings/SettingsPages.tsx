@@ -35,6 +35,9 @@ import {
 } from '@backstage/plugin-user-settings';
 
 import Star from '@mui/icons-material/Star';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { InfoCard } from '@backstage/core-components';
+import { Typography } from '@mui/material';
 import { ProviderSetting } from '@red-hat-developer-hub/plugin-utils';
 
 import { oidcAuthApiRef } from '../../api/AuthApiRefs';
@@ -92,6 +95,23 @@ const DynamicProviderSettings = ({
           apiRef={oidcAuthApiRef}
           icon={Star}
         />
+      )}
+      {configuredProviders.includes('ldap') && (
+        <InfoCard
+          title="LDAP"
+        >
+          <Typography variant="body1" gutterBottom>
+            <VpnKeyIcon
+              fontSize="small"
+              style={{ verticalAlign: 'middle', marginRight: 8 }}
+            />
+            Authentication via LDAP directory service
+          </Typography>
+          <Typography variant="body2" color="textSecondary">
+            LDAP sessions are managed by the backend with cookies.
+            A better option is to use OIDC with LDAP as a backend.
+          </Typography>
+        </InfoCard>
       )}
       {providerSettings.map(({ title, description, provider }) => (
         <ErrorBoundary>

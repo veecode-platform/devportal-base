@@ -30,9 +30,12 @@ import {
   useApi,
   type SignInPageProps,
 } from '@backstage/core-plugin-api';
+import { LdapAuthFrontendPage } from '@immobiliarelabs/backstage-plugin-ldap-auth';
 
 import { oidcAuthApiRef } from '../../api';
+
 import { useTranslation } from '../../hooks/useTranslation';
+import Box from '@mui/material/Box';
 
 // const DEFAULT_PROVIDER = 'keycloak';
 const DEFAULT_PROVIDER = 'github';
@@ -112,6 +115,19 @@ export function SignInPage(props: SignInPageProps): React.JSX.Element {
   const isDevEnv = configApi.getString('auth.environment') === 'development';
   const provider =
     configApi.getOptionalString('signInPage') ?? DEFAULT_PROVIDER;
+
+    // LDAP uses a custom username/password form from immobiliare plugin
+  if (provider === 'ldap') {
+    return (
+      <LdapAuthFrontendPage {...props} provider="ldap">
+        {/* Custom content rendered above the login form */}
+        <Box sx={{ textAlign: 'center', mb: 3, marginTop: 5 }}>
+          <img src="https://platform.vee.codes/assets/pattern/logo.svg" alt="Company Logo" style={{ maxWidth: 200 }} />
+        </Box>
+      </LdapAuthFrontendPage>
+    );
+  }
+
   const providers = createProviders(t);
   const providerConfig =
     providers.get(provider) ?? providers.get(DEFAULT_PROVIDER)!;

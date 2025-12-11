@@ -52,6 +52,7 @@ import {
   oidcAuthenticator,
   oidcSignInResolvers,
 } from '@backstage/plugin-auth-backend-module-oidc-provider';
+import { ldap } from '@immobiliarelabs/backstage-plugin-ldap-auth-backend';
 
 /*
 import {
@@ -63,6 +64,8 @@ import {
   oneLoginSignInResolvers,
 } from '@backstage/plugin-auth-backend-module-onelogin-provider';
 */
+
+// LDAP - TENTATIVA
 
 import {
   authOwnershipResolutionExtensionPoint,
@@ -279,6 +282,10 @@ function getAuthProviderFactory(
           },
         }),
       });
+    case 'ldap':
+      // Uses immobiliare LDAP auth plugin - returns factory directly
+      // Type cast needed due to version mismatch in @backstage/plugin-auth-node
+      return ldap.create({}) as unknown as AuthProviderFactory;
     default:
       throw new Error(`No auth provider found for ${providerId}`);
   }

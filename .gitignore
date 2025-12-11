@@ -53,6 +53,7 @@ site
 
 .vscode/*
 !.vscode/extensions.json
+!.vscode/launch.json
 .turbo
 
 # Dynamic plugins root content

@@ -145,6 +145,7 @@ backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
 backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
 backend.add(import('@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor'));
 backend.add(import('@backstage-community/plugin-catalog-backend-module-keycloak'));
+backend.add(import('@backstage/plugin-catalog-backend-module-ldap'));
 
 // scaffolder plugin
 backend.add(import('@backstage/plugin-scaffolder-backend'));

@@ -1,0 +1,63 @@
+# Backstage override configuration for your local development environment
+
+# LDAP Configuration:
+# - LDAP_DN
+# - LDAP_SECRET
+# - LDAP_URL
+# - LDAP_USERS_BASE_DN
+# - LDAP_USERS_FILTER (optional)
+# - LDAP_GROUPS_BASE_DN
+# - LDAP_GROUPS_FILTER (optional)
+
+signInPage: ldap
+
+auth:
+  environment: development
+  providers:
+    ldap:
+      # eg: production|staging|review|develop
+      development:
+        cookies:
+          secure: false # https cookies or not
+          field: "backstage-token" # default
+
+        ldapAuthenticationOptions:
+          userSearchBase: "${LDAP_USERS_BASE_DN}" # REQUIRED
+          # what is the user unique key in your ldap instance
+          usernameAttribute: "uid" # defaults to `uid`
+          # directory where to search user
+          # default search will be `[userSearchBase]=[username],[userSearchBase]`
+
+          # User able to list other users, this is used
+          # to check incoming JWT if user are already part of the LDAP
+          # NOTE: If no admin user/pass provided we'll attempt a credential-less search
+          adminDn: "${LDAP_DN}"
+          adminPassword: "${LDAP_SECRET}"
+          ldapOpts:
+            url: "${LDAP_URL}"
+            tlsOptions:
+              rejectUnauthorized: false
+
+catalog:
+  providers:
+    ldapOrg:
+      default:
+        target: "${LDAP_URL}"
+        bind:
+          dn: "${LDAP_DN}"
+          secret: "${LDAP_SECRET}"
+        users:
+          - dn: "${LDAP_USERS_BASE_DN}"
+            options:
+              filter: "${LDAP_USERS_FILTER:(uid=*)}"
+            map:
+              description: l
+        groups:
+          - dn: "${LDAP_GROUPS_BASE_DN}"
+            options:
+              filter: "${LDAP_GROUPS_FILTER:(objectClass=groupOfNames)}"
+            map:
+              description: l
+        schedule:
+          frequency: PT1H
+          timeout: PT15M

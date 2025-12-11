@@ -19,7 +19,14 @@
     "AZURE_ORGANIZATION",
     "AZURE_PROJECT",
     "AZURE_TOKEN",
-    "AUTH_SESSION_SECRET"
+    "AUTH_SESSION_SECRET",
+    "LDAP_URL",
+    "LDAP_DN",
+    "LDAP_SECRET",
+    "LDAP_USERS_BASE_DN",
+    "LDAP_USERS_FILTER",
+    "LDAP_GROUPS_BASE_DN",
+    "LDAP_GROUPS_FILTER"
   ],
   "globalDependencies": [
     "app-config.yaml",
