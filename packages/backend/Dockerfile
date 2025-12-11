@@ -25,7 +25,7 @@
 #
 
 # FROM node:22-bookworm-slim
-FROM registry.redhat.io/ubi9/nodejs-22:9.6-1762763285
+FROM registry.redhat.io/ubi9/nodejs-22:9.7-1765255178
 
 USER root
 
@@ -53,8 +53,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     set -e; \
     pip install --upgrade pip setuptools pyyaml; \
     pip install -r requirements.txt; mkdocs --version
-# Deck install
-RUN curl -sL https://github.com/kong/deck/releases/download/v1.53.1/deck_1.53.1_linux_amd64.tar.gz -o deck.tar.gz && \
+# Deck install (auto-detect latest version)
+RUN DECK_VERSION=$(curl -sL https://api.github.com/repos/kong/deck/releases/latest | jq -r '.tag_name' | sed 's/^v//') && \
+    ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
+    curl -sL "https://github.com/kong/deck/releases/download/v${DECK_VERSION}/deck_${DECK_VERSION}_linux_${ARCH}.tar.gz" -o deck.tar.gz && \
     tar -xf deck.tar.gz -C /tmp && \
     cp /tmp/deck /usr/local/bin/ && \
     chmod +x /usr/local/bin/deck && \

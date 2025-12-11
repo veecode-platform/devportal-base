@@ -63,7 +63,7 @@ To find out the latest Red Hat Node.js version, run:
 ```bash
 skopeo list-tags docker://registry.redhat.io/ubi9/nodejs-22 \
   | jq -r '.Tags[]
-           | select(startswith("9.6-"))
+           | select(startswith("9.7-"))
            | select(endswith("-source") | not)' \
   | sort -V \
   | tail -n 1
