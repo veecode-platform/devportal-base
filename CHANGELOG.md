@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.58 (2025-12-11)
+* updated base ubi image (2c5c3df)
+
 ## v1.1.57 (2025-12-11)
 * add: ldap login support (limited), ldap org support (fda7cb6)
 
