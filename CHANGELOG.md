@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.57 (2025-12-11)
+* add: ldap login support (limited), ldap org support (fda7cb6)
+
 ## v1.1.56 (2025-11-15)
 * add: kubectl bin (eea8ed2)
 
