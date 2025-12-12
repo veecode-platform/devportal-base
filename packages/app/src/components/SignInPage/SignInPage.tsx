@@ -30,7 +30,7 @@ import {
   useApi,
   type SignInPageProps,
 } from '@backstage/core-plugin-api';
-import { LdapAuthFrontendPage } from '@immobiliarelabs/backstage-plugin-ldap-auth';
+import { LdapAuthFrontendPage } from '@veecode-platform/backstage-plugin-ldap-auth';
 
 import { oidcAuthApiRef } from '../../api';
 

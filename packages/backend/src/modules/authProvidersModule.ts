@@ -52,7 +52,7 @@ import {
   oidcAuthenticator,
   oidcSignInResolvers,
 } from '@backstage/plugin-auth-backend-module-oidc-provider';
-import { ldap } from '@immobiliarelabs/backstage-plugin-ldap-auth-backend';
+import { ldap } from '@veecode-platform/backstage-plugin-ldap-auth-backend';
 
 /*
 import {
