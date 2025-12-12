@@ -1,6 +1,11 @@
 # devportal-base changelog
 
 
+## v1.1.59 (2025-12-12)
+* fix: updated ldap auth plugin to veecode fork (3b24a4d)
+* updated packages in dynamic-plugins/package.json (cec0fb9)
+* updated yarn and backstage to 1.45.x (5a656b0)
+
 ## v1.1.58 (2025-12-11)
 * updated base ubi image (2c5c3df)
 
