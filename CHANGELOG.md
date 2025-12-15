@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.60 (2025-12-14)
+* add: ldap profile, optional oauth id/secret for github auth only (db2eb80)
+
 ## v1.1.59 (2025-12-12)
 * fix: updated ldap auth plugin to veecode fork (3b24a4d)
 * updated packages in dynamic-plugins/package.json (cec0fb9)
