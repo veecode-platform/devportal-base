@@ -8,6 +8,14 @@ CONFIGS="--config app-config.yaml --config app-config.production.yaml --config a
 case "$VEECODE_PROFILE" in
   github)
     echo "Loading GitHub configuration..."
+    # if GITHUB_AUTH_CLIENT_ID is not set, set it to GITHUB_CLIENT_ID
+    # if GITHUB_AUTH_CLIENT_SECRET is not set, set it to GITHUB_CLIENT_SECRET
+    if [ -z "$GITHUB_AUTH_CLIENT_ID" ]; then
+      export GITHUB_AUTH_CLIENT_ID=$GITHUB_CLIENT_ID
+    fi
+    if [ -z "$GITHUB_AUTH_CLIENT_SECRET" ]; then
+      export GITHUB_AUTH_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
+    fi
     CONFIGS="$CONFIGS --config app-config.github.yaml"
     ;;
   keycloak)

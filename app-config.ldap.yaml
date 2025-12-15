@@ -25,9 +25,6 @@ auth:
           userSearchBase: "${LDAP_USERS_BASE_DN}" # REQUIRED
           # what is the user unique key in your ldap instance
           usernameAttribute: "uid" # defaults to `uid`
-          # directory where to search user
-          # default search will be `[userSearchBase]=[username],[userSearchBase]`
-
           # User able to list other users, this is used
           # to check incoming JWT if user are already part of the LDAP
           # NOTE: If no admin user/pass provided we'll attempt a credential-less search
