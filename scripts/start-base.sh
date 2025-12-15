@@ -16,6 +16,10 @@ case "$VEECODE_PROFILE" in
     if [ -z "$GITHUB_AUTH_CLIENT_SECRET" ]; then
       export GITHUB_AUTH_CLIENT_SECRET=$GITHUB_CLIENT_SECRET
     fi
+    # if GITHUB_PRIVATE_KEY_BASE64 is set, decode it and set GITHUB_PRIVATE_KEY
+    if [ -n "$GITHUB_PRIVATE_KEY_BASE64" ]; then
+      export GITHUB_PRIVATE_KEY=$(echo "$GITHUB_PRIVATE_KEY_BASE64" | base64 --decode)
+    fi
     CONFIGS="$CONFIGS --config app-config.github.yaml"
     ;;
   keycloak)
