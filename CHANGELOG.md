@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.62 (2025-12-16)
+* fix: requirements-build files (9420900)
+
 ## v1.1.61 (2025-12-16)
 * fix: python vuln. (urllib) (1d93d32)
 * feat: support base64 pk encoding (eb88996)
