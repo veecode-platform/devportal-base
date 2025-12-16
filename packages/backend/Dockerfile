@@ -25,7 +25,7 @@
 #
 
 # FROM node:22-bookworm-slim
-FROM registry.redhat.io/ubi9/nodejs-22:9.7-1765255178
+FROM registry.redhat.io/ubi9/nodejs-22:9.7-1765878606
 
 USER root
 
@@ -58,7 +58,7 @@ RUN DECK_VERSION=$(curl -sL https://api.github.com/repos/kong/deck/releases/late
     ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
     curl -sL "https://github.com/kong/deck/releases/download/v${DECK_VERSION}/deck_${DECK_VERSION}_linux_${ARCH}.tar.gz" -o deck.tar.gz && \
     tar -xf deck.tar.gz -C /tmp && \
-    cp /tmp/deck /usr/local/bin/ && \
+    mv /tmp/deck /usr/local/bin/ && \
     chmod +x /usr/local/bin/deck && \
     rm deck.tar.gz
 # download kubectl
@@ -93,7 +93,7 @@ ENV NPM_REGISTRY=$NPM_REGISTRY NPM_CONFIG_REGISTRY=$NPM_REGISTRY YARN_REGISTRY=$
 RUN echo "Using NPM_CONFIG_REGISTRY=$NPM_CONFIG_REGISTRY" && \
     npm install -g corepack && \
     corepack enable && \
-    corepack prepare yarn@4.10.3 --activate
+    corepack prepare yarn@4.12.0 --activate
 
 # This should create the app dir as `node`.
 # If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
