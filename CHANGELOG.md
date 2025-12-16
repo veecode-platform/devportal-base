@@ -1,6 +1,10 @@
 # devportal-base changelog
 
 
+## v1.1.61 (2025-12-16)
+* fix: python vuln. (urllib) (1d93d32)
+* feat: support base64 pk encoding (eb88996)
+
 ## v1.1.60 (2025-12-14)
 * add: ldap profile, optional oauth id/secret for github auth only (db2eb80)
 
