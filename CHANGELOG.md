@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.65 (2025-12-19)
+* fix: tsconfig missing (7740fc3)
+
 ## v1.1.64 (2025-12-19)
 * upgrade to backstage 1.46.1 (0350db2)
 
