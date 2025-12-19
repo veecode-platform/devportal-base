@@ -5,6 +5,8 @@
   "compilerOptions": {
     "jsx": "preserve",
     "outDir": "../../dist-types/packages/app",
-    "rootDir": "."
+    "rootDir": ".",
+    "module": "esnext",
+    "target": "es2020"
   }
 }
