@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.67 (2025-12-19)
+* fix: github action caching and yarn version (87139e6)
+
 ## v1.1.66 (2025-12-19)
 * upd veecode metadata (6346a23)
 * fix: tsconfig missing (94417b9)
