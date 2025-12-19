@@ -77,7 +77,7 @@ jobs:
         run: |
           npm i -g corepack
           corepack enable
-          corepack prepare yarn@4.10.3 --activate
+          corepack prepare yarn@4.12.0 --activate
           yarn config set nodeLinker node-modules
       
       - name: Cache Yarn dependencies
@@ -86,7 +86,6 @@ jobs:
           path: |
             .yarn/cache
             .yarn/install-state.gz
-            node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
@@ -102,7 +101,7 @@ jobs:
         with:
           path: |
             dynamic-plugins/.yarn/cache
-            dynamic-plugins/node_modules
+            dynamic-plugins/.yarn/install-state.gz
           key: ${{ runner.os }}-dynamic-plugins-${{ hashFiles('dynamic-plugins/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-dynamic-plugins-
