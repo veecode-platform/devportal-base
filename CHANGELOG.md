@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.64 (2025-12-19)
+* upgrade to backstage 1.46.1 (0350db2)
+
 ## v1.1.63 (2025-12-16)
 * update base image and yarn version (32a5bf2)
 
