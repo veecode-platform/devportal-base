@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.70 (2025-12-19)
+* moved 'support' plugin to devportal-plugins project, veecode signinpage still hidden (faf9e71)
+
 ## v1.1.69 (2025-12-19)
 * fix: scalprum-backend missing devdep (721ad66)
 
