@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.68 (2025-12-19)
+* moved 'about' plugins to devportal-plugins project (87852e2)
+
 ## v1.1.67 (2025-12-19)
 * fix: github action caching and yarn version (87139e6)
 
