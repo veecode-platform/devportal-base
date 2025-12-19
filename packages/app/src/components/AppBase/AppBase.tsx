@@ -63,7 +63,7 @@ import { SearchPage as BackstageSearchPage } from '@backstage/plugin-search';
 import { SignalsDisplay } from '@backstage/plugin-signals';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 
-import { SupportPage } from '@internal/backstage-plugin-support';
+// import { SupportPage } from '@internal/backstage-plugin-support';
 // import { AboutPage } from '@internal/plugin-about';
 // import { VeecodeHomepagePage } from '@internal/plugin-veecode-homepage';
 import DynamicRootContext from '@red-hat-developer-hub/plugin-utils';
@@ -249,7 +249,7 @@ const AppBase = () => {
                 {settingsPage(providerSettings)}
               </Route>
               {/* <Route path="/about" element={<AboutPage />} /> */}
-              <Route path="/support" element={<SupportPage />} />
+              {/* <Route path="/support" element={<SupportPage />} /> */}
               <Route
                 path="/catalog-unprocessed-entities"
                 element={<CatalogUnprocessedEntitiesPage />}

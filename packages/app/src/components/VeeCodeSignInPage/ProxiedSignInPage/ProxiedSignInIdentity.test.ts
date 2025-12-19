@@ -15,7 +15,7 @@
  */
 
 import { setupRequestMockHandlers } from '@backstage/test-utils';
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import {
   DEFAULTS,
@@ -103,15 +103,14 @@ describe('ProxiedSignInIdentity', () => {
           },
         };
       }
-      worker.events.on('request:match', serverCalled);
+      worker.events.on('request:start', serverCalled);
       worker.use(
-        rest.get('http://example.com/api/auth/foo/refresh', (_, res, ctx) =>
-          res(
-            ctx.status(200),
-            ctx.set('Content-Type', 'application/json'),
-            ctx.json(makeToken()),
-          ),
-        ),
+        http.get('http://example.com/api/auth/foo/refresh', () => {
+          return HttpResponse.json(makeToken(), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }),
       );
 
       const identity = new ProxiedSignInIdentity({
@@ -185,15 +184,14 @@ describe('ProxiedSignInIdentity', () => {
         req1 = req;
       });
 
-      worker.events.on('request:match', serverCalled);
+      worker.events.on('request:start', serverCalled);
       worker.use(
-        rest.get('http://example.com/api/auth/foo/refresh', (_, res, ctx) =>
-          res(
-            ctx.status(200),
-            ctx.set('Content-Type', 'application/json'),
-            ctx.json(dummySessionResponse),
-          ),
-        ),
+        http.get('http://example.com/api/auth/foo/refresh', () => {
+          return HttpResponse.json(dummySessionResponse, {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }),
       );
 
       const getHeaders = jest.fn().mockResolvedValue({ 'x-foo': 'bars' });
@@ -225,15 +223,14 @@ describe('ProxiedSignInIdentity', () => {
         req1 = req;
       });
 
-      worker.events.on('request:match', serverCalled);
+      worker.events.on('request:start', serverCalled);
       worker.use(
-        rest.get('http://example.com/api/auth/foo/refresh', (_, res, ctx) =>
-          res(
-            ctx.status(200),
-            ctx.set('Content-Type', 'application/json'),
-            ctx.json(dummySessionResponse),
-          ),
-        ),
+        http.get('http://example.com/api/auth/foo/refresh', () => {
+          return HttpResponse.json(dummySessionResponse, {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }),
       );
 
       const identity = new ProxiedSignInIdentity({
@@ -263,15 +260,14 @@ describe('ProxiedSignInIdentity', () => {
         req1 = req;
       });
 
-      worker.events.on('request:match', serverCalled);
+      worker.events.on('request:start', serverCalled);
       worker.use(
-        rest.get('http://example.com/api/auth/foo/refresh', (_, res, ctx) =>
-          res(
-            ctx.status(200),
-            ctx.set('Content-Type', 'application/json'),
-            ctx.json(dummySessionResponse),
-          ),
-        ),
+        http.get('http://example.com/api/auth/foo/refresh', () => {
+          return HttpResponse.json(dummySessionResponse, {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+          });
+        }),
       );
 
       const getHeaders = jest.fn().mockReturnValue({ 'x-foo': 'bars' });

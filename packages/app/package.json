@@ -52,7 +52,6 @@
     "@backstage/ui": "^0.10.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@internal/backstage-plugin-support": "workspace:^",
     "@internal/plugin-dynamic-plugins-info": "*",
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
@@ -96,6 +95,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.0.0",
     "@types/react-dom": "*",
+    "msw": "^2.0.0",
     "prettier": "3.5.3",
     "typescript": "5.8.3"
   },
