@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.69 (2025-12-19)
+* fix: scalprum-backend missing devdep (721ad66)
+
 ## v1.1.68 (2025-12-19)
 * moved 'about' plugins to devportal-plugins project (87852e2)
 
