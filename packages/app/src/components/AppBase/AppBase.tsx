@@ -64,7 +64,7 @@ import { SignalsDisplay } from '@backstage/plugin-signals';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
 
 import { SupportPage } from '@internal/backstage-plugin-support';
-import { AboutPage } from '@internal/plugin-about';
+// import { AboutPage } from '@internal/plugin-about';
 // import { VeecodeHomepagePage } from '@internal/plugin-veecode-homepage';
 import DynamicRootContext from '@red-hat-developer-hub/plugin-utils';
 import {
@@ -248,7 +248,7 @@ const AppBase = () => {
               <Route path="/settings" element={<UserSettingsPage />}>
                 {settingsPage(providerSettings)}
               </Route>
-              <Route path="/about" element={<AboutPage />} />
+              {/* <Route path="/about" element={<AboutPage />} /> */}
               <Route path="/support" element={<SupportPage />} />
               <Route
                 path="/catalog-unprocessed-entities"
