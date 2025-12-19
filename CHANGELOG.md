@@ -1,6 +1,10 @@
 # devportal-base changelog
 
 
+## v1.1.66 (2025-12-19)
+* upd veecode metadata (6346a23)
+* fix: tsconfig missing (94417b9)
+
 ## v1.1.65 (2025-12-19)
 * fix: tsconfig missing (7740fc3)
 
