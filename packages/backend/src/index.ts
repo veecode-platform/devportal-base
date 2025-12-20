@@ -29,6 +29,8 @@ import {
   rbacDynamicPluginsProvider,
 } from './modules';
 import { userSettingsBackend } from './modules/userSettings';
+// DISABLED: See comment below near catalog plugins section
+// import { githubOrgTransformersModule } from './modules/githubOrgTransformers';
 
 // Create a logger to cover logging static initialization tasks
 const staticLogger = WinstonLogger.create({
@@ -140,6 +142,15 @@ backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 // TODO: Probably we should now provide this as a dynamic plugin
 backend.add(import('@backstage/plugin-catalog-backend-module-openapi'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
+
+// DISABLED: Custom GitHub Org transformer for email population
+// Reason: GitHub API does not return email fields when using GitHub Apps (only for personal access tokens)
+// Backstage's provider doesn't even request the field for GitHub Apps since GitHub won't send it
+// Issue: https://github.com/backstage/backstage/issues/25556
+// The transformer works correctly but receives no email data from GitHub API
+// Re-enable only if GitHub API changes to support email fields for GitHub Apps
+// backend.add(githubOrgTransformersModule);
+
 backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
 backend.add(import('@backstage/plugin-catalog-backend-module-azure'));

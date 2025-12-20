@@ -6,6 +6,8 @@ auth:
   # repeat environment from main file
   environment: development
   # now the new provider (will add to main file)
+  disableScmAuth:
+    forGitHub: ${GITHUB_DISABLE_SCM_AUTH}
   providers:
     github:
       development:
@@ -16,6 +18,10 @@ auth:
             - resolver: usernameMatchingUserEntityName
             - resolver: emailMatchingUserEntityProfileEmail
             - resolver: emailLocalPartMatchingUserEntityName
+        scope:
+          - read:user
+          - user:email
+          - read:org   # required for org/team resolution
 
 integrations:
   github:

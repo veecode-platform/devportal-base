@@ -1,18 +1,43 @@
-import { OAuth2 } from '@backstage/core-app-api';
+/*
+ * Copyright 2020 The Backstage Authors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { OAuth2, WebStorage } from '@backstage/core-app-api';
 import {
   analyticsApiRef,
   AnyApiFactory,
+  bitbucketAuthApiRef,
   configApiRef,
   createApiFactory,
   discoveryApiRef,
+  errorApiRef,
+  fetchApiRef,
+  githubAuthApiRef,
+  gitlabAuthApiRef,
   identityApiRef,
+  microsoftAuthApiRef,
   oauthRequestApiRef,
+  storageApiRef,
 } from '@backstage/core-plugin-api';
 import {
   ScmAuth,
+  scmAuthApiRef,
   ScmIntegrationsApi,
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
+import { UserSettingsStorage } from '@backstage/plugin-user-settings';
 
 // google analytics
 import { GoogleAnalytics4 } from '@backstage-community/plugin-analytics-module-ga4';
@@ -25,11 +50,58 @@ import {
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({
+    api: storageApiRef,
+    deps: {
+      discoveryApi: discoveryApiRef,
+      errorApi: errorApiRef,
+      fetchApi: fetchApiRef,
+      identityApi: identityApiRef,
+      configApi: configApiRef,
+    },
+    factory: deps => {
+      const persistence =
+        deps.configApi.getOptionalString('userSettings.persistence') ??
+        'database';
+      return persistence === 'browser'
+        ? WebStorage.create(deps)
+        : UserSettingsStorage.create(deps);
+    },
+  }),
+  createApiFactory({
     api: scmIntegrationsApiRef,
     deps: { configApi: configApiRef },
     factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
   }),
-  ScmAuth.createDefaultApiFactory(),
+  createApiFactory({
+    api: scmAuthApiRef,
+    deps: {
+      github: githubAuthApiRef,
+      gitlab: gitlabAuthApiRef,
+      azure: microsoftAuthApiRef,
+      bitbucket: bitbucketAuthApiRef,
+      configApi: configApiRef,
+    },
+    factory: ({ github, gitlab, azure, bitbucket, configApi }) => {
+      const disableGitHubScmAuth = configApi.getOptionalBoolean('auth.disableScmAuth.forGitHub') ?? false;
+      
+      const providers = [
+        ...(!disableGitHubScmAuth ? [{ key: 'github', ref: github, factory: ScmAuth.forGithub }] : []),
+        { key: 'gitlab', ref: gitlab, factory: ScmAuth.forGitlab },
+        { key: 'azure', ref: azure, factory: ScmAuth.forAzure },
+        { key: 'bitbucket', ref: bitbucket, factory: ScmAuth.forBitbucket },
+      ];
+
+      const scmAuths = providers.flatMap(({ key, ref, factory }) => {
+        const configs = configApi.getOptionalConfigArray(`integrations.${key}`);
+        if (!configs?.length) {
+          return [factory(ref)];
+        }
+        return configs.map(c => factory(ref, { host: c.getString('host') }));
+      });
+
+      return ScmAuth.merge(...scmAuths);
+    },
+  }),
   createApiFactory({
     api: oidcAuthApiRef,
     deps: {
@@ -39,16 +111,15 @@ export const apis: AnyApiFactory[] = [
     },
     factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
       OAuth2.create({
-        discoveryApi,
-        oauthRequestApi,
         configApi,
+        discoveryApi,
+        oauthRequestApi: oauthRequestApi as any,
         provider: {
           id: 'oidc',
-          title: 'Default keycloak authentication provider',
+          title: 'OIDC',
           icon: () => null,
         },
         environment: configApi.getOptionalString('auth.environment'),
-        defaultScopes: ['openid', 'profile', 'email'],
       }),
   }),
   // Auth0
@@ -62,8 +133,7 @@ export const apis: AnyApiFactory[] = [
     factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
       OAuth2.create({
         discoveryApi,
-        oauthRequestApi,
-        configApi,
+        oauthRequestApi: oauthRequestApi as any,
         provider: {
           id: 'auth0',
           title: 'Auth0',
@@ -84,8 +154,7 @@ export const apis: AnyApiFactory[] = [
     factory: ({ discoveryApi, oauthRequestApi, configApi }) =>
       OAuth2.create({
         discoveryApi,
-        oauthRequestApi,
-        configApi,
+        oauthRequestApi: oauthRequestApi as any,
         provider: {
           id: 'saml',
           title: 'SAML',
