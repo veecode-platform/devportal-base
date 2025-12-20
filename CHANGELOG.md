@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.1.71 (2025-12-20)
+* updated auth apis, improved GitHub OAuth App login (5367034)
+
 ## v1.1.70 (2025-12-19)
 * moved 'support' plugin to devportal-plugins project, veecode signinpage still hidden (faf9e71)
 
