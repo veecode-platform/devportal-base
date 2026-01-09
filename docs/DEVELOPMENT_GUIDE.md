@@ -4,9 +4,8 @@
 
 ### Prerequisites
 
-- **Node.js**: v18+ (LTS recommended)
-- **Yarn**: 4.10.3 (included in repo)
-- **Docker**: For local database and services (optional)
+- **Node.js**: v20+ (LTS recommended)
+- **Yarn**: 4.x (try using the same yarn version, the latest stable if possible)
 - **Git**: For version control
 
 ### Initial Setup
@@ -100,7 +99,7 @@ yarn start  # Standalone dev mode
 import { YourPluginPage } from '@internal/plugin-your-plugin';
 
 // packages/app/src/components/AppBase/AppBase.tsx
-<Route path="/your-route" element={<YourPluginPage />} />
+<Route path="/your-route" element={<YourPluginPage />} />;
 ```
 
 ### Creating a Backend Plugin
@@ -115,14 +114,16 @@ yarn backstage-cli create-plugin --backend
 
 ```typescript
 // plugins/your-plugin-backend/src/router.ts
-export async function createRouter(options: RouterOptions): Promise<express.Router> {
+export async function createRouter(
+  options: RouterOptions,
+): Promise<express.Router> {
   const { logger } = options;
   const router = Router();
-  
+
   router.get('/health', (_, res) => {
     res.json({ status: 'ok' });
   });
-  
+
   return router;
 }
 ```
@@ -135,7 +136,10 @@ import { createRouter as createYourPluginRouter } from '@internal/plugin-your-pl
 
 // Add to backend
 const yourPluginEnv = useHotMemoize(module, () => createEnv('your-plugin'));
-apiRouter.use('/your-plugin', await createYourPluginRouter({ logger: yourPluginEnv.logger }));
+apiRouter.use(
+  '/your-plugin',
+  await createYourPluginRouter({ logger: yourPluginEnv.logger }),
+);
 ```
 
 ### Adding a Catalog Entity
@@ -435,7 +439,7 @@ const MyHeavyComponent = lazy(() => import('./MyHeavyComponent'));
 
 <Suspense fallback={<Progress />}>
   <MyHeavyComponent />
-</Suspense>
+</Suspense>;
 ```
 
 ### Memoization

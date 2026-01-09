@@ -1,9 +1,11 @@
 # Monorepo Structure & Workspaces
 
 ## Overview
+
 This is a Backstage-based monorepo using **Yarn Workspaces** and **Lerna** for package management. The project is organized into multiple packages and plugins that work together to create a developer portal.
 
 ## Package Manager
+
 - **Yarn 4.10.3** (Berry) - Modern Yarn with PnP support
 - **Lerna** - Multi-package repository management
 - **Turbo** - Build system orchestration
@@ -15,6 +17,7 @@ This is a Backstage-based monorepo using **Yarn Workspaces** and **Lerna** for p
 Main application packages that form the foundation of the portal:
 
 - **`packages/app/`** - Frontend React application
+
   - Main Backstage UI application
   - Entry point: `src/App.tsx`
   - Routing configuration in `src/components/AppBase/`
@@ -22,6 +25,7 @@ Main application packages that form the foundation of the portal:
   - Includes Scalprum for dynamic plugin loading
 
 - **`packages/backend/`** - Backend Node.js application
+
   - Express-based backend server
   - Plugin backend integrations
   - API endpoints and services
@@ -35,13 +39,16 @@ Main application packages that form the foundation of the portal:
 Custom Backstage plugins developed for this portal:
 
 - **`plugins/about/`** - About page plugin (frontend)
+
   - Displays portal information
   - Uses MUI v5 with @mui/styles compatibility
 
 - **`plugins/about-backend/`** - About plugin backend
+
   - Backend services for about page
 
 - **`plugins/dynamic-plugins-info/`** - Dynamic plugins information page
+
   - Frontend plugin to display loaded dynamic plugins
   - Route: `/extensions`
   - Uses MUI v5 (fully migrated)
@@ -55,10 +62,12 @@ Custom Backstage plugins developed for this portal:
 Infrastructure for loading plugins dynamically at runtime:
 
 - **`dynamic-plugins/downloads/`** - Plugin download scripts
+
   - `download-packages.sh` - Downloads external plugins
   - `plugins.json` - Configuration of plugins to download
 
 - **`dynamic-plugins/scripts/`** - Plugin development tools
+
   - `new-wrapper.mjs` - Creates new dynamic plugin wrappers
 
 - **`dynamic-plugins/_utils/`** - Shared utilities for dynamic plugins
@@ -81,7 +90,6 @@ Sample YAML files for Backstage catalog:
 
 Project documentation:
 
-- `DOCKER_DEVELOPMENT.md` - Docker development setup
 - `DYNAMIC_PLUGIN_TRANSLATIONS.md` - Dynamic plugin translation guide
 - `PLUGINS.md` - Plugin development guide
 - `RBAC.md` - Role-based access control
@@ -116,8 +124,6 @@ Example configurations for different auth providers:
 
 - **`Makefile`** - Build automation commands
 - **`docker-compose.yml`** - Local development with Docker
-- **`docker-dev.sh`** - Docker development helper script
-- **`docker/Dockerfile-dev`** - Development Docker image
 
 ### Code Quality
 
@@ -145,7 +151,7 @@ Packages can depend on each other using workspace protocol:
 
 ### External Dependencies
 
-- **@backstage/*** - Core Backstage packages
+- **@backstage/\*** - Core Backstage packages
 - **@mui/material** - Material-UI v5 (migrated from v4)
 - **@mui/styles** - MUI v4 compatibility layer
 - **@scalprum/react-core** - Dynamic plugin loading
@@ -217,12 +223,12 @@ export const baseFrontendConfig = {
           {
             path: '/extensions',
             importName: 'DynamicPluginsInfoPage',
-            menuItem: { text: 'Extensions' }
-          }
-        ]
-      }
-    }
-  }
+            menuItem: { text: 'Extensions' },
+          },
+        ],
+      },
+    },
+  },
 };
 ```
 

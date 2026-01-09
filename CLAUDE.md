@@ -8,10 +8,32 @@ VeeCode DevPortal is an open-source Backstage distribution designed for producti
 
 **Key characteristics:**
 
-- Yarn 4 monorepo with workspaces
-- Dynamic plugin architecture using Scalprum
-- Frontend uses `@janus-idp/cli` for building (not standard `backstage-cli`)
-- Node.js 20 or 22 required
+- Yarn 4 monorepo with workspaces (always try to use the same yarn version, latest stable)
+- Frontend app: packages/app folder
+- Backend app: packages/backend folder
+- Internal static plugins: plugins/\* folders
+- Static plugins: the ones imported in packages.json (backend plugins in Backend app, frontend plugins in Frontend app)
+- Dynamic plugin architecture replicated from RHDH
+- Dynamic plugin architecture replicated from RHDH (using Scalprum)
+- Node.js 20 or above required
+
+## Understanding the codebase
+
+- docs/BACKSTAGE_ARCHITECTURE.md - Core Backstage architecture, frontend/backend components, and plugin system
+- docs/CONFIGURATION_GUIDE.md - YAML-based configuration hierarchy and core settings (outdated)
+- docs/DEVELOPMENT_GUIDE.md - Getting started, prerequisites, and development workflow (outdated)
+- docs/DOCKER_DEVELOPMENT.md - Docker setup for local development and production builds (outdated)
+- docs/DYNAMIC_PLUGINS_ARCHITECTURE.md - Scalprum-based dynamic plugin system (outdated)
+- docs/DYNAMIC_PLUGIN_TRANSLATIONS.md - Internationalization for dynamic plugin menu items
+- docs/MONOREPO_STRUCTURE.md - Yarn workspaces, package management, and repository organization (outdated)
+- docs/MUI_MIGRATION_STATUS.md - Material-UI v4 to v5 migration progress and compatibility layer (outdated)
+- docs/PLUGINS.md - Static vs dynamic plugins, core plugin list, and plugin architecture
+- docs/PROJECT_CONTEXT.md - Technology stack, architecture overview, and AI assistant guidance (outdated)
+- docs/RBAC.md - Role-based access control configuration and policies
+
+## Known Issues
+
+Testing artifacts are not being generated and were not mantained during migration to DevPortal Base repository. This must be fixed.
 
 ## Common Commands
 
@@ -98,6 +120,7 @@ dynamic-plugins-root/            # Runtime directory for loaded dynamic plugins
 1. **Static Plugins**: Compiled into the application bundle (backend: auth providers, catalog, scaffolder, permissions, RBAC; frontend: minimal core)
 
 2. **Dynamic Plugins**: Loaded at runtime from `dynamic-plugins-root/` directory
+
    - **Preinstalled**: Baked into image, optionally enabled via config
    - **Downloaded**: Fetched from registries at startup
 
@@ -111,7 +134,7 @@ The frontend uses Scalprum for dynamic plugin loading instead of standard Backst
 - `packages/app/src/components/DynamicRoot/` - Dynamic plugin mounting infrastructure
 - `packages/app/src/apis.ts` - API factories
 
-Frontend builds use `janus-cli` (not `backstage-cli`).
+Dynamic plugins builds (frontend or backend) use `janus-cli` or its more recent version `rhdh-cli`.
 
 ### Backend Architecture
 
@@ -152,6 +175,8 @@ Keep the venv activated when running DevPortal.
 - Backend: `http://localhost:7007`
 
 ## Testing Backend APIs
+
+This is very important: testing backend APIs directly is an excellent way to investigate issues and to build automated backend tests.
 
 ```bash
 # Get user token via guest auth
