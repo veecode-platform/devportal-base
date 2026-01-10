@@ -80,17 +80,15 @@ describe('InternalPluginsMap', () => {
     isBackendPlugin(packageJson),
   );
 
-  it('should have a valid map', () => {
-    const difference = getDifference(
-      Object.keys(InternalPluginsMap),
-      wrapperDirNames,
-    );
+  it('should have all wrapper directories in the map', () => {
+    // Check that all existing wrapper directories have corresponding entries in the map
+    const missingFromMap = getDifference(wrapperDirNames, Object.keys(InternalPluginsMap));
 
     try {
-      expect(difference).toStrictEqual([]);
+      expect(missingFromMap).toStrictEqual([]);
     } catch {
       throw new Error(
-        `The following plugins are missing: ${difference.join(', ')}`,
+        `The following wrapper directories are not in InternalPluginsMap: ${missingFromMap.join(', ')}`,
       );
     }
   });
