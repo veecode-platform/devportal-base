@@ -21,7 +21,7 @@ import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import FormHelperText from '@mui/material/FormHelperText';
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash';
 import { InfoCard } from '@backstage/core-components';
 import { ProviderComponent, ProviderLoader, SignInProvider } from './types';
 import { GridItem } from './styles';

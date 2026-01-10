@@ -23,7 +23,7 @@
   "scripts": {
     "build": "backstage-cli package build",
     "clean": "backstage-cli package clean",
-    "test": "backstage-cli package test --passWithNoTests --coverage",
+    "test": "backstage-cli package test --watchAll=false --passWithNoTests --coverage",
     "lint:check": "backstage-cli package lint",
     "lint:fix": "backstage-cli package lint --fix",
     "tsc": "tsc",
@@ -31,7 +31,8 @@
     "prettier:fix": "prettier --ignore-unknown --write ."
   },
   "dependencies": {
-    "@backstage/catalog-model": "^1.7.6"
+    "@backstage/catalog-model": "^1.7.6",
+    "@backstage/core-plugin-api": "^1.12.1"
   },
   "devDependencies": {
     "@backstage/cli": "^0.35.1",
@@ -43,6 +44,7 @@
     "@types/node": "22.16.3",
     "@types/react": "18.3.23",
     "@types/react-dom": "18.3.7",
+    "jest": "^30.2.0",
     "prettier": "3.6.2",
     "react": "18.3.1",
     "typescript": "5.9.2"

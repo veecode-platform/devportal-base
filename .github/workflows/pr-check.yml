@@ -1,0 +1,49 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js + Corepack (Yarn 4)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Enable Corepack & Yarn 4
+        run: |
+          npm i -g corepack
+          corepack enable
+          corepack prepare yarn@4.12.0 --activate
+          yarn config set nodeLinker node-modules
+
+      - name: Cache Yarn dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            .yarn/cache
+            .yarn/install-state.gz
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: TypeScript check
+        run: yarn tsc
+
+      - name: Lint check
+        run: yarn lint:check
+
+      - name: Run tests
+        run: yarn test

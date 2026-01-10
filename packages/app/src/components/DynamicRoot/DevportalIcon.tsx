@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Theme } from '@mui/material';
 import Icon from '@mui/material/Icon';
+import { Theme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme: Theme) => ({

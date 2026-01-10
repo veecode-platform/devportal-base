@@ -1,6 +1,7 @@
 # MUI v4 to v5 Migration Status
 
 ## Overview
+
 This document tracks the Material-UI (MUI) migration from v4 to v5 across the codebase. The migration uses the **v4 compatibility layer** (@mui/styles) to enable gradual migration while maintaining functionality.
 
 ## Migration Strategy
@@ -88,14 +89,14 @@ MUI v5 TablePagination only accepts: 5, 10, 20, 50, 100
 ```typescript
 // Before
 import { makeStyles } from '@mui/styles';
-const useStyles = makeStyles((theme) => ({
-  root: { padding: theme.spacing(2) }
+const useStyles = makeStyles(theme => ({
+  root: { padding: theme.spacing(2) },
 }));
 
 // After
 import { styled } from '@mui/material/styles';
 const Root = styled('div')(({ theme }) => ({
-  padding: theme.spacing(2)
+  padding: theme.spacing(2),
 }));
 ```
 
@@ -103,12 +104,12 @@ const Root = styled('div')(({ theme }) => ({
 
 ```typescript
 // Before
-const useStyles = makeStyles((theme) => ({
-  button: { margin: theme.spacing(1) }
+const useStyles = makeStyles(theme => ({
+  button: { margin: theme.spacing(1) },
 }));
 
 // After
-<Button sx={{ m: 1 }}>Click</Button>
+<Button sx={{ m: 1 }}>Click</Button>;
 ```
 
 ## Next Steps

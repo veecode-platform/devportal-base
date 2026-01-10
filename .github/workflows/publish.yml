@@ -94,6 +94,8 @@ jobs:
         run: |
           yarn install --immutable
           yarn tsc
+          yarn lint:check
+          yarn test
           yarn build:all
 
       - name: Cache dynamic-plugins dependencies

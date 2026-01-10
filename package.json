@@ -32,7 +32,8 @@
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
     "update-backstage": "backstage-cli versions:bump --pattern '@{backstage,roadiehq,backstage-community,veecode-platform}/*'",
-    "new": "backstage-cli new"
+    "new": "backstage-cli new",
+    "prepare": "husky"
   },
   "workspaces": {
     "packages": [
@@ -49,7 +50,13 @@
   "devDependencies": {
     "@backstage/cli": "^0.35.1",
     "@backstage/e2e-test-utils": "^0.1.1",
+    "@jest/environment-jsdom-abstract": "^30.2.0",
     "@playwright/test": "^1.55.1",
+    "@types/jsdom": "^27",
+    "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "jsdom": "^27.1.0",
+    "lint-staged": "^16.2.7",
     "node-gyp": "^10.0.0",
     "prettier": "^2.3.2",
     "turbo": "^2.6.3",
@@ -72,7 +79,10 @@
     "braces": "^3.0.3",
     "linkifyjs": "^4.3.2",
     "@playwright/test": "^1.55.1",
-    "@kubernetes/client-node": "^1.4.0"
+    "@kubernetes/client-node": "^1.4.0",
+    "jest": "^30.2.0",
+    "jsdom": "^27.1.0",
+    "@jest/environment-jsdom-abstract": "^30.2.0"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {

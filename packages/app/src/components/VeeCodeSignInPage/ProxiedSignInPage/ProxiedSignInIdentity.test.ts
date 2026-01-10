@@ -180,8 +180,8 @@ describe('ProxiedSignInIdentity', () => {
     it('handles headers passed as a promise', async () => {
       let req1: Request;
       const getBaseUrl = jest.fn();
-      const serverCalled = jest.fn().mockImplementation(req => {
-        req1 = req;
+      const serverCalled = jest.fn().mockImplementation(({ request }) => {
+        req1 = request;
       });
 
       worker.events.on('request:start', serverCalled);
@@ -219,8 +219,8 @@ describe('ProxiedSignInIdentity', () => {
     it('handles headers passed as an object', async () => {
       let req1: Request;
       const getBaseUrl = jest.fn();
-      const serverCalled = jest.fn().mockImplementation(req => {
-        req1 = req;
+      const serverCalled = jest.fn().mockImplementation(({ request }) => {
+        req1 = request;
       });
 
       worker.events.on('request:start', serverCalled);
@@ -256,8 +256,8 @@ describe('ProxiedSignInIdentity', () => {
     it('handles headers passed as a function', async () => {
       let req1: Request;
       const getBaseUrl = jest.fn();
-      const serverCalled = jest.fn().mockImplementation(req => {
-        req1 = req;
+      const serverCalled = jest.fn().mockImplementation(({ request }) => {
+        req1 = request;
       });
 
       worker.events.on('request:start', serverCalled);
