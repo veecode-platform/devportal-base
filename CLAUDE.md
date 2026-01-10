@@ -13,13 +13,21 @@ VeeCode DevPortal is an open-source Backstage distribution designed for producti
 - Backend app: packages/backend folder
 - Internal static plugins: plugins/\* folders
 - Static plugins: the ones imported in packages.json (backend plugins in Backend app, frontend plugins in Frontend app)
-- Dynamic plugin architecture replicated from RHDH
 - Dynamic plugin architecture replicated from RHDH (using Scalprum)
 - Node.js 20 or above required
 
 ## Understanding the codebase
 
-- docs/adr/ - Architecture Decision Records (ADRs) explaining why decisions were made
+- docs/adr/ - Architecture Decision Records (ADRs) explaining why decisions were made:
+  - ADR-001: Scalprum dynamic plugins
+  - ADR-002: Base vs distro image
+  - ADR-003: UBI9 Node.js base image
+  - ADR-004: Static vs dynamic plugins
+  - ADR-005: Testing strategy
+  - ADR-006: Yarn 4 workspaces
+  - ADR-007: Jest watch false
+  - ADR-008: Trunk-based development
+  - ADR-009: Configuration profiles
 - docs/UPGRADING.md - How to upgrade Backstage, Node.js base image, and dependencies
 - docs/ROADMAP_FEATURES.md - Planned features and product evolution
 - docs/ROADMAP_BACKLOG.md - Technical debt, skipped tests, and outdated documentation
@@ -152,14 +160,25 @@ The backend (`packages/backend/src/index.ts`) initializes:
 ### Configuration Files
 
 - `app-config.yaml` - Base configuration (guest auth, local SQLite)
-- `app-config.dynamic-plugins.yaml` - Dynamic plugin configurations
-- `app-config.local.yaml` - Local overrides (gitignored, for secrets)
-- `app-config.github.yaml` - GitHub auth profile
-- `app-config.keycloak.yaml` - Keycloak auth profile
-- `app-config.azure.yaml` - Azure AD auth profile
 - `app-config.production.yaml` - Container/production paths
+- `app-config.dynamic-plugins.yaml` - Dynamic plugin configurations
+- `app-config.local.yaml` - Local developer overrides (gitignored)
 
-**Profile selection** via `VEECODE_PROFILE` env var: `github`, `keycloak`, `azure`, `local`
+### Configuration Profiles
+
+Profiles provide pre-packaged authentication and integration setups activated via a single environment variable. The startup script (`scripts/start-base.sh`) merges profile-specific config files on top of the base configuration. See [ADR-009](docs/adr/009-configuration-profiles.md) for details.
+
+**Available profiles** (set via `VEECODE_PROFILE` env var):
+
+| Profile    | Config File                | Auth Provider             |
+| ---------- | -------------------------- | ------------------------- |
+| `github`   | `app-config.github.yaml`   | GitHub OAuth + GitHub App |
+| `keycloak` | `app-config.keycloak.yaml` | OIDC/Keycloak             |
+| `azure`    | `app-config.azure.yaml`    | Microsoft/Azure AD        |
+| `ldap`     | `app-config.ldap.yaml`     | LDAP                      |
+| `local`    | `app-config.local.yaml`    | Developer overrides       |
+
+Each profile configures auth providers, sign-in resolvers, SCM integrations, and catalog providers for that identity source. Secrets are passed via environment variables (e.g., `GITHUB_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET`).
 
 ## Tech Docs Setup
 
@@ -199,12 +218,12 @@ Testing improves organically alongside feature work. No dedicated "testing sprin
 
 ### Rules for when to write tests
 
-| Situation | Action |
-|-----------|--------|
-| Writing new code | Add unit test |
-| Fixing a bug | Add regression test |
-| Refactoring old code | Add test first |
-| Just reading/using old code | Leave it alone |
+| Situation                   | Action              |
+| --------------------------- | ------------------- |
+| Writing new code            | Add unit test       |
+| Fixing a bug                | Add regression test |
+| Refactoring old code        | Add test first      |
+| Just reading/using old code | Leave it alone      |
 
 ### Priority areas (when you have time)
 
