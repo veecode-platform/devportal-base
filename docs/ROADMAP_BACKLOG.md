@@ -23,7 +23,7 @@ Areas that need test coverage (prioritized per Testing Strategy in CLAUDE.md):
 
 ### Testing Infrastructure Issues
 
-- [ ] Pre-commit hooks fail due to missing `@ianvs/prettier-plugin-sort-imports` in plugin packages
+- [x] ~~Pre-commit hooks fail due to missing `@ianvs/prettier-plugin-sort-imports`~~ (Fixed)
 - [ ] Some tests have React Router deprecation warnings (v7 migration needed eventually)
 
 ## Documentation Backlog
