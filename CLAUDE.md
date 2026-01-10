@@ -221,3 +221,53 @@ Testing improves organically alongside feature work. No dedicated "testing sprin
 
 - PR checks run `yarn test` - prevents new regressions
 - Pre-commit hooks catch issues early
+
+## Git Workflow
+
+**Trunk-based development with short-lived branches.**
+
+### Rules
+
+1. **Never push directly to main** - Always use feature branches and PRs
+2. **Keep branches short-lived** - Hours to days, not weeks
+3. **Wait for CI** - `validate` check must pass before merge
+4. **Squash merge** - Keep main history clean
+5. **Delete branch after merge** - No stale branches
+
+### Workflow
+
+```bash
+# 1. Create feature branch
+git checkout -b feat/my-feature
+
+# 2. Make changes and commit
+git add .
+git commit -m "Add my feature"
+
+# 3. Push and create PR
+git push -u origin feat/my-feature
+gh pr create --fill
+
+# 4. Wait for CI, then merge
+gh pr merge --squash --delete-branch
+
+# 5. Update local main
+git checkout main && git pull
+```
+
+### Branch Naming
+
+- `feat/` - New features
+- `fix/` - Bug fixes
+- `docs/` - Documentation only
+- `refactor/` - Code refactoring
+- `chore/` - Maintenance tasks
+
+### Emergency Only
+
+Direct push to main (bypassing branch protection) is allowed **only** for:
+
+- Critical security fixes that can't wait for CI
+- CI pipeline fixes when PR checks are broken
+
+Document the emergency in the commit message.

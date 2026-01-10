@@ -17,6 +17,7 @@ ADRs document important architectural decisions along with their context and con
 | [005](005-testing-strategy.md) | Testing Strategy - Test as You Go | Accepted |
 | [006](006-yarn4-workspaces.md) | Yarn 4 with Workspaces | Accepted |
 | [007](007-jest-watch-false.md) | Jest --watchAll=false for Turbo CI | Accepted |
+| [008](008-trunk-based-development.md) | Trunk-Based Development with Short-Lived Branches | Accepted |
 
 ## ADR Template
 
