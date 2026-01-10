@@ -27,7 +27,7 @@
     "postversion": "yarn run export-dynamic",
     "prepack": "backstage-cli package prepack",
     "dev": "backstage-cli package start",
-    "test": "backstage-cli package test --passWithNoTests --coverage",
+    "test": "backstage-cli package test --watchAll=false --passWithNoTests --coverage",
     "tsc": "tsc",
     "prettier:check": "prettier --ignore-unknown --check .",
     "prettier:fix": "prettier --ignore-unknown --write ."

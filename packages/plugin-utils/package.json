@@ -23,7 +23,7 @@
   "scripts": {
     "build": "backstage-cli package build",
     "clean": "backstage-cli package clean",
-    "test": "backstage-cli package test --passWithNoTests --coverage",
+    "test": "backstage-cli package test --watchAll=false --passWithNoTests --coverage",
     "lint:check": "backstage-cli package lint",
     "lint:fix": "backstage-cli package lint --fix",
     "tsc": "tsc",

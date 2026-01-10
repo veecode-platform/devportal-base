@@ -40,7 +40,7 @@ describe('InfoCard', () => {
         <InfoCard />
       </TestApiProvider>,
     );
-    expect(renderResult.getByText(/RHDH Version/)).toBeInTheDocument();
+    expect(renderResult.getByText(/Backstage Version/)).toBeInTheDocument();
     expect(renderResult.getByText(/Backstage Version/)).toBeInTheDocument();
   });
 
@@ -56,7 +56,7 @@ describe('InfoCard', () => {
       </TestApiProvider>,
     );
     expect(renderResult.queryByText(/Last Commit/)).toBeNull();
-    await userEvent.click(renderResult.getByText(/RHDH Version/));
+    await userEvent.click(renderResult.getByText(/Backstage Version/));
     expect(renderResult.getByText(/Last Commit/)).toBeInTheDocument();
   });
 
@@ -113,7 +113,7 @@ describe('InfoCard', () => {
     await userEvent.click(renderResult.getByText(/TechDocs builder/));
     expect(renderResult.getByText(/RBAC/)).toBeInTheDocument();
     expect(renderResult.queryByText(/Last Commit/)).toBeInTheDocument();
-    expect(renderResult.queryByText(/RHDH Version/)).toBeInTheDocument();
+    expect(renderResult.queryByText(/Backstage Version/)).toBeInTheDocument();
   });
 
   it('should display only the customized values when build info is configured with full set to true, without appending RHDH versions', async () => {
@@ -161,7 +161,7 @@ describe('InfoCard', () => {
     expect(
       renderResult.queryByText(/TechDocs builder/),
     ).not.toBeInTheDocument();
-    expect(renderResult.getByText(/RHDH Version/)).toBeInTheDocument();
+    expect(renderResult.getByText(/Backstage Version/)).toBeInTheDocument();
     expect(renderResult.getByText(/Backstage Version/)).toBeInTheDocument();
   });
 });

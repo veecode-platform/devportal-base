@@ -46,8 +46,12 @@ jest.mock('./LogoIcon.tsx', () => () => (
 describe('SidebarLogo', () => {
   it('when sidebar is open renders the component with full logo base64 provided by config', () => {
     (useApi as any).mockReturnValue({
-      getOptionalString: jest.fn().mockReturnValue('fullLogoBase64URI'),
-      getOptional: jest.fn().mockReturnValue('fullLogoWidth'),
+      getOptionalString: jest.fn().mockReturnValue(undefined),
+      getOptional: jest.fn().mockImplementation((key: string) => {
+        if (key === 'app.branding.fullLogo') return 'fullLogoBase64URI';
+        if (key === 'app.branding.fullLogoWidth') return 170;
+        return undefined;
+      }),
     });
 
     (useSidebarOpenState as any).mockReturnValue({ isOpen: true });
@@ -59,7 +63,7 @@ describe('SidebarLogo', () => {
 
     const fullLogo = getByTestId('home-logo');
     expect(fullLogo).toBeInTheDocument();
-    expect(fullLogo).toHaveAttribute('src', 'fullLogoBase64URI'); // Check the expected attribute value
+    expect(fullLogo).toHaveAttribute('src', 'fullLogoBase64URI');
   });
 
   it('when sidebar is open renders the component with default full logo if config is undefined', () => {
@@ -80,8 +84,11 @@ describe('SidebarLogo', () => {
 
   it('when sidebar is closed renders the component with icon logo base64 provided by config', () => {
     (useApi as any).mockReturnValue({
-      getOptionalString: jest.fn().mockReturnValue('iconLogoBase64URI'),
-      getOptional: jest.fn().mockReturnValue('fullLogoWidth'),
+      getOptionalString: jest.fn().mockImplementation((key: string) => {
+        if (key === 'app.branding.iconLogo') return 'iconLogoBase64URI';
+        return undefined;
+      }),
+      getOptional: jest.fn().mockReturnValue(undefined),
     });
 
     (useSidebarOpenState as any).mockReturnValue({ isOpen: false });
@@ -91,9 +98,9 @@ describe('SidebarLogo', () => {
       </BrowserRouter>,
     );
 
-    const fullLogo = getByTestId('home-logo');
-    expect(fullLogo).toBeInTheDocument();
-    expect(fullLogo).toHaveAttribute('src', 'iconLogoBase64URI');
+    const iconLogo = getByTestId('home-logo');
+    expect(iconLogo).toBeInTheDocument();
+    expect(iconLogo).toHaveAttribute('src', 'iconLogoBase64URI');
   });
 
   it('when sidebar is closed renders the component with icon logo from default if not provided with config', () => {

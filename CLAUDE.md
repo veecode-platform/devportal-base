@@ -33,7 +33,7 @@ VeeCode DevPortal is an open-source Backstage distribution designed for producti
 
 ## Known Issues
 
-Testing artifacts are not being generated and were not mantained during migration to DevPortal Base repository. This must be fixed.
+Testing coverage is low due to migration to DevPortal Base repository. See Testing Strategy below.
 
 ## Common Commands
 
@@ -186,3 +186,34 @@ USER_TOKEN="$(curl -s -X POST http://localhost:7007/api/auth/guest/refresh \
 # Use token for API calls
 curl -H "Authorization: Bearer $USER_TOKEN" http://localhost:7007/api/catalog/entities
 ```
+
+## Testing Strategy
+
+**Principle: Test as you go, don't stop to backfill.**
+
+Testing improves organically alongside feature work. No dedicated "testing sprints" that block delivery.
+
+### Rules for when to write tests
+
+| Situation | Action |
+|-----------|--------|
+| Writing new code | Add unit test |
+| Fixing a bug | Add regression test |
+| Refactoring old code | Add test first |
+| Just reading/using old code | Leave it alone |
+
+### Priority areas (when you have time)
+
+1. **Backend APIs** - Easy to test, high value
+2. **Internal plugins** (`plugins/*`) - Isolated, testable units
+3. **Shared utilities** (`packages/plugin-utils`)
+
+### Skip for now
+
+- Complex frontend component tests (DynamicRoot, Scalprum integration)
+- E2E tests (high maintenance cost)
+
+### CI enforcement
+
+- PR checks run `yarn test` - prevents new regressions
+- Pre-commit hooks catch issues early
