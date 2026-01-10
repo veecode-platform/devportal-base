@@ -263,11 +263,19 @@ git checkout main && git pull
 - `refactor/` - Code refactoring
 - `chore/` - Maintenance tasks
 
-### Emergency Only
+### Exceptions
 
-Direct push to main (bypassing branch protection) is allowed **only** for:
+Direct push to main (bypassing branch protection) is allowed for:
+
+**Low-risk changes:**
+
+- Pure documentation changes (markdown files, comments only)
+- ADR additions or updates
+- CLAUDE.md updates
+
+**Emergencies only:**
 
 - Critical security fixes that can't wait for CI
 - CI pipeline fixes when PR checks are broken
 
-Document the emergency in the commit message.
+For emergencies, document the reason in the commit message.

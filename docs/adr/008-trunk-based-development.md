@@ -42,8 +42,21 @@ main ─────●─────●─────●─────●─
 ### Branch Protection
 
 - `validate` CI check required before merge
-- No direct pushes to main (admin bypass only for emergencies)
+- No direct pushes to main (with exceptions below)
 - Branches deleted after merge
+
+### Exceptions to PR Requirement
+
+**Low-risk changes** (direct push allowed):
+
+- Pure documentation (markdown, comments only)
+- ADR additions or updates
+- CLAUDE.md updates
+
+**Emergencies** (direct push allowed, must document reason):
+
+- Critical security fixes
+- CI pipeline repairs
 
 ### Branch Naming Convention
 
@@ -71,15 +84,6 @@ main ─────●─────●─────●─────●─
 - Requires discipline to keep branches short
 - Features must be broken into small increments
 - May need feature flags for larger changes
-
-### Emergency Bypass
-
-Admin bypass of branch protection is permitted only for:
-
-- Critical security fixes
-- CI pipeline repairs
-
-Must be documented in commit message.
 
 ### Related Files
 
