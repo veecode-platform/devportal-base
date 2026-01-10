@@ -8,16 +8,17 @@ ADRs document important architectural decisions along with their context and con
 
 ## ADR Index
 
-| ID | Title | Status |
-|----|-------|--------|
-| [001](001-scalprum-dynamic-plugins.md) | Use Scalprum for Dynamic Plugin Loading | Accepted |
-| [002](002-base-vs-distro-image.md) | Base Image vs Distro Image Separation | Accepted |
-| [003](003-ubi9-nodejs-base-image.md) | UBI9 Node.js as Container Base | Accepted |
-| [004](004-static-vs-dynamic-plugins.md) | Static vs Dynamic Plugin Classification | Accepted |
-| [005](005-testing-strategy.md) | Testing Strategy - Test as You Go | Accepted |
-| [006](006-yarn4-workspaces.md) | Yarn 4 with Workspaces | Accepted |
-| [007](007-jest-watch-false.md) | Jest --watchAll=false for Turbo CI | Accepted |
-| [008](008-trunk-based-development.md) | Trunk-Based Development with Short-Lived Branches | Accepted |
+| ID                                      | Title                                             | Status   |
+| --------------------------------------- | ------------------------------------------------- | -------- |
+| [001](001-scalprum-dynamic-plugins.md)  | Use Scalprum for Dynamic Plugin Loading           | Accepted |
+| [002](002-base-vs-distro-image.md)      | Base Image vs Distro Image Separation             | Accepted |
+| [003](003-ubi9-nodejs-base-image.md)    | UBI9 Node.js as Container Base                    | Accepted |
+| [004](004-static-vs-dynamic-plugins.md) | Static vs Dynamic Plugin Classification           | Accepted |
+| [005](005-testing-strategy.md)          | Testing Strategy - Test as You Go                 | Accepted |
+| [006](006-yarn4-workspaces.md)          | Yarn 4 with Workspaces                            | Accepted |
+| [007](007-jest-watch-false.md)          | Jest --watchAll=false for Turbo CI                | Accepted |
+| [008](008-trunk-based-development.md)   | Trunk-Based Development with Short-Lived Branches | Accepted |
+| [009](009-configuration-profiles.md)    | Configuration Profiles                            | Accepted |
 
 ## ADR Template
 
