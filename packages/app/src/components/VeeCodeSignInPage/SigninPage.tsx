@@ -99,8 +99,6 @@ const SignInPageLogo = () => {
   const logoFullDarkBase64URI = configApi.getOptionalString(
     'app.branding.fullLogoDark',
   );
-  // eslint-disable-next-line no-console
-  console.log(theme.palette.mode);
 
   const fullLogoWidth = configApi
     .getOptional('app.branding.fullLogoWidth')

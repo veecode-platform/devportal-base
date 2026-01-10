@@ -37,7 +37,7 @@ import {
 import Star from '@mui/icons-material/Star';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { InfoCard } from '@backstage/core-components';
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import { ProviderSetting } from '@red-hat-developer-hub/plugin-utils';
 
 import { oidcAuthApiRef } from '../../api/AuthApiRefs';

@@ -15,7 +15,7 @@
  */
 import React from 'react';
 import makeStyles from '@mui/styles/makeStyles';
-//import IconPlataform from '../assets/logo.png';
+// import IconPlataform from '../assets/logo.png';
 const IconPlataform = '../assets/logo.png';
 
 const useStyles = makeStyles(theme => ({

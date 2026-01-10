@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   configApiRef,
   IdentityApi,
@@ -14,8 +12,6 @@ import { useTranslation } from '../../hooks/useTranslation';
 export const VeeCodeSignInPage: any = (props: SignInPageProps) => {
   const config = useApi(configApiRef);
   const { t } = useTranslation();
-  console.log('VeeCodeSignInPage');
-  console.log(config);
   const guest = config.getBoolean('platform.guest.enabled');
   const signInProviders = config.getStringArray('platform.signInProviders');
   const demoGuest = config.getOptionalBoolean('platform.guest.demo');

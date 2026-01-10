@@ -5,7 +5,7 @@ import {
   LayoutTemplate,
 } from '@backstage/plugin-scaffolder-react';
 
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 import makeStyles from '@mui/styles/makeStyles';
 

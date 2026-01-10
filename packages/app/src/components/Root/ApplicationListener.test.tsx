@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-import * as React from 'react';
+import { type ReactNode, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { renderInTestApp } from '@backstage/test-utils';
@@ -33,9 +33,9 @@ const MountPointProvider = ({
   children,
 }: {
   mountPoints: MountPoints;
-  children: React.ReactNode;
+  children: ReactNode;
 }) => {
-  const value = React.useMemo(() => ({ mountPoints }), [mountPoints]);
+  const value = useMemo(() => ({ mountPoints }), [mountPoints]);
   return (
     <DynamicRootContext.Provider value={value as any}>
       {children}
