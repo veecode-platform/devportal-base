@@ -19,6 +19,8 @@ VeeCode DevPortal is an open-source Backstage distribution designed for producti
 
 ## Understanding the codebase
 
+- docs/ROADMAP_FEATURES.md - Planned features and product evolution
+- docs/ROADMAP_BACKLOG.md - Technical debt, skipped tests, and outdated documentation
 - docs/BACKSTAGE_ARCHITECTURE.md - Core Backstage architecture, frontend/backend components, and plugin system
 - docs/CONFIGURATION_GUIDE.md - YAML-based configuration hierarchy and core settings (outdated)
 - docs/DEVELOPMENT_GUIDE.md - Getting started, prerequisites, and development workflow (outdated)
