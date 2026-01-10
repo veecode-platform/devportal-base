@@ -24,7 +24,7 @@ VeeCode DevPortal aims to be a production-ready, extensible Backstage distributi
 
 - Dynamic plugin architecture (Scalprum-based)
 - RBAC integration
-- Multiple auth providers (GitHub, Keycloak, Azure AD, Guest)
+- Multiple auth providers (GitHub, Keycloak, Azure AD, LDAP, Guest)
 - TechDocs support
 - Catalog with GitHub/GitLab/Azure DevOps integrations
 
