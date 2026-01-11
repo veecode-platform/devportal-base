@@ -116,32 +116,32 @@ skopeo list-tags docker://registry.redhat.io/ubi9/nodejs-22 \
 
 This returns the latest stable tag (e.g., `9.7-1765878606`).
 
-### Update Dockerfiles
+### Update Dockerfile
 
-Update the base image in both Dockerfiles:
+**Automated (recommended):**
 
-1. **packages/backend/Dockerfile** (production):
+```bash
+./scripts/update-base-image.sh
+```
 
-   ```dockerfile
-   FROM registry.redhat.io/ubi9/nodejs-22:9.7-XXXXXXXXXX
-   ```
+This script fetches the latest tag, updates the Dockerfile, and rebuilds the image.
 
-2. **docker/Dockerfile-dev** (development):
+**Manual:**
 
-   ```dockerfile
-   FROM registry.redhat.io/ubi9/nodejs-22:9.7-XXXXXXXXXX AS base
-   ```
+Update `packages/backend/Dockerfile`:
+
+```dockerfile
+FROM registry.redhat.io/ubi9/nodejs-22:9.7-XXXXXXXXXX
+```
 
 ### Verify the Image
 
 ```bash
-# Build and test the image
-yarn build:backend
-docker build packages/backend -t devportal-test
+# Build the image locally
+./scripts/build-local-image.sh --quick
 
-# Or use the build-image script
-cd packages/backend
-yarn build-image
+# Verify it runs
+docker run --rm veecode/devportal-base:latest node --version
 ```
 
 ## 4. Upgrading Dynamic Plugins
@@ -207,7 +207,7 @@ If the Docker build fails after base image upgrade:
 ## Version Compatibility Matrix
 
 | DevPortal Base | Backstage | Node.js | UBI Base Image |
-|----------------|-----------|---------|----------------|
+| -------------- | --------- | ------- | -------------- |
 | 1.1.x          | 1.46.x    | 22.x    | ubi9/nodejs-22 |
 
 Update this table when major versions change.
