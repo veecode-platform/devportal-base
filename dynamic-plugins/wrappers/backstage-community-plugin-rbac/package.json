@@ -11,7 +11,7 @@
   },
   "backstage": {
     "role": "frontend-plugin",
-    "supported-versions": "1.43.3",
+    "supported-versions": "1.46.1",
     "pluginId": "rbac",
     "pluginPackages": [
       "backstage-community-plugin-rbac"
