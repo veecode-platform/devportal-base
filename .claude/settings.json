@@ -9,6 +9,11 @@
       "Bash(find:*)",
       "mcp__github__get_pull_request_status",
       "Bash(gh run view:*)",
+      "Bash(gh run list:*)",
+      "Bash(gh run watch:*)",
+      "Bash(make release:*)",
+      "Bash(git status:*)",
+      "Bash(git branch:*)",
       "Bash(yarn workspace app lint:check:*)",
       "Bash(yarn lint:check:*)",
       "Bash(yarn tsc:*)"
