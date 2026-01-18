@@ -27,6 +27,7 @@ Remediate known vulnerabilities identified by Trivy security scans:
 
    **Important constraints:**
 
+   - **NEVER add resolutions for `@backstage/*` packages** - these must only be updated via the Backstage upgrade process. Use `/upgrade-and-test` skill instead for Backstage version bumps.
    - Only add resolutions for patch/minor updates
    - Skip major version bumps that may break dependencies (document for later)
    - Test that resolutions don't break the build
