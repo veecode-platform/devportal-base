@@ -11,24 +11,25 @@ Scan a Docker image for security vulnerabilities using Trivy:
    - Use `$ARGUMENTS` if provided
    - Otherwise default to `veecode/devportal-base:latest`
 
-2. **Run Trivy scan** - Get vulnerability breakdown by severity:
+2. **Create output directory and run scans**:
 
    ```bash
-   trivy image --ignore-policy .trivy/ignore-kernel.rego --severity HIGH,CRITICAL <image>
+   mkdir -p .trivyscan
    ```
 
-   - The Rego policy (`.trivy/ignore-kernel.rego`) excludes kernel packages (not actionable in containers)
-   - Show the package summary with high/critical CVEs
-
-3. **Run full scan for summary** - Get total vulnerability counts across all severities:
+   Run the JSON scan and save to `.trivyscan/report.json`:
 
    ```bash
-   trivy image --ignore-policy .trivy/ignore-kernel.rego --format json <image> 2>/dev/null | jq '[.Results[].Vulnerabilities // [] | .[]] | group_by(.Severity) | map({severity: .[0].Severity, count: length}) | sort_by(.severity)'
+   trivy image --ignore-policy .trivy/ignore-kernel.rego --quiet --format json <image> > .trivyscan/report.json
    ```
 
-   - This provides counts for the summary table
+   Generate the markdown report from JSON:
 
-4. **Report results** with a summary table:
+   ```bash
+   .trivy/generate-report.sh .trivyscan/report.json > .trivyscan/report.md
+   ```
+
+3. **Report results** with a summary table:
 
    | Severity | Count |
    | -------- | ----- |
@@ -41,9 +42,15 @@ Scan a Docker image for security vulnerabilities using Trivy:
    - Note which vulnerabilities have fixes available
    - Highlight key observations (e.g., OS packages vs application dependencies)
 
+## Output Files
+
+- `.trivyscan/report.json` - Full JSON report for programmatic analysis
+- `.trivyscan/report.md` - Human-readable markdown report with HIGH/CRITICAL vulnerabilities
+
 ## Notes
 
 - Trivy must be installed (`brew install trivy` or see <https://trivy.dev>)
 - The scan analyzes OS packages (RPM, APT) and application dependencies (npm, Python, Go, etc.)
 - Kernel packages are ignored via `.trivy/ignore-kernel.rego` Rego policy - they require host-level fixes and are not actionable within containers
 - Use `--ignore-unfixed` flag to show only vulnerabilities with available fixes
+- The `.trivyscan/` folder should be added to `.gitignore`

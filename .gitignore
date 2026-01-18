@@ -82,3 +82,7 @@ archive/*
 venv/
 # Claude Code local settings
 .claude/settings.local.json
+
+# scan reports
+.trivyscan/*
+!.trivyscan/.gitkeep
