@@ -1,5 +1,10 @@
 # devportal-base changelog
 
+## v1.1.76 (2026-01-18)
+
+- add: gitkeep (f7df4f3)
+- fix: remove @backstage resolutions and prevent future additions (e101e0b)
+
 ## v1.1.75 (2026-01-18)
 
 - fix: remediate security vulnerabilities and upgrade Backstage to 1.46.3 (c1ca9d8)
