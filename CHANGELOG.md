@@ -1,5 +1,11 @@
 # devportal-base changelog
 
+## v1.1.73 (2026-01-18)
+
+- add: system package upgrade in Docker build (3976a85)
+- add: Docker Scout security scan skill (bc68c71)
+- add: GitLab configuration profile (8e47669)
+
 ## v1.1.72 (2026-01-12)
 
 - add: release skill for Claude Code (0cb5e3d)
