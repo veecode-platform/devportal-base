@@ -1,5 +1,9 @@
 # devportal-base changelog
 
+## v1.1.77 (2026-01-18)
+
+- fix: yarn lock (ce568c8)
+
 ## v1.1.76 (2026-01-18)
 
 - add: gitkeep (f7df4f3)
