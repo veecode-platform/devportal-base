@@ -1,5 +1,9 @@
 # devportal-base changelog
 
+## v1.1.74 (2026-01-18)
+
+- fix: dnf upgrade command (99ed3d2)
+
 ## v1.1.73 (2026-01-18)
 
 - add: system package upgrade in Docker build (3976a85)
