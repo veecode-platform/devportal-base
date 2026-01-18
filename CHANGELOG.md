@@ -1,5 +1,13 @@
 # devportal-base changelog
 
+## v1.1.79 (2026-01-18)
+
+- fix: techradar URL allowed (d92ddbf)
+- chore: upgrade dynamic plugin wrapper dependencies (b138a98)
+- update: plugin-upgrade skill to apply selected upgrades (3f919bd)
+- fix: peerdep from wrapper (8a3b4fd)
+- add: plugin-upgrade skill for checking wrapper plugin versions (0e007fc)
+
 ## v1.1.78 (2026-01-18)
 
 - fix: @yarnpkg/parsers/js-yaml version (d81ce5b)
