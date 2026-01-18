@@ -1,4 +1,4 @@
-Scan a Docker image for security vulnerabilities using Docker Scout:
+Scan a Docker image for security vulnerabilities using Trivy:
 
 ## Arguments
 
@@ -11,28 +11,24 @@ Scan a Docker image for security vulnerabilities using Docker Scout:
    - Use `$ARGUMENTS` if provided
    - Otherwise default to `veecode/devportal-base:latest`
 
-2. **Run quickview** - Get a quick summary of vulnerabilities and base image info:
+2. **Run Trivy scan** - Get vulnerability breakdown by severity:
 
    ```bash
-   docker scout quickview <image>
+   trivy image --ignore-policy .trivy/ignore-kernel.rego --severity HIGH,CRITICAL <image>
    ```
 
-3. **Run detailed CVE scan** - Get vulnerability breakdown by package:
+   - The Rego policy (`.trivy/ignore-kernel.rego`) excludes kernel packages (not actionable in containers)
+   - Show the package summary with high/critical CVEs
+
+3. **Run full scan for summary** - Get total vulnerability counts across all severities:
 
    ```bash
-   docker scout cves <image> --only-severity high,critical
+   trivy image --ignore-policy .trivy/ignore-kernel.rego --format json <image> 2>/dev/null | jq '[.Results[].Vulnerabilities // [] | .[]] | group_by(.Severity) | map({severity: .[0].Severity, count: length}) | sort_by(.severity)'
    ```
 
-   - Show the package summary (packages with high/critical CVEs)
-   - Limit output to avoid overwhelming results
+   - This provides counts for the summary table
 
-4. **Get recommendations** - Check for base image updates:
-
-   ```bash
-   docker scout recommendations <image>
-   ```
-
-5. **Report results** with a summary table:
+4. **Report results** with a summary table:
 
    | Severity | Count |
    | -------- | ----- |
@@ -42,12 +38,12 @@ Scan a Docker image for security vulnerabilities using Docker Scout:
    | Low      | X     |
 
    - List packages with high-severity vulnerabilities
-   - Note any base image update recommendations
-   - Highlight key observations (e.g., kernel vs application vulnerabilities)
+   - Note which vulnerabilities have fixes available
+   - Highlight key observations (e.g., OS packages vs application dependencies)
 
 ## Notes
 
-- Docker Scout must be installed and authenticated (`docker scout` CLI)
-- The scan analyzes both OS packages (RPM) and application dependencies (npm, Python, Go)
-- Kernel vulnerabilities from the base image typically require upstream fixes from Red Hat
-- Most kernel CVEs require local access (AV:L) and are lower risk for containerized workloads
+- Trivy must be installed (`brew install trivy` or see <https://trivy.dev>)
+- The scan analyzes OS packages (RPM, APT) and application dependencies (npm, Python, Go, etc.)
+- Kernel packages are ignored via `.trivy/ignore-kernel.rego` Rego policy - they require host-level fixes and are not actionable within containers
+- Use `--ignore-unfixed` flag to show only vulnerabilities with available fixes
