@@ -6,6 +6,24 @@ This document covers the upgrade procedures for VeeCode DevPortal Base.
 
 This is the **base image** - intentionally kept lightweight with a minimal plugin set. The **distro image** (derived from this) is where additional plugins are packaged. Keep this distinction in mind when upgrading.
 
+## Automated Upgrade with Claude Code
+
+If you're using [Claude Code](https://claude.ai/code), the `/upgrade-and-test` skill automates the Backstage upgrade process:
+
+```text
+/upgrade-and-test
+```
+
+This skill will:
+
+1. Run `yarn update-backstage` in both main and dynamic-plugins workspaces
+2. Update metadata files (`backstage.json`, `build-metadata.json`)
+3. Run type checks, tests, and linting
+4. Start the dev server and verify the UI loads correctly
+5. Report any issues encountered during the upgrade
+
+For manual upgrade procedures, continue reading below.
+
 ## Overview
 
 Components that may need upgrading:
@@ -103,6 +121,8 @@ After updating plugins:
 
 The production Dockerfile uses Red Hat UBI9 Node.js images from `registry.redhat.io/ubi9/nodejs-22`.
 
+> **Claude Code users:** Run `/update-base-image` to automate the steps below.
+
 ### Find the Latest Image Tag
 
 ```bash
@@ -166,14 +186,24 @@ Edit `dynamic-plugins/package.json` to update plugin versions, then rebuild.
 
 After any upgrade:
 
-- [ ] Run `yarn install` to update lockfile
-- [ ] Run `yarn tsc` to check for type errors
-- [ ] Run `yarn test` to verify tests pass
-- [ ] Run `yarn lint:check` to verify code style
-- [ ] Start the app locally (`yarn dev-local`) and test manually
-- [ ] Update `packages/app/src/build-metadata.json` if versions changed
-- [ ] Build Docker image and test in container
-- [ ] Update CHANGELOG if significant changes
+- Run `yarn install` to update lockfile
+- Run `yarn tsc` to check for type errors
+- Run `yarn test` to verify tests pass
+- Run `yarn lint:check` to verify code style
+- Start the app locally (`yarn dev-local`) and test manually
+- Update `packages/app/src/build-metadata.json` if versions changed
+- Update CHANGELOG if significant changes
+
+### Security Scanning
+
+After building a new Docker image, scan it for vulnerabilities:
+
+```bash
+# Using Trivy directly
+trivy image veecode/devportal-base:latest
+```
+
+> **Claude Code users:** Run `/security-scan` to scan the image and generate reports. If vulnerabilities are found, run `/fix-vulnerabilities` to remediate actionable issues.
 
 ## Troubleshooting
 
