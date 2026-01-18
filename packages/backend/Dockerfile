@@ -32,6 +32,7 @@ USER root
 # Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    dnf -y upgrade \
     dnf install -y --setopt=install_weak_deps=False \
       make cmake cpp gcc gcc-c++ skopeo git pkg-config \
       jq wget tar gzip ca-certificates \
