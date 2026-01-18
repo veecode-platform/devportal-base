@@ -43,7 +43,7 @@
     "export-dynamic:clean": "run export-dynamic --clean"
   },
   "dependencies": {
-    "@backstage-community/plugin-rbac": "^1.47.0",
+    "@backstage-community/plugin-rbac": "^1.47.2",
     "@mui/material": "5.18.0"
   },
   "devDependencies": {
