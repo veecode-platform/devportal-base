@@ -34,6 +34,10 @@ case "$VEECODE_PROFILE" in
     echo "Loading LDAP configuration..."
     CONFIGS="$CONFIGS --config app-config.ldap.yaml"
     ;;
+  gitlab)
+    echo "Loading GitLab configuration..."
+    CONFIGS="$CONFIGS --config app-config.gitlab.yaml"
+    ;;
   local)
     echo "Loading Local configuration..."
     CONFIGS="$CONFIGS --config app-config.local.yaml"

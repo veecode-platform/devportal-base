@@ -26,12 +26,19 @@
     "LDAP_USERS_BASE_DN",
     "LDAP_USERS_FILTER",
     "LDAP_GROUPS_BASE_DN",
-    "LDAP_GROUPS_FILTER"
+    "LDAP_GROUPS_FILTER",
+    "GITLAB_HOST",
+    "GITLAB_AUTH_CLIENT_ID",
+    "GITLAB_AUTH_CLIENT_SECRET",
+    "GITLAB_TOKEN",
+    "GITLAB_GROUP",
+    "GITLAB_GROUP_PATTERN"
   ],
   "globalDependencies": [
     "app-config.yaml",
     "app-config.dynamic-plugins.yaml",
     "app-config.github.yaml",
+    "app-config.gitlab.yaml",
     "dynamic-plugins.default.yaml"
   ],
   "tasks": {

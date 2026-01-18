@@ -2,7 +2,7 @@
  * Initializes Backstage backend.
  *
  * Parts of this file were based on Red Hat RHDH implementation, specially the dynamic plugin handling
- * 
+ *
  * Happy hacking!
  */
 
@@ -154,24 +154,42 @@ backend.add(import('@backstage/plugin-catalog-backend-module-github-org'));
 backend.add(import('@backstage/plugin-catalog-backend-module-github'));
 backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
 backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
-backend.add(import('@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor'));
-backend.add(import('@backstage-community/plugin-catalog-backend-module-keycloak'));
+backend.add(
+  import(
+    '@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor'
+  ),
+);
+backend.add(
+  import('@backstage-community/plugin-catalog-backend-module-keycloak'),
+);
 backend.add(import('@backstage/plugin-catalog-backend-module-ldap'));
+backend.add(import('@backstage/plugin-catalog-backend-module-gitlab'));
+backend.add(import('@backstage/plugin-catalog-backend-module-gitlab-org'));
 
 // scaffolder plugin
 backend.add(import('@backstage/plugin-scaffolder-backend'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
-backend.add(import('@backstage/plugin-scaffolder-backend-module-notifications'));
-backend.add(import('@backstage-community/plugin-scaffolder-backend-module-annotator'));
+backend.add(
+  import('@backstage/plugin-scaffolder-backend-module-notifications'),
+);
+backend.add(
+  import('@backstage-community/plugin-scaffolder-backend-module-annotator'),
+);
 backend.add(import('@roadiehq/scaffolder-backend-module-utils'));
 backend.add(import('@roadiehq/scaffolder-backend-module-http-request'));
 backend.add(import('@roadiehq/scaffolder-backend-module-aws'));
-backend.add(import('@backstage-community/plugin-scaffolder-backend-module-sonarqube'));
+backend.add(
+  import('@backstage-community/plugin-scaffolder-backend-module-sonarqube'),
+);
 backend.add(import('@roadiehq/scaffolder-backend-argocd'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-azure'));
 backend.add(import('@backstage/plugin-scaffolder-backend-module-gitlab'));
-backend.add(import('@backstage-community/plugin-scaffolder-backend-module-azure-devops'));
-backend.add(import('@backstage-community/plugin-scaffolder-backend-module-jenkins'));
+backend.add(
+  import('@backstage-community/plugin-scaffolder-backend-module-azure-devops'),
+);
+backend.add(
+  import('@backstage-community/plugin-scaffolder-backend-module-jenkins'),
+);
 backend.add(import('@veecode-platform/plugin-scaffolder-backend-module-kong'));
 
 // techdocs plugin
@@ -220,7 +238,9 @@ backend.add(import('@backstage/plugin-signals-backend'));
 
 backend.add(import('@internal/plugin-dynamic-plugins-info-backend'));
 backend.add(import('@internal/plugin-scalprum-backend'));
-backend.add(import('@red-hat-developer-hub/backstage-plugin-translations-backend'));
+backend.add(
+  import('@red-hat-developer-hub/backstage-plugin-translations-backend'),
+);
 
 backend.add(userSettingsBackend);
 

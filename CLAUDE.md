@@ -176,9 +176,18 @@ Profiles provide pre-packaged authentication and integration setups activated vi
 | `keycloak` | `app-config.keycloak.yaml` | OIDC/Keycloak             |
 | `azure`    | `app-config.azure.yaml`    | Microsoft/Azure AD        |
 | `ldap`     | `app-config.ldap.yaml`     | LDAP                      |
+| `gitlab`   | `app-config.gitlab.yaml`   | GitLab OAuth              |
 | `local`    | `app-config.local.yaml`    | Developer overrides       |
 
 Each profile configures auth providers, sign-in resolvers, SCM integrations, and catalog providers for that identity source. Secrets are passed via environment variables (e.g., `GITHUB_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET`).
+
+**Adding a new profile checklist:**
+
+1. Create `app-config.<profile>.yaml` configuration file
+2. Add case to `scripts/start-base.sh`
+3. Add environment variables to `turbo.json` `globalEnv` array (required for local dev)
+4. Add config file to `turbo.json` `globalDependencies` array
+5. Update ADR-009 and this table
 
 ## Tech Docs Setup
 

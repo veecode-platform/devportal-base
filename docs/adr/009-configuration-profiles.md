@@ -37,6 +37,7 @@ Profile-specific files (loaded based on `VEECODE_PROFILE`):
 | `keycloak` | `app-config.keycloak.yaml` | OIDC auth, Keycloak org provider              |
 | `azure`    | `app-config.azure.yaml`    | Microsoft auth, Azure DevOps, MS Graph org    |
 | `ldap`     | `app-config.ldap.yaml`     | LDAP auth, LDAP org provider                  |
+| `gitlab`   | `app-config.gitlab.yaml`   | GitLab OAuth, GitLab org/repo providers       |
 | `local`    | `app-config.local.yaml`    | Developer overrides (gitignored)              |
 
 ### Startup Script
@@ -110,3 +111,4 @@ Each profile typically configures:
 - `app-config.keycloak.yaml` - Keycloak profile
 - `app-config.azure.yaml` - Azure profile
 - `app-config.ldap.yaml` - LDAP profile
+- `app-config.gitlab.yaml` - GitLab profile

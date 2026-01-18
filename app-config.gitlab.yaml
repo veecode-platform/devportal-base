@@ -1,0 +1,61 @@
+# Backstage override configuration for GitLab profile
+#
+# Required environment variables:
+#   GITLAB_HOST               - GitLab hostname (e.g., gitlab.com or gitlab.example.com)
+#   GITLAB_AUTH_CLIENT_ID     - OAuth Application ID (for sign-in)
+#   GITLAB_AUTH_CLIENT_SECRET - OAuth Application Secret
+#   GITLAB_TOKEN              - Personal/Group Access Token (read_api scope, for integrations)
+#   GITLAB_GROUP              - Root group for org sync and repo discovery (e.g., my-org)
+#   GITLAB_GROUP_PATTERN      - Pattern to match groups for catalog sync (default: '[\s\S]*')
+
+signInPage: gitlab
+
+auth:
+  environment: development
+  providers:
+    gitlab:
+      development:
+        clientId: ${GITLAB_AUTH_CLIENT_ID}
+        clientSecret: ${GITLAB_AUTH_CLIENT_SECRET}
+        # For self-hosted GitLab, uncomment and configure audience:
+        # audience: https://${GITLAB_HOST}
+        signIn:
+          resolvers:
+            - resolver: usernameMatchingUserEntityName
+            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: emailLocalPartMatchingUserEntityName
+
+integrations:
+  gitlab:
+    - host: ${GITLAB_HOST}
+      token: ${GITLAB_TOKEN}
+
+catalog:
+  providers:
+    gitlab:
+      default:
+        host: ${GITLAB_HOST}
+        # Root group for discovery (required for gitlab.com org sync)
+        group: ${GITLAB_GROUP}
+        # Enable org data sync (users and groups)
+        orgEnabled: true
+        restrictUsersToGroup: true
+        includeUsersWithoutSeat: true
+        relations:
+          - INHERITED
+          - DESCENDANTS
+          - SHARED_FROM_GROUPS
+        groupPattern: ${GITLAB_GROUP_PATTERN}
+        # Repo discovery settings
+        branch: main
+        fallbackBranch: master
+        skipForkedRepos: false
+        entityFilename: catalog-info.yaml
+        # Entity rules
+        rules:
+          - allow: [Group, User]
+        schedule:
+          frequency:
+            minutes: 5
+          timeout:
+            minutes: 3
