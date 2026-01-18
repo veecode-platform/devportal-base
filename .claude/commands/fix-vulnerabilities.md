@@ -2,14 +2,15 @@ Remediate known vulnerabilities identified by Trivy security scans:
 
 ## Prerequisites
 
-- Run `/security-scan` first to generate `.trivyscan/report.json`
-- Or provide a recent scan report
+- Run `/security-scan` first to generate the split reports
+- This skill uses `.trivyscan/main-report.json` (DevPortal base vulnerabilities only)
+- Dynamic plugin vulnerabilities (in `plugins-report.json`) are ignored - they are maintained by upstream projects
 
 ## Steps
 
 1. **Parse vulnerability report**:
 
-   Read `.trivyscan/report.json` and identify actionable vulnerabilities:
+   Read `.trivyscan/main-report.json` and identify actionable vulnerabilities:
 
    - npm packages with available fixes (fixable via Yarn resolutions)
    - Python packages with available fixes (fixable via requirements.in)
@@ -36,7 +37,7 @@ Remediate known vulnerabilities identified by Trivy security scans:
 
    Update constraints in `python/requirements.in`:
 
-   ```
+   ```pre
    package>=fixed.version
    ```
 
@@ -71,6 +72,7 @@ Remediate known vulnerabilities identified by Trivy security scans:
 | npm (major)       | Document only          | Requires upgrade coordination   |
 | Python (pip)      | Update requirements.in | Run pip-compile after           |
 | System (RHEL)     | Skip                   | Requires upstream Red Hat fixes |
+| Dynamic plugins   | Skip                   | Maintained by upstream projects |
 | No fix available  | Skip                   | Monitor for future fixes        |
 
 ## Example Resolutions
