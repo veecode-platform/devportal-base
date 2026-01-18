@@ -1,5 +1,11 @@
 # devportal-base changelog
 
+## v1.1.75 (2026-01-18)
+
+- fix: remediate security vulnerabilities and upgrade Backstage to 1.46.3 (c1ca9d8)
+- add: markdown report generator for Trivy security scans (72d797b)
+- replace: Docker Scout with Trivy for security scanning (1c7af5f)
+
 ## v1.1.74 (2026-01-18)
 
 - fix: dnf upgrade command (99ed3d2)
