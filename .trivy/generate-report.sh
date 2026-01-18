@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 # Generate a human-readable markdown report from Trivy JSON output
-# Usage: .trivy/generate-report.sh .trivyscan/report.json > .trivyscan/report.md
+# Usage: .trivy/generate-report.sh <json_file> [report_title]
+# Example: .trivy/generate-report.sh .trivyscan/main-report.json "DevPortal Base"
 
 set -euo pipefail
 
 JSON_FILE="${1:-.trivyscan/report.json}"
+REPORT_TITLE="${2:-}"
 
 if [[ ! -f "$JSON_FILE" ]]; then
   echo "Error: JSON file not found: $JSON_FILE" >&2
@@ -15,8 +17,15 @@ fi
 ARTIFACT_NAME=$(jq -r '.ArtifactName // "Unknown"' "$JSON_FILE")
 CREATED_AT=$(jq -r '.CreatedAt // "Unknown"' "$JSON_FILE" | cut -d'T' -f1)
 
+# Build title
+if [[ -n "$REPORT_TITLE" ]]; then
+  FULL_TITLE="# Security Scan Report: $REPORT_TITLE"
+else
+  FULL_TITLE="# Security Scan Report"
+fi
+
 cat << EOF
-# Security Scan Report
+$FULL_TITLE
 
 **Image:** \`$ARTIFACT_NAME\`
 **Scan Date:** $CREATED_AT
