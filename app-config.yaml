@@ -84,6 +84,7 @@ backend:
       - host: gitlab.com
       - host: api.apis.guru
       - host: example.com
+      - host: platform.vee.codes
       - host: '*.mozilla.org'
 auth:
   environment: development
@@ -197,7 +198,8 @@ permission:
         - name: group:default/backstage-admins
 # tech radar backend plugin
 techRadar:
-  url: https://github.com/backstage/community-plugins/blob/main/workspaces/tech-radar/plugins/tech-radar-common/src/sampleTechRadarResponse.json
+  url: https://platform.vee.codes/techradar.json
+#  url: https://github.com/backstage/community-plugins/blob/main/workspaces/tech-radar/plugins/tech-radar-common/src/sampleTechRadarResponse.json
 
 # bug da veecodesignin page
 platform:
