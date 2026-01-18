@@ -1,5 +1,14 @@
 # devportal-base changelog
 
+## v1.1.78 (2026-01-18)
+
+- fix: @yarnpkg/parsers/js-yaml version (d81ce5b)
+- docs: add security scanning documentation and Claude Code skill references (edf659d)
+- add: show plugin folder name in plugins security report (d62586a)
+- fix: update resolutions for security vulnerabilities (c470ac8)
+- update: fix-vulnerabilities skill to use main-report.json (d52302c)
+- add: split security scan reports by main vs dynamic-plugins (ca1e59d)
+
 ## v1.1.77 (2026-01-18)
 
 - fix: yarn lock (ce568c8)
