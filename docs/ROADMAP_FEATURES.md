@@ -10,11 +10,12 @@ VeeCode DevPortal aims to be a production-ready, extensible Backstage distributi
 
 ### Short-term
 
-<!-- Add planned features here -->
+- [ ] Agentic AI assistant for updating all static and dynamic plugins
+- [ ] Improve UI testing (less surprises when upgrading Backstage)
 
 ### Medium-term
 
-<!-- Add planned features here -->
+- [ ] Migrate to new frontend system (will require extensive work on plugins)
 
 ### Long-term
 
