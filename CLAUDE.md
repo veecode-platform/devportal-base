@@ -247,7 +247,9 @@ Testing improves organically alongside feature work. No dedicated "testing sprin
 
 ## Browser Automation
 
-Use [`agent-browser`](https://github.com/vercel-labs/agent-browser/) for web automation. Run `agent-browser --help` for all commands.
+**Prefer `agent-browser` over Puppeteer MCP tools** for web automation. It provides cleaner element discovery with refs (`@e1`, `@e2`) instead of CSS selectors, avoiding selector failures and custom JavaScript workarounds.
+
+Run `agent-browser --help` for all commands.
 
 Core workflow:
 
