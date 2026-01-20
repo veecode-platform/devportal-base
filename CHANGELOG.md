@@ -1,5 +1,9 @@
 # devportal-base changelog
 
+## v1.2.2 (2026-01-20)
+
+- fix: upgraded python to 3.12 (2cf0e59)
+
 ## v1.2.1 (2026-01-20)
 
 - version upgrade in package.json (e076c81)
