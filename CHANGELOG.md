@@ -1,5 +1,11 @@
 # devportal-base changelog
 
+## v1.2.1 (2026-01-20)
+
+- version upgrade in package.json (e076c81)
+- chore: update version metadata for 1.2.0 release (3671c06)
+- chore: upgrade base image from UBI9 to UBI10 (62af717)
+
 ## v1.1.80 (2026-01-20)
 
 - docs: clarify agent-browser preference over Puppeteer (ad8446a)
