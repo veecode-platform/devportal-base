@@ -1,5 +1,12 @@
 # devportal-base changelog
 
+## v1.1.80 (2026-01-20)
+
+- docs: clarify agent-browser preference over Puppeteer (ad8446a)
+- docs: add agent-browser skill and documentation (e2067af)
+- chore: upgrade Backstage from 1.46.3 to 1.47.0 (5a83344)
+- add: statis plugins upgrade skill (66382a8)
+
 ## v1.1.79 (2026-01-18)
 
 - fix: techradar URL allowed (d92ddbf)
