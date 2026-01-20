@@ -38,6 +38,7 @@ import {
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
 import { UserSettingsStorage } from '@backstage/plugin-user-settings';
+import { visitsApiRef, VisitsStorageApi } from '@backstage/plugin-home';
 
 // google analytics
 import { GoogleAnalytics4 } from '@backstage-community/plugin-analytics-module-ga4';
@@ -82,10 +83,13 @@ export const apis: AnyApiFactory[] = [
       configApi: configApiRef,
     },
     factory: ({ github, gitlab, azure, bitbucket, configApi }) => {
-      const disableGitHubScmAuth = configApi.getOptionalBoolean('auth.disableScmAuth.forGitHub') ?? false;
-      
+      const disableGitHubScmAuth =
+        configApi.getOptionalBoolean('auth.disableScmAuth.forGitHub') ?? false;
+
       const providers = [
-        ...(!disableGitHubScmAuth ? [{ key: 'github', ref: github, factory: ScmAuth.forGithub }] : []),
+        ...(!disableGitHubScmAuth
+          ? [{ key: 'github', ref: github, factory: ScmAuth.forGithub }]
+          : []),
         { key: 'gitlab', ref: gitlab, factory: ScmAuth.forGitlab },
         { key: 'azure', ref: azure, factory: ScmAuth.forAzure },
         { key: 'bitbucket', ref: bitbucket, factory: ScmAuth.forBitbucket },
@@ -171,5 +175,10 @@ export const apis: AnyApiFactory[] = [
         identityApi,
       }),
   }),
-  
+  createApiFactory({
+    api: visitsApiRef,
+    deps: { storageApi: storageApiRef, identityApi: identityApiRef },
+    factory: ({ storageApi, identityApi }) =>
+      VisitsStorageApi.create({ storageApi, identityApi }),
+  }),
 ];
