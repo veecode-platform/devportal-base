@@ -238,6 +238,7 @@ If the Docker build fails after base image upgrade:
 
 | DevPortal Base | Backstage | Node.js | UBI Base Image  |
 | -------------- | --------- | ------- | --------------- |
-| 1.1.x          | 1.47.x    | 22.x    | ubi10/nodejs-22 |
+| 1.2.x          | 1.47.x    | 22.x    | ubi10/nodejs-22 |
+| 1.1.x          | 1.46.x    | 22.x    | ubi9/nodejs-22  |
 
 Update this table when major versions change.

@@ -2,8 +2,8 @@
   "title": "VeeCode Platform Metadata",
   "titleKey": "app.userSettings.infoCard.title",
   "card": {
-    "Devportal Version (base image)": "1.1.66",
-    "Backstage Version": "1.46.1",
+    "Devportal Version (base image)": "1.2.0",
+    "Backstage Version": "1.47.0",
     "Last Commit": "N/A"
   }
 }
