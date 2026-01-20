@@ -21,7 +21,7 @@ VeeCode DevPortal is an open-source Backstage distribution designed for producti
 - docs/adr/ - Architecture Decision Records (ADRs) explaining why decisions were made:
   - ADR-001: Scalprum dynamic plugins
   - ADR-002: Base vs distro image
-  - ADR-003: UBI9 Node.js base image
+  - ADR-003: UBI10 Node.js base image
   - ADR-004: Static vs dynamic plugins
   - ADR-005: Testing strategy
   - ADR-006: Yarn 4 workspaces

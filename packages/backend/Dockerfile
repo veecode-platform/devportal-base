@@ -25,7 +25,7 @@
 #
 
 # FROM node:22-bookworm-slim
-FROM registry.redhat.io/ubi9/nodejs-22:9.7-1767745544
+FROM registry.redhat.io/ubi10/nodejs-22:10.1-1768278739
 
 USER root
 

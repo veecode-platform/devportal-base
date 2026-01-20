@@ -119,22 +119,22 @@ After updating plugins:
 
 ## 3. Upgrading Node.js Base Image
 
-The production Dockerfile uses Red Hat UBI9 Node.js images from `registry.redhat.io/ubi9/nodejs-22`.
+The production Dockerfile uses Red Hat UBI10 Node.js images from `registry.redhat.io/ubi10/nodejs-22`.
 
 > **Claude Code users:** Run `/update-base-image` to automate the steps below.
 
 ### Find the Latest Image Tag
 
 ```bash
-skopeo list-tags docker://registry.redhat.io/ubi9/nodejs-22 \
+skopeo list-tags docker://registry.redhat.io/ubi10/nodejs-22 \
   | jq -r '.Tags[]
-           | select(startswith("9.7-"))
+           | select(startswith("10.1-"))
            | select(endswith("-source") | not)' \
   | sort -V \
   | tail -n 1
 ```
 
-This returns the latest stable tag (e.g., `9.7-1765878606`).
+This returns the latest stable tag (e.g., `10.1-1768278739`).
 
 ### Update Dockerfile
 
@@ -151,7 +151,7 @@ This script fetches the latest tag, updates the Dockerfile, and rebuilds the ima
 Update `packages/backend/Dockerfile`:
 
 ```dockerfile
-FROM registry.redhat.io/ubi9/nodejs-22:9.7-XXXXXXXXXX
+FROM registry.redhat.io/ubi10/nodejs-22:10.1-XXXXXXXXXX
 ```
 
 ### Verify the Image
@@ -236,8 +236,8 @@ If the Docker build fails after base image upgrade:
 
 ## Version Compatibility Matrix
 
-| DevPortal Base | Backstage | Node.js | UBI Base Image |
-| -------------- | --------- | ------- | -------------- |
-| 1.1.x          | 1.46.x    | 22.x    | ubi9/nodejs-22 |
+| DevPortal Base | Backstage | Node.js | UBI Base Image  |
+| -------------- | --------- | ------- | --------------- |
+| 1.1.x          | 1.47.x    | 22.x    | ubi10/nodejs-22 |
 
 Update this table when major versions change.

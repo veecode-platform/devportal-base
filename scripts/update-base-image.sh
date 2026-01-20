@@ -2,7 +2,7 @@
 set -e
 
 # Update Base Image Script
-# Fetches the latest UBI9 Node.js 22 image tag from Red Hat registry,
+# Fetches the latest UBI10 Node.js 22 image tag from Red Hat registry,
 # updates the Dockerfile, and rebuilds the image.
 #
 # Usage:
@@ -14,8 +14,8 @@ set -e
 
 # Configuration
 DOCKERFILE_PATH="packages/backend/Dockerfile"
-REGISTRY="registry.redhat.io/ubi9/nodejs-22"
-TAG_PREFIX="9.7-"
+REGISTRY="registry.redhat.io/ubi10/nodejs-22"
+TAG_PREFIX="10.1-"
 
 # Colors for output
 RED='\033[0;31m'
@@ -46,7 +46,7 @@ print_error() {
 show_help() {
     echo "Update Base Image Script"
     echo ""
-    echo "Fetches the latest UBI9 Node.js 22 image tag from Red Hat registry,"
+    echo "Fetches the latest UBI10 Node.js 22 image tag from Red Hat registry,"
     echo "updates the Dockerfile, and rebuilds the image."
     echo ""
     echo "Usage: $0 [OPTIONS]"

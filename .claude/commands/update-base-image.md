@@ -1,7 +1,7 @@
 Update the Node.js base image and rebuild:
 
 1. Run `./scripts/update-base-image.sh` to:
-   - Fetch the latest UBI9 Node.js 22 image tag from Red Hat registry (using skopeo)
+   - Fetch the latest UBI10 Node.js 22 image tag from Red Hat registry (using skopeo)
    - Compare with the current tag in `packages/backend/Dockerfile`
    - Update the FROM clause if a newer version is available
    - Build the Docker image using quick mode (skips lint/tests)
