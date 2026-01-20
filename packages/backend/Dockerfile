@@ -44,16 +44,16 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
 COPY python /opt/python
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
-    dnf install -y python3.11 python3.11-pip python3.11-devel && \
+    dnf install -y python3.12 python3.12-pip python3.12-devel && \
     # dnf clean all && \
-    alternatives --install /usr/bin/python python /usr/bin/python3.11 1 && \
-    alternatives --install /usr/bin/pip pip /usr/bin/pip3.11 1 && \
-    python3.11 -V; pip3.11 -V
+    alternatives --install /usr/bin/python python /usr/bin/python3.12 1 && \
+    alternatives --install /usr/bin/pip pip /usr/bin/pip3.12 1 && \
+    python3.12 -V; pip3.12 -V
 RUN --mount=type=cache,target=/root/.cache/pip \
     cd /opt/python/ && \
     set -e; \
     pip install --upgrade pip setuptools pyyaml; \
-    pip install -r requirements.txt; mkdocs --version
+    pip install -r requirements.txt --ignore-installed urllib3; mkdocs --version
 # Deck install (auto-detect latest version)
 RUN DECK_VERSION=$(curl -sL https://api.github.com/repos/kong/deck/releases/latest | jq -r '.tag_name' | sed 's/^v//') && \
     ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
