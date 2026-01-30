@@ -1,5 +1,9 @@
 # devportal-base changelog
 
+## v1.2.3 (2026-01-30)
+
+- update backstage to 1.47.2 (8628266)
+
 ## v1.2.2 (2026-01-20)
 
 - fix: upgraded python to 3.12 (2cf0e59)
