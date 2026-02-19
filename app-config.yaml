@@ -125,52 +125,17 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location, User, Group]
+    - allow: [Component, System, API, Resource, Location, User, Group, Template]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    # Consolidated into a single Location aggregator file under `examples`
     - type: file
-      target: ../../examples/entities.yaml
-    # Local example template
-    - type: file
-      target: ../../examples/template-nodejs/template.yaml
-      rules:
-        - allow: [Template]
-    - type: file
-      target: ../../examples/template-openapi/template.yaml
-      rules:
-        - allow: [Template]
-    - type: file
-      target: ../../examples/template-azure-nodejs/template.yaml
-      rules:
-        - allow: [Template]
-    # Local example organizational data
-    - type: file
-      target: ../../examples/org.yaml
-      rules:
-        - allow: [User, Group]  
-    # Local example apis
-    - type: file
-      target: ../../examples/apis.yaml
-    # Local example resources
-    - type: file
-      target: ../../examples/resources.yaml
-    # Local example clusters
-    - type: file
-      target: ../../examples/clusters.yaml
-    # Local example techdocs documentation
-    - type: file
-      target: ../../examples/techdocs/catalog-info.yaml
-    # Template documentation
-    - type: file
-      target: ../../examples/template-nodejs/catalog-info.yaml
-    - type: file
-      target: ../../examples/template-openapi/catalog-info.yaml
+      target: ../../examples/catalog-all.yaml
 
     ## Uncomment these lines to add more example data
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all.yaml
 
-    ## Uncomment these lines to add an example org
     # - type: url
     #   target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/acme-corp.yaml
     #   rules:
