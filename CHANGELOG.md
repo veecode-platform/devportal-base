@@ -1,5 +1,10 @@
 # devportal-base changelog
 
+## v1.2.4 (2026-02-19)
+
+- update UBI10 Node.js 22 base image to 10.1-1771303085 (46f02b4)
+- update backstage to 1.48.1 (ad71293)
+
 ## v1.2.3 (2026-01-30)
 
 - update backstage to 1.47.2 (8628266)
