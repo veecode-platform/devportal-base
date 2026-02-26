@@ -24,10 +24,10 @@
     "clean-dynamic-sources": "yarn clean && rm -Rf node_modules"
   },
   "dependencies": {
-    "@backstage-community/plugin-tech-radar-backend": "^1.13.0"
+    "@backstage-community/plugin-tech-radar-backend": "^1.14.1"
   },
   "devDependencies": {
-    "@backstage/cli": "^0.35.1",
+    "@backstage/cli": "^0.35.4",
     "@red-hat-developer-hub/cli": "^1.9.1",
     "typescript": "5.8.3"
   },
