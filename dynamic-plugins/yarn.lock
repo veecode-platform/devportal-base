@@ -2578,14 +2578,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-rbac@npm:^1.48.1":
-  version: 1.48.1
-  resolution: "@backstage-community/plugin-rbac@npm:1.48.1"
+"@backstage-community/plugin-rbac@npm:^1.49.0":
+  version: 1.49.0
+  resolution: "@backstage-community/plugin-rbac@npm:1.49.0"
   dependencies:
     "@backstage-community/plugin-rbac-common": "npm:^1.23.0"
     "@backstage/catalog-model": "npm:^1.7.6"
     "@backstage/core-components": "npm:^0.18.6"
     "@backstage/core-plugin-api": "npm:^1.12.2"
+    "@backstage/frontend-plugin-api": "npm:^0.13.3"
+    "@backstage/plugin-app-react": "npm:^0.1.0"
     "@backstage/plugin-catalog": "npm:^1.32.2"
     "@backstage/plugin-catalog-common": "npm:^1.1.7"
     "@backstage/plugin-permission-common": "npm:^0.9.5"
@@ -2605,7 +2607,7 @@ __metadata:
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: ^6.0.0
-  checksum: 10c0/2a8a08075eb37c7ead05338f4061e839065e39531a5e47be9913ba92b2284cdc95166c0645980aae7c413b5bd6420b721bdc6bb674ae17415a87d8c6839e6ab0
+  checksum: 10c0/d13b663b2a29d9d06bb0c022fc81e7a7f2624c0b7b0528458789d39554416580aef6e0d9eecbd194a0adf93c6a0e0a2a7228babf04e71560c691f54dad48b916
   languageName: node
   linkType: hard
 
@@ -3464,7 +3466,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/frontend-plugin-api@npm:^0.13.4":
+"@backstage/frontend-plugin-api@npm:^0.13.3, @backstage/frontend-plugin-api@npm:^0.13.4":
   version: 0.13.4
   resolution: "@backstage/frontend-plugin-api@npm:0.13.4"
   dependencies:
@@ -3600,6 +3602,25 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/84a1582cd4037591693ed32d472834068dbabffd32ef7e491fdd403ee9caa4ca75381c1ff3ac88a2df8909ede09a3974b4b4bea8c02c4f65d8de290756d56329
+  languageName: node
+  linkType: hard
+
+"@backstage/plugin-app-react@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@backstage/plugin-app-react@npm:0.1.0"
+  dependencies:
+    "@backstage/core-plugin-api": "npm:^1.12.1"
+    "@backstage/frontend-plugin-api": "npm:^0.13.3"
+    "@material-ui/core": "npm:^4.9.13"
+  peerDependencies:
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+    react-router-dom: ^6.3.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/a10716547b2c4a5c8c9d55d1283091b5009877996d2e0ad0b37babc631c35bd45a4cc359e18ae7f98f87b38b869baae5f68c5eeff5d79029ec79f9a9780abb19
   languageName: node
   linkType: hard
 
@@ -13034,7 +13055,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backstage-community-plugin-rbac@workspace:wrappers/backstage-community-plugin-rbac"
   dependencies:
-    "@backstage-community/plugin-rbac": "npm:^1.48.1"
+    "@backstage-community/plugin-rbac": "npm:^1.49.0"
     "@backstage/cli": "npm:^0.35.4"
     "@janus-idp/cli": "npm:3.6.1"
     "@mui/material": "npm:5.18.0"
