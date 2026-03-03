@@ -3,7 +3,7 @@
   "titleKey": "app.userSettings.infoCard.title",
   "card": {
     "Devportal Version (base image)": "1.2.0",
-    "Backstage Version": "1.47.0",
+    "Backstage Version": "1.48.3",
     "Last Commit": "N/A"
   }
 }

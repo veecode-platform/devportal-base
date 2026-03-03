@@ -1,5 +1,17 @@
 # devportal-base changelog
 
+
+## v1.2.5 (2026-02-26)
+* upgrade Backstage to 1.48.3 and add release cycle docs (f8bd980)
+* consolidate catalog locations and improve keycloak config (a4da23e)
+
+## v1.2.5 (2026-02-26)
+* upgrade Backstage to 1.48.3 and add release cycle docs (f8bd980)
+* consolidate catalog locations and improve keycloak config (a4da23e)
+
+## v1.2.5 (2026-02-26)
+* upgrade Backstage to 1.48.3 and add release cycle docs (f8bd980)
+* consolidate catalog locations and improve keycloak config (a4da23e)
 ## v1.2.4 (2026-02-19)
 
 - update UBI10 Node.js 22 base image to 10.1-1771303085 (46f02b4)
