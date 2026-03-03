@@ -86,7 +86,7 @@ check using agent-browser. Run this even if other validation commands (test, lin
 Start the built app in background:
 
 ```bash
-node packages/backend/dist/index.js &
+RBAC_POLICY_PATH=$(pwd)/rbac-policy.csv node packages/backend/dist/index.js &
 ```
 
 Wait for the server to be ready (poll http://localhost:7007 with curl, max 60 seconds).

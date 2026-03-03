@@ -67,4 +67,4 @@ catalog:
 
 permission:
   rbac:
-    policies-csv-file: /app/rbac-policy.csv
+    policies-csv-file: ${RBAC_POLICY_PATH:-/app/rbac-policy.csv}
