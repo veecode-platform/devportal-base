@@ -12,7 +12,11 @@ validate, and open a PR for human review.
 ## Pre-flight check
 
 Before doing anything, run:
-  gh pr list --state open --head "chore/automated-update-" --json number,title
+
+```bash
+gh pr list --state open --json headRefName,number,title \
+  --jq '.[] | select(.headRefName | startswith("chore/automated-update-"))'
+```
 
 If any open PR is returned, exit immediately without creating a branch or
 making any changes. The previous automated PR has not been reviewed yet.

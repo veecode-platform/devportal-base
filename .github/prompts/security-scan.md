@@ -19,7 +19,11 @@ Full image reference: veecode/devportal-base:$IMAGE_TAG
 ## Pre-flight check
 
 Before doing anything, run:
-  gh pr list --state open --head "chore/security-fix-" --json number,title
+
+```bash
+gh pr list --state open --json headRefName,number,title \
+  --jq '.[] | select(.headRefName | startswith("chore/security-fix-"))'
+```
 
 If any open PR is returned, exit immediately without creating a branch or
 making any changes. The previous security PR has not been reviewed yet.
