@@ -91,12 +91,18 @@ RBAC_POLICY_PATH=$(pwd)/rbac-policy.csv node packages/backend/dist/index.js &
 
 Wait for the server to be ready (poll http://localhost:7007 with curl, max 60 seconds).
 
+All screenshots MUST be saved to `/tmp/visual-regression/`.
+
+```bash
+mkdir -p /tmp/visual-regression
+```
+
 Use agent-browser to verify the UI:
 
 ```bash
 agent-browser open http://localhost:7007
 agent-browser wait --load networkidle
-agent-browser screenshot /tmp/vr-home.png
+agent-browser screenshot /tmp/visual-regression/home.png
 agent-browser snapshot -i
 ```
 
@@ -110,7 +116,7 @@ Navigate to catalog:
 ```bash
 agent-browser open http://localhost:7007/catalog
 agent-browser wait --load networkidle
-agent-browser screenshot /tmp/vr-catalog.png
+agent-browser screenshot /tmp/visual-regression/catalog.png
 agent-browser snapshot -i
 ```
 
@@ -123,7 +129,7 @@ Navigate to APIs:
 ```bash
 agent-browser open http://localhost:7007/catalog?filters%5Bkind%5D=api
 agent-browser wait --load networkidle
-agent-browser screenshot /tmp/vr-apis.png
+agent-browser screenshot /tmp/visual-regression/apis.png
 agent-browser snapshot -i
 ```
 
@@ -170,6 +176,8 @@ If changes were made: open a PR with the following body format:
 - Home (/): pass / warning / fail
 - Catalog (/catalog): pass / warning / fail
 - APIs (/catalog?kind=api): pass / warning / fail
+
+> Screenshots available in the workflow run artifacts.
 
 ### Errors encountered
 <errors that could not be fixed, or "none">
