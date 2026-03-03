@@ -15,9 +15,6 @@ all patch and minor upgrades. Major upgrades are skipped and reported.
 
    - `@backstage-community/plugin-catalog-backend-module`
    - `@backstage-community/plugin-scaffolder-backend-module`
-   - `@backstage/plugin-auth-backend-module`
-   - `@backstage/plugin-catalog-backend-module`
-   - `@backstage/plugin-search-backend-module`
    - `@roadiehq/scaffolder`
 
 3. **For each eligible package**, fetch the latest version from npm registry:
