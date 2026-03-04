@@ -58,6 +58,23 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Trigger PR checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_BRANCH="chore/automated-update-$(date -u +%Y-%m-%d)"
+          PR_NUMBER=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head "$PR_BRANCH" --json number --jq '.[0].number // empty')
+          if [ -n "$PR_NUMBER" ]; then
+            HEAD_SHA=$(git rev-parse "origin/$PR_BRANCH")
+            gh api "repos/$GITHUB_REPOSITORY/dispatches" \
+              -f event_type=pr-validate \
+              -f "client_payload[ref]=$PR_BRANCH" \
+              -f "client_payload[sha]=$HEAD_SHA"
+            echo "Triggered pr-validate for PR #$PR_NUMBER (sha: $HEAD_SHA)"
+          else
+            echo "No open PR found for branch $PR_BRANCH, skipping check trigger"
+          fi
+
       - name: Upload visual regression screenshots
         if: always()
         uses: actions/upload-artifact@v4
