@@ -41,14 +41,13 @@ produced. Never selectively stage files.
 Follow the process described in .claude/commands/update-base-image.md using strictly the --no-build flag.
 
 Success criteria: script executed and reported whether an update exists.
-If updated, commit: "chore: update UBI10 base image to <tag>"
+If updated: `git add -A && git commit -m "chore: update UBI10 base image to <tag>"`
 
 ### Step 2: Backstage core
 
 Follow the process described in .claude/commands/ci/upgrade-and-test.md
 
-If update succeeded, commit:
-"chore: upgrade backstage core to <version>"
+If update succeeded: `git add -A && git commit -m "chore: upgrade backstage core to <version>"`
 
 ### Step 3: Static plugins
 
@@ -62,8 +61,7 @@ If tsc fails, apply this error policy:
   revert the static plugin changes, document errors in output
 - "duplicate installation" warnings: run yarn dedupe, yarn install, and yarn tsc again
 
-If upgrades were applied, commit:
-"chore: upgrade static plugins"
+If upgrades were applied: `git add -A && git commit -m "chore: upgrade static plugins"`
 
 ### Step 4: Dynamic plugins
 
@@ -71,8 +69,7 @@ Follow the process described in .claude/commands/ci/upgrade-dynamic-plugins.md
 
 After applying, run cd dynamic-plugins && yarn install.
 
-If upgrades were applied, commit:
-"chore: upgrade dynamic plugin wrappers"
+If upgrades were applied: `git add -A && git commit -m "chore: upgrade dynamic plugin wrappers"`
 
 ## Final validation
 
