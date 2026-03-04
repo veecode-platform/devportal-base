@@ -1,7 +1,7 @@
 Perform a Backstage upgrade cycle with UI verification:
 
 1. Run `yarn update-backstage` to upgrade Backstage core and related packages
-2. **Check for actual upgrades**: Run `git status --porcelain '**/package.json'` to see if any package.json files were modified. If no package.json files were modified, exit early with a message like "No Backstage upgrade available. All packages are already at the latest version." and skip all remaining steps.
+2. **Check for actual upgrades**: Run `git status --porcelain backstage.json '**/package.json'` to see if `backstage.json` or any `package.json` files were modified. If no files were modified, exit early with a message like "No Backstage upgrade available. All packages are already at the latest version." and skip all remaining steps.
 3. Run `yarn install` to update dependencies
 4. Run `yarn tsc` to check for type errors
 5. Start the dev server with `yarn dev-local` in background

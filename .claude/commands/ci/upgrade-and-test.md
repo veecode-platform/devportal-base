@@ -15,10 +15,10 @@ validation. Visual regression is handled separately by the orchestrator prompt.
 2. **Check for actual upgrades**:
 
    ```bash
-   git status --porcelain '**/package.json'
+   git status --porcelain backstage.json '**/package.json'
    ```
 
-   If no package.json files were modified, exit early with: "No Backstage upgrade available. All packages are already at the latest version." Skip all remaining steps.
+   If no files were modified, exit early with: "No Backstage upgrade available. All packages are already at the latest version." Skip all remaining steps.
 
 3. **Install dependencies**:
 
@@ -48,7 +48,7 @@ validation. Visual regression is handled separately by the orchestrator prompt.
 6. **Report results**:
 
    Output a summary with:
-   - Previous and new Backstage version
+   - Previous and new Backstage version (read from `backstage.json` before and after)
    - yarn tsc: pass / fail
    - yarn build: pass / fail
    - Any duplicate installation warnings encountered

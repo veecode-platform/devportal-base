@@ -30,6 +30,12 @@ Create a branch from main: chore/automated-update-YYYY-MM-DD
 Execute each step in order. Each step that produces changes must result
 in a separate commit with a descriptive message.
 
+**CRITICAL — committing changes**: Each step runs deterministic scripts or
+tools that modify files in the working tree. You are not expected to know
+which files they touch. When committing after a step, always use
+`git add -A && git commit -m "<message>"` to capture every change the step
+produced. Never selectively stage files.
+
 ### Step 1: UBI10 base image
 
 Follow the process described in .claude/commands/update-base-image.md using strictly the --no-build flag.
