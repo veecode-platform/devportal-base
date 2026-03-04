@@ -83,7 +83,13 @@
     "qs": "^6.14.1",
     "jws": "^3.2.3",
     "prismjs": "^1.30.0",
-    "@yarnpkg/parsers/js-yaml": "^3.14.1"
+    "@yarnpkg/parsers/js-yaml": "^3.14.1",
+    "@isaacs/brace-expansion": "^5.0.1",
+    "basic-ftp": "^5.2.0",
+    "fast-xml-parser": "^5.3.8",
+    "vm2": "^3.10.2",
+    "bn.js": "^4.12.3",
+    "lodash": "^4.17.23"
   },
   "prettier": "@backstage/cli/config/prettier",
   "lint-staged": {
