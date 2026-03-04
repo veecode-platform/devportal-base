@@ -3292,30 +3292,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-azure-devops-common@npm:^0.20.0":
-  version: 0.20.0
-  resolution: "@backstage-community/plugin-azure-devops-common@npm:0.20.0"
+"@backstage-community/plugin-azure-devops-common@npm:^0.20.1":
+  version: 0.20.1
+  resolution: "@backstage-community/plugin-azure-devops-common@npm:0.20.1"
   dependencies:
     "@backstage/catalog-model": "npm:^1.7.6"
     "@backstage/plugin-catalog-common": "npm:^1.1.8"
     "@backstage/plugin-permission-common": "npm:^0.9.6"
-  checksum: 10c0/12cecfd3f26fbd511b3524a25ffd9256d818279dd928bdc03b9a0e94a6d3dbc694c6b796ccf856eb6f97a4908605b462301dfdc5387c51f45ca802215a4cf6e7
+  checksum: 10c0/bd85bde1c8c9884988e7dda4aca1c1777dc1a16f02d2ce889df207833a0672fb6bab62c336ff0fc9a893a25965d4dea663419dadf47d74632acce2ef47966566
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor@npm:^0.17.0":
-  version: 0.17.0
-  resolution: "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor@npm:0.17.0"
+"@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor@npm:^0.17.1":
+  version: 0.17.1
+  resolution: "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor@npm:0.17.1"
   dependencies:
-    "@backstage-community/plugin-azure-devops-common": "npm:^0.20.0"
+    "@backstage-community/plugin-azure-devops-common": "npm:^0.20.1"
     "@backstage/backend-plugin-api": "npm:^1.7.0"
     "@backstage/catalog-model": "npm:^1.7.6"
     "@backstage/config": "npm:^1.3.6"
-    "@backstage/integration": "npm:^1.20.0"
+    "@backstage/integration": "npm:^1.20.1"
     "@backstage/plugin-catalog-common": "npm:^1.1.8"
     "@backstage/plugin-catalog-node": "npm:^2.0.0"
     lodash: "npm:^4.17.21"
-  checksum: 10c0/1b76f22cef594850e627686619a5ed4f7bd5543ca50693cfd92831e86ab4fdc9553c44a19a1387f4d7bc2e24154f6f59aedd45c14ae7decb74d8c560ea093c6f
+  checksum: 10c0/e3fbcc89170c4fe783fbf4209ec9344cb246801882e6b000797991fa8f81f01721aa7b62349eec2fae7d1efc4f5447852a93b4581e5dc0a8c9807eb985dc91ce
   languageName: node
   linkType: hard
 
@@ -3497,18 +3497,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-scaffolder-backend-module-azure-devops@npm:^0.22.0":
-  version: 0.22.0
-  resolution: "@backstage-community/plugin-scaffolder-backend-module-azure-devops@npm:0.22.0"
+"@backstage-community/plugin-scaffolder-backend-module-azure-devops@npm:^0.22.1":
+  version: 0.22.1
+  resolution: "@backstage-community/plugin-scaffolder-backend-module-azure-devops@npm:0.22.1"
   dependencies:
     "@backstage/backend-plugin-api": "npm:^1.7.0"
     "@backstage/config": "npm:^1.3.6"
     "@backstage/errors": "npm:^1.2.7"
-    "@backstage/integration": "npm:^1.20.0"
+    "@backstage/integration": "npm:^1.20.1"
     "@backstage/plugin-scaffolder-node": "npm:^0.12.5"
     azure-devops-node-api: "npm:^15.0.0"
     yaml: "npm:^2.6.0"
-  checksum: 10c0/51c575c0dcdfc0275fb40062f70077bbac1dc6fec6475b2a0fcbb5023e602e92d71768d251f0568d510d14d64ef40763e548a87fe2200eec3752a79248708328
+  checksum: 10c0/a0dd8f58f22fac37323ddc94a5a2c72a0b2f0737cbcfb48735a0259316d11f90d6712a6dfacdbf26564d1eaff4ed9103c472fbffb0318a1070389806ee6d23ed
   languageName: node
   linkType: hard
 
@@ -4615,6 +4615,24 @@ __metadata:
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.0.0"
   checksum: 10c0/e96a553297fce0742dc3f0bb229ca8215c18720c7154f0889387b3ed9583203fc8ef4b5d9c9d180a2636b3906499d3ddccf91e40cadfd9d14a7873fee489e562
+  languageName: node
+  linkType: hard
+
+"@backstage/integration@npm:^1.20.1":
+  version: 1.20.1
+  resolution: "@backstage/integration@npm:1.20.1"
+  dependencies:
+    "@azure/identity": "npm:^4.0.0"
+    "@azure/storage-blob": "npm:^12.5.0"
+    "@backstage/config": "npm:^1.3.6"
+    "@backstage/errors": "npm:^1.2.7"
+    "@octokit/auth-app": "npm:^4.0.0"
+    "@octokit/rest": "npm:^19.0.3"
+    cross-fetch: "npm:^4.0.0"
+    git-url-parse: "npm:^15.0.0"
+    lodash: "npm:^4.17.21"
+    luxon: "npm:^3.0.0"
+  checksum: 10c0/f117b378dd4865e3dd9d74992049d61df38c0534f95221afbaac6e9506d7ef543fa9cc5f7adc11633fc1bec298bf10064e7a62dc066b00b666f758056e51f187
   languageName: node
   linkType: hard
 
@@ -6057,16 +6075,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-backend@npm:^3.1.3":
-  version: 3.1.3
-  resolution: "@backstage/plugin-scaffolder-backend@npm:3.1.3"
+"@backstage/plugin-scaffolder-backend@npm:^3.1.4":
+  version: 3.1.4
+  resolution: "@backstage/plugin-scaffolder-backend@npm:3.1.4"
   dependencies:
     "@backstage/backend-openapi-utils": "npm:^0.6.6"
     "@backstage/backend-plugin-api": "npm:^1.7.0"
     "@backstage/catalog-model": "npm:^1.7.6"
     "@backstage/config": "npm:^1.3.6"
     "@backstage/errors": "npm:^1.2.7"
-    "@backstage/integration": "npm:^1.20.0"
+    "@backstage/integration": "npm:^1.20.1"
     "@backstage/plugin-auth-node": "npm:^0.6.13"
     "@backstage/plugin-bitbucket-cloud-common": "npm:^0.3.7"
     "@backstage/plugin-catalog-backend-module-scaffolder-entity-model": "npm:^0.2.17"
@@ -6110,7 +6128,7 @@ __metadata:
     zen-observable: "npm:^0.10.0"
     zod: "npm:^3.25.76"
     zod-to-json-schema: "npm:^3.25.1"
-  checksum: 10c0/215f1654327663d6483c8e03a6d50eb11d802a6fcda946fc880ac73017cac53415ca3b9a9555baf552493deb5d4f6dac0715902c43d0f340bd893d6fb3c2db2d
+  checksum: 10c0/c2b9e053c7bf087592ea21b493f830bfd36418a0acd05fe1059b927746da0a4686e4df8602de390d2c39b08e92eb3e952c239960d85d951babcf904efa67383d
   languageName: node
   linkType: hard
 
@@ -20273,12 +20291,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend@workspace:packages/backend"
   dependencies:
-    "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor": "npm:^0.17.0"
+    "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor": "npm:^0.17.1"
     "@backstage-community/plugin-catalog-backend-module-keycloak": "npm:^3.17.2"
     "@backstage-community/plugin-rbac-backend": "npm:^7.7.2"
     "@backstage-community/plugin-rbac-node": "npm:^1.17.0"
     "@backstage-community/plugin-scaffolder-backend-module-annotator": "npm:^2.14.0"
-    "@backstage-community/plugin-scaffolder-backend-module-azure-devops": "npm:^0.22.0"
+    "@backstage-community/plugin-scaffolder-backend-module-azure-devops": "npm:^0.22.1"
     "@backstage-community/plugin-scaffolder-backend-module-jenkins": "npm:^0.19.0"
     "@backstage-community/plugin-scaffolder-backend-module-sonarqube": "npm:^2.13.0"
     "@backstage/backend-defaults": "npm:^0.15.2"
@@ -20320,7 +20338,7 @@ __metadata:
     "@backstage/plugin-permission-common": "npm:^0.9.6"
     "@backstage/plugin-permission-node": "npm:^0.10.10"
     "@backstage/plugin-proxy-backend": "npm:^0.6.10"
-    "@backstage/plugin-scaffolder-backend": "npm:^3.1.3"
+    "@backstage/plugin-scaffolder-backend": "npm:^3.1.4"
     "@backstage/plugin-scaffolder-backend-module-azure": "npm:^0.2.18"
     "@backstage/plugin-scaffolder-backend-module-github": "npm:^0.9.6"
     "@backstage/plugin-scaffolder-backend-module-gitlab": "npm:^0.11.3"
