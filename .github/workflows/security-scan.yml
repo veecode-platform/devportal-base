@@ -67,3 +67,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           IMAGE_TAG: ${{ env.IMAGE_TAG }}
+
+      - name: Trigger PR checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          PR_BRANCH="chore/security-fix-$(date -u +%Y-%m-%d)"
+          PR_NUMBER=$(gh pr list --repo "$REPO" --state open --head "$PR_BRANCH" --json number --jq '.[0].number // empty')
+          if [ -n "$PR_NUMBER" ]; then
+            HEAD_SHA=$(git rev-parse "origin/$PR_BRANCH")
+            gh api "repos/$REPO/dispatches" \
+              -f event_type=pr-validate \
+              -f "client_payload[ref]=$PR_BRANCH" \
+              -f "client_payload[sha]=$HEAD_SHA"
+            echo "Triggered pr-validate for PR #$PR_NUMBER (sha: $HEAD_SHA)"
+          else
+            echo "No open PR found for branch $PR_BRANCH, skipping check trigger"
+          fi

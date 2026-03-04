@@ -16,17 +16,18 @@ Default to `latest` if the variable is not set.
 
 Full image reference: veecode/devportal-base:$IMAGE_TAG
 
-## Pre-flight check
+## Pre-flight: close previous security PR
 
-Before doing anything, run:
+Before creating a new branch, close any leftover security-fix PR so its
+branch does not conflict:
 
 ```bash
-gh pr list --state open --json headRefName,number,title \
-  --jq '.[] | select(.headRefName | startswith("chore/security-fix-"))'
+gh pr list --state open --json headRefName,number \
+  --jq '.[] | select(.headRefName | startswith("chore/security-fix-")) | .number' \
+  | while read -r PR_NUM; do
+      gh pr close "$PR_NUM" --delete-branch
+    done
 ```
-
-If any open PR is returned, exit immediately without creating a branch or
-making any changes. The previous security PR has not been reviewed yet.
 
 ## Branch
 
@@ -50,7 +51,7 @@ After the scan completes, review the generated reports.
 
 Follow the process described in .claude/commands/fix-vulnerabilities.md
 
-If fixes were applied, commit: "chore: fix security vulnerabilities"
+If fixes were applied: `git add -A && git commit -m "chore: fix security vulnerabilities"`
 
 ## Validation
 

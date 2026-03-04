@@ -9,17 +9,18 @@ plugins, samples, or parent in your context.
 Check for available updates to devportal-base components, apply them,
 validate, and open a PR for human review.
 
-## Pre-flight check
+## Pre-flight: close previous automated PR
 
-Before doing anything, run:
+Before creating a new branch, close any leftover automated-update PR so its
+branch does not conflict:
 
 ```bash
-gh pr list --state open --json headRefName,number,title \
-  --jq '.[] | select(.headRefName | startswith("chore/automated-update-"))'
+gh pr list --state open --json headRefName,number \
+  --jq '.[] | select(.headRefName | startswith("chore/automated-update-")) | .number' \
+  | while read -r PR_NUM; do
+      gh pr close "$PR_NUM" --delete-branch
+    done
 ```
-
-If any open PR is returned, exit immediately without creating a branch or
-making any changes. The previous automated PR has not been reviewed yet.
 
 ## Branch
 
