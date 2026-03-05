@@ -9,22 +9,15 @@ plugins, samples, or parent in your context.
 Check for available updates to devportal-base components, apply them,
 validate, and open a PR for human review.
 
-## Pre-flight: close previous automated PR
+## High-level flow
 
-Before creating a new branch, close any leftover automated-update PR so its
-branch does not conflict:
-
-```bash
-gh pr list --state open --json headRefName,number \
-  --jq '.[] | select(.headRefName | startswith("chore/automated-update-")) | .number' \
-  | while read -r PR_NUM; do
-      gh pr close "$PR_NUM" --delete-branch
-    done
-```
-
-## Branch
-
-Create a branch from main: chore/automated-update-YYYY-MM-DD
+1. Close previous automated PR
+2. Capture baseline validation on clean main
+3. Create branch
+4. Apply updates (base image → Backstage core → static plugins → dynamic plugins)
+5. Final validation — compare against baseline, resolve regressions
+6. Visual regression (if build succeeded)
+7. Open PR (only if changes were made and no regressions)
 
 ## Output management
 
@@ -37,33 +30,67 @@ command exits with non-zero status.
     yarn install > /tmp/logs/install.log 2>&1
 
 This keeps the conversation context clean for reasoning about errors and
-visual regression analysis.
+visual regression analysis. Apply this pattern to every yarn/build command
+throughout all steps below.
 
-## Verification sequence
+## Step 1 — Pre-flight: close previous automated PR
 
-Execute each step in order. Each step that produces changes must result
-in a separate commit with a descriptive message.
+Before creating a new branch, close any leftover automated-update PR so its
+branch does not conflict:
 
-**CRITICAL — committing changes**: Each step runs deterministic scripts or
-tools that modify files in the working tree. You are not expected to know
-which files they touch. When committing after a step, always use
+```bash
+gh pr list --state open --json headRefName,number \
+  --jq '.[] | select(.headRefName | startswith("chore/automated-update-")) | .number' \
+  | while read -r PR_NUM; do
+      gh pr close "$PR_NUM" --delete-branch
+    done
+```
+
+## Step 2 — Baseline validation
+
+Before creating a branch or applying any updates, run validation on clean
+main and save the exit codes:
+
+```bash
+mkdir -p /tmp/logs
+yarn install > /tmp/logs/baseline-install.log 2>&1; echo "install=$?" >> /tmp/logs/baseline.txt
+yarn tsc > /tmp/logs/baseline-tsc.log 2>&1; echo "tsc=$?" >> /tmp/logs/baseline.txt
+yarn lint:check > /tmp/logs/baseline-lint.log 2>&1; echo "lint=$?" >> /tmp/logs/baseline.txt
+yarn build > /tmp/logs/baseline-build.log 2>&1; echo "build=$?" >> /tmp/logs/baseline.txt
+yarn test > /tmp/logs/baseline-test.log 2>&1; echo "test=$?" >> /tmp/logs/baseline.txt
+```
+
+Save these results for later comparison. Read log files only during
+the final validation comparison step, and only for commands that regressed.
+
+## Step 3 — Branch
+
+Create a branch from main: chore/automated-update-YYYY-MM-DD
+
+## Step 4 — Update sequence
+
+Execute each sub-step in order. Each sub-step that produces changes must
+result in a separate commit with a descriptive message.
+
+**Committing changes**: Each step runs deterministic scripts or tools that
+modify files in the working tree. When committing after a step, always use
 `git add -A && git commit -m "<message>"` to capture every change the step
-produced. Never selectively stage files.
+produced.
 
-### Step 1: UBI10 base image
+### 4a: UBI10 base image
 
 Follow the process described in .claude/commands/update-base-image.md using strictly the --no-build flag.
 
 Success criteria: script executed and reported whether an update exists.
 If updated: `git add -A && git commit -m "chore: update UBI10 base image to <tag>"`
 
-### Step 2: Backstage core
+### 4b: Backstage core
 
 Follow the process described in .claude/commands/ci/upgrade-and-test.md
 
 If update succeeded: `git add -A && git commit -m "chore: upgrade backstage core to <version>"`
 
-### Step 3: Static plugins
+### 4c: Static plugins
 
 Follow the process described in .claude/commands/ci/upgrade-static-plugins.md
 
@@ -77,7 +104,7 @@ If tsc fails, apply this error policy:
 
 If upgrades were applied: `git add -A && git commit -m "chore: upgrade static plugins"`
 
-### Step 4: Dynamic plugins
+### 4d: Dynamic plugins
 
 Follow the process described in .claude/commands/ci/upgrade-dynamic-plugins.md
 
@@ -85,24 +112,56 @@ After applying, run cd dynamic-plugins && yarn install.
 
 If upgrades were applied: `git add -A && git commit -m "chore: upgrade dynamic plugin wrappers"`
 
-## Final validation
+## Step 5 — Final validation
 
-After all steps, if any commits were made, run:
-- yarn install
-- yarn tsc
-- yarn lint:check
-- yarn build
-- yarn test
+After all update steps, if any commits were made, run validation and save
+exit codes:
 
-Record the pass/fail result of each command for the PR body.
+```bash
+rm -f /tmp/logs/postfix.txt
+yarn install > /tmp/logs/postfix-install.log 2>&1; echo "install=$?" >> /tmp/logs/postfix.txt
+yarn tsc > /tmp/logs/postfix-tsc.log 2>&1; echo "tsc=$?" >> /tmp/logs/postfix.txt
+yarn lint:check > /tmp/logs/postfix-lint.log 2>&1; echo "lint=$?" >> /tmp/logs/postfix.txt
+yarn build > /tmp/logs/postfix-build.log 2>&1; echo "build=$?" >> /tmp/logs/postfix.txt
+yarn test > /tmp/logs/postfix-test.log 2>&1; echo "test=$?" >> /tmp/logs/postfix.txt
+```
 
-If final validation fails, investigate and attempt to fix.
-If unable to fix, document in the PR body.
+Compare against baseline:
 
-## Visual regression
+```bash
+diff /tmp/logs/baseline.txt /tmp/logs/postfix.txt
+```
 
-After final validation completes and build succeeded, run a visual regression
-check using agent-browser. Run this even if other validation commands (test, lint) failed.
+### How to interpret the diff
+
+- **No diff**: all results match baseline. Proceed to Step 6.
+- **A command was already non-zero in baseline and remains non-zero**: this
+  is **pre-existing**. Document as such in the PR body.
+- **A command changed from exit 0 to non-zero**: this is a **regression
+  introduced by your updates**. Follow the regression resolution process below.
+
+### Regression resolution
+
+When a command regressed, reason through it step by step:
+
+1. Read the failing post-fix log to identify the error message.
+2. Determine which update step introduced the failure (check git log
+   for the most recent commits and correlate with the error).
+3. Attempt to fix the issue (adjust imports, apply migration, run dedupe).
+4. If unable to fix, revert the commit that caused the regression
+   (`git revert HEAD~N` for the relevant commit). Document the reverted
+   update under "Errors encountered" in the PR body.
+5. Re-run the full validation block above (re-create postfix.txt).
+6. Run `diff /tmp/logs/baseline.txt /tmp/logs/postfix.txt` again.
+7. Repeat until no regressions remain.
+
+Only proceed to Step 6 once every command that passed in baseline also
+passes after your changes.
+
+## Step 6 — Visual regression
+
+Run this step only if build succeeded (build exit code = 0 in postfix.txt).
+Run it even if other commands (test, lint) failed.
 
 Start the built app in background:
 
@@ -112,52 +171,33 @@ RBAC_POLICY_PATH=$(pwd)/rbac-policy.csv node packages/backend/dist/index.js &
 
 Wait for the server to be ready (poll http://localhost:7007 with curl, max 60 seconds).
 
-All screenshots MUST be saved to `/tmp/visual-regression/`.
+All screenshots go to `/tmp/visual-regression/`:
 
 ```bash
 mkdir -p /tmp/visual-regression
 ```
 
-Use agent-browser to verify the UI:
+Capture and verify each page:
+
+| Page | URL | Screenshot |
+|------|-----|------------|
+| Home | `http://localhost:7007` | `/tmp/visual-regression/home.png` |
+| Catalog | `http://localhost:7007/catalog` | `/tmp/visual-regression/catalog.png` |
+| APIs | `http://localhost:7007/catalog?filters%5Bkind%5D=api` | `/tmp/visual-regression/apis.png` |
+
+For each page:
 
 ```bash
-agent-browser open http://localhost:7007
+agent-browser open <URL>
 agent-browser wait --load networkidle
-agent-browser screenshot /tmp/visual-regression/home.png
+agent-browser screenshot <screenshot-path>
 agent-browser snapshot -i
 ```
 
-Verify the home page:
-- Page loads (not blank, no error screen)
+Read each screenshot and verify:
+- Page loads (visible content, no error screen)
 - Navigation sidebar is visible
 - Main content area renders
-
-Navigate to catalog:
-
-```bash
-agent-browser open http://localhost:7007/catalog
-agent-browser wait --load networkidle
-agent-browser screenshot /tmp/visual-regression/catalog.png
-agent-browser snapshot -i
-```
-
-Verify the catalog page:
-- Catalog table or grid renders
-- Filter/search controls are visible
-
-Navigate to APIs:
-
-```bash
-agent-browser open http://localhost:7007/catalog?filters%5Bkind%5D=api
-agent-browser wait --load networkidle
-agent-browser screenshot /tmp/visual-regression/apis.png
-agent-browser snapshot -i
-```
-
-Read each screenshot file and analyze visually:
-- Does the page render correctly?
-- Are the main UI elements present?
-- Are there any obvious visual regressions?
 
 Record visual assessment for each page: pass / warning / fail.
 
@@ -168,10 +208,10 @@ agent-browser close
 kill %1 2>/dev/null || true
 ```
 
-## Result
+## Step 7 — Result
 
-If NO step produced changes: exit silently. Do not create a branch,
-PR, or any artifact.
+If no update step produced changes: exit silently, with no branch, PR,
+or artifact.
 
 If changes were made: open a PR with the following body format:
 
@@ -188,10 +228,10 @@ If changes were made: open a PR with the following body format:
 <list of packages with available major, or "none">
 
 ### Validation results
-- tsc: pass / fail
-- lint: pass / fail
-- build: pass / fail
-- test: pass / fail
+- tsc: pass / fail (regression / pre-existing if failed)
+- lint: pass / fail (regression / pre-existing if failed)
+- build: pass / fail (regression / pre-existing if failed)
+- test: pass / fail (regression / pre-existing if failed)
 
 ### Visual regression
 - Home (/): pass / warning / fail

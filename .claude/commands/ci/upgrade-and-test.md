@@ -1,8 +1,8 @@
 # Backstage Upgrade with Automated Validation
 
 Perform a Backstage upgrade cycle with build validation.
-This is the CI version — no interactive dev server, no Puppeteer, no manual
-validation. Visual regression is handled separately by the orchestrator prompt.
+This is the CI version — build and type-check only. Visual regression is
+handled separately by the orchestrator prompt.
 
 ## Output management
 
@@ -27,7 +27,9 @@ a command exits with non-zero status.
    git status --porcelain backstage.json '**/package.json'
    ```
 
-   If no files were modified, exit early with: "No Backstage upgrade available. All packages are already at the latest version." Skip all remaining steps.
+   If no files were modified, report: "No Backstage upgrade available.
+   All packages are already at the latest version." and return to the
+   orchestrator — remaining steps in this file are complete.
 
 3. **Install dependencies**:
 
@@ -41,10 +43,7 @@ a command exits with non-zero status.
    yarn tsc
    ```
 
-   If there are warnings of "duplicate installation" of packages:
-   - Note the warning in the output
-   - Run `yarn dedupe`
-   - Run `yarn install` and `yarn tsc` again
+   If tsc fails, identify the error type and follow the error policy below.
 
 5. **Build**:
 
@@ -62,10 +61,18 @@ a command exits with non-zero status.
    - yarn build: pass / fail
    - Any duplicate installation warnings encountered
 
-## Error Policy
+## Error policy
 
-- Import errors (module moved/renamed): attempt to fix by adjusting imports
-- Type errors from deprecated API with documented replacement: apply the migration
-- Complex type errors (types removed with no clear replacement, signature changes
-  across multiple files): ABORT, revert Backstage changes, document errors in output
-- "duplicate installation" warnings: run yarn dedupe, yarn install, and yarn tsc again
+When tsc or build fails, reason through it step by step:
+
+1. Read the error output and classify the error type.
+2. Apply the matching action:
+
+   | Error type | Action |
+   |---|---|
+   | "duplicate installation" warnings | Run `yarn dedupe`, then `yarn install`, then `yarn tsc` again |
+   | Import errors (module moved/renamed) | Adjust the imports to the new location |
+   | Type errors from deprecated API with documented replacement | Apply the documented migration |
+   | Complex type errors (no clear replacement, signature changes across multiple files) | Revert Backstage changes and document errors in output |
+
+3. After applying a fix, re-run the failing command to confirm it passes.

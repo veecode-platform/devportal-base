@@ -3,6 +3,15 @@
 Check for available upgrades for static plugins and automatically apply
 all patch and minor upgrades. Major upgrades are skipped and reported.
 
+## Output management
+
+Redirect verbose command output to temporary log files. Check the exit
+code to determine success or failure. Inspect log file contents only when
+a command exits with non-zero status.
+
+    mkdir -p /tmp/logs
+    yarn install > /tmp/logs/install.log 2>&1
+
 ## Steps
 
 1. **Read package.json files**:
@@ -17,29 +26,34 @@ all patch and minor upgrades. Major upgrades are skipped and reported.
    - `@backstage-community/plugin-scaffolder-backend-module`
    - `@roadiehq/scaffolder`
 
-3. **For each eligible package**, fetch the latest version from npm registry:
+3. **Check all eligible packages in a single script**:
+
+   Fetch latest versions and classify upgrades in one pass to minimize
+   tool calls and context usage:
 
    ```bash
-   curl -s "https://registry.npmjs.org/<package-name>" | jq -r '.["dist-tags"].latest'
+   for PKG in <list-of-eligible-packages>; do
+     ENCODED=$(echo "$PKG" | sed 's/@/%40/; s|/|%2F|')
+     LATEST=$(curl -s "https://registry.npmjs.org/$ENCODED" | jq -r '.["dist-tags"].latest')
+     echo "$PKG $LATEST"
+   done
    ```
-
-   Replace `<package-name>` with the URL-encoded scoped package name (e.g., `@backstage/plugin-auth-backend-module-github-provider` becomes `@backstage%2Fplugin-auth-backend-module-github-provider`).
 
 4. **Compare versions and classify**:
 
-   For each eligible package, compare the installed version with the latest. Classify each as:
+   For each eligible package, compare the installed version (stripped of
+   `^` or `~` prefix) with the latest:
    - **patch**: only the patch version changed (e.g., 1.2.3 → 1.2.4)
    - **minor**: the minor version changed (e.g., 1.2.3 → 1.3.0)
-   - **major**: the major version changed (e.g., 1.2.3 → 2.0.0)
+   - **major**: the major version changed (e.g., 1.2.3 → 2.0.0) — skip, list for PR body
    - **up to date**: no change
 
-5. **Apply patch and minor upgrades automatically**:
+5. **Apply patch and minor upgrades**:
 
-   For each package classified as patch or minor, use the `Edit` tool to update the version in the corresponding `package.json` file. Preserve the `^` or `~` prefix.
+   For each eligible upgrade, use the `Edit` tool to update the version in
+   the corresponding `package.json` file. Preserve the `^` or `~` prefix.
 
-   Do NOT apply major upgrades. List them in the output for inclusion in the PR body.
-
-6. **Run yarn install**:
+6. **Run yarn install and verify**:
 
    After all upgrades are applied, run from the repository root:
 
@@ -47,17 +61,11 @@ all patch and minor upgrades. Major upgrades are skipped and reported.
    yarn install
    ```
 
+   Confirm exit code is 0 before reporting success.
+
 7. **Report results**:
 
    Output a summary with:
    - Table of applied upgrades (package, old version, new version)
    - List of skipped major upgrades (package, current version, available major version)
-   - yarn install status
-
-## Notes
-
-- The npm registry URL for scoped packages requires URL encoding: `@scope/package` becomes `@scope%2Fpackage`
-- Only check packages that match the allowed prefixes listed above
-- Strip the `^` or `~` prefix from version strings when comparing
-- Always preserve the `^` or `~` prefix when updating versions
-- Run `yarn install` only once after all upgrades are applied, from the repository root
+   - yarn install: pass / fail
