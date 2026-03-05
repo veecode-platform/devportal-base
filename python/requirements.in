@@ -50,5 +50,4 @@ trove-classifiers
 typing-extensions
 urllib3>=2.6.3
 watchdog==3.0.0
-wheel
-wheel==0.43.0
+wheel>=0.46.2
