@@ -148,9 +148,9 @@ When a command regressed, reason through it step by step:
 2. Determine which update step introduced the failure (check git log
    for the most recent commits and correlate with the error).
 3. Attempt to fix the issue (adjust imports, apply migration, run dedupe).
-4. If unable to fix, revert the commit that caused the regression
-   (`git revert HEAD~N` for the relevant commit). Document the reverted
-   update under "Errors encountered" in the PR body.
+4. If unable to fix, identify the SHA of the commit that caused the
+   regression from `git log --oneline` and revert it with `git revert <SHA>`.
+   Document the reverted update under "Errors encountered" in the PR body.
 5. Re-run the full validation block above (re-create postfix.txt).
 6. Run `diff /tmp/logs/baseline.txt /tmp/logs/postfix.txt` again.
 7. Repeat until no regressions remain.
