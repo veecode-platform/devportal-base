@@ -31,7 +31,8 @@ Remediate known vulnerabilities identified by Trivy security scans:
    - **NEVER add resolutions for `@backstage/*` packages** - these must only be updated via the Backstage upgrade process. Use `/upgrade-and-test` skill instead for Backstage version bumps.
    - Only add resolutions for patch/minor updates
    - Skip major version bumps that may break dependencies (document for later)
-   - Test that resolutions don't break the build
+   - Only add resolutions for patch/minor updates that pass validation
+   - Skip major version bumps that may break dependencies (document for later)
 
 3. **For Python vulnerabilities**:
 
@@ -47,14 +48,19 @@ Remediate known vulnerabilities identified by Trivy security scans:
    source venv/bin/activate && pip-compile --output-file=python/requirements.txt python/requirements.in
    ```
 
-4. **Verify changes**:
+4. **Deduplicate and verify**:
 
    ```bash
-   yarn install
    yarn dedupe
+   yarn install
+   yarn tsc
+   yarn lint:check
    yarn build
    yarn test
    ```
+
+   If any command fails, identify which resolution caused it and revert
+   that resolution. Move the associated CVE to "skipped" with the reason.
 
 5. **Report results**:
 
@@ -62,7 +68,7 @@ Remediate known vulnerabilities identified by Trivy security scans:
 
    - Vulnerabilities fixed (package, old version, new version)
    - Vulnerabilities skipped (and why: major bump, system package, no fix available)
-   - Build/test status
+   - Fixes applied and skipped
 
 ## Vulnerability Categories
 
@@ -87,6 +93,5 @@ Remediate known vulnerabilities identified by Trivy security scans:
 
 ## Notes
 
-- Always run tests after applying fixes
-- Some resolutions may break builds due to API changes - revert if needed
-- Keep track of skipped vulnerabilities for future Backstage upgrades
+- Always verify that resolutions pass validation before finalizing
+- Track skipped vulnerabilities for future Backstage upgrades
