@@ -217,7 +217,7 @@ watchdog==3.0.0
     # via
     #   -r python/requirements.in
     #   mkdocs
-wheel==0.43.0
+wheel==0.46.2
     # via -r python/requirements.in
 
 # The following packages are considered to be unsafe in a requirements file:
