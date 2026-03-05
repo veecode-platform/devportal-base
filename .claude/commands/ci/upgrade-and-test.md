@@ -4,6 +4,15 @@ Perform a Backstage upgrade cycle with build validation.
 This is the CI version — no interactive dev server, no Puppeteer, no manual
 validation. Visual regression is handled separately by the orchestrator prompt.
 
+## Output management
+
+Redirect verbose command output to temporary log files. Check the exit
+code to determine success or failure. Inspect log file contents only when
+a command exits with non-zero status.
+
+    mkdir -p /tmp/logs
+    yarn install > /tmp/logs/install.log 2>&1
+
 ## Steps
 
 1. **Run the upgrade**:

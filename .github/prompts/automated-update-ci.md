@@ -26,6 +26,19 @@ gh pr list --state open --json headRefName,number \
 
 Create a branch from main: chore/automated-update-YYYY-MM-DD
 
+## Output management
+
+Redirect verbose command output (yarn install, yarn tsc, yarn build,
+yarn test, yarn lint:check) to temporary log files. Check the exit code
+to determine success or failure. Inspect log file contents only when a
+command exits with non-zero status.
+
+    mkdir -p /tmp/logs
+    yarn install > /tmp/logs/install.log 2>&1
+
+This keeps the conversation context clean for reasoning about errors and
+visual regression analysis.
+
 ## Verification sequence
 
 Execute each step in order. Each step that produces changes must result
