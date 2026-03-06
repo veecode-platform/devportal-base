@@ -65,7 +65,7 @@
     "@red-hat-developer-hub/plugin-utils": "1.0.0",
     "@scalprum/core": "0.8.3",
     "@scalprum/react-core": "0.9.5",
-    "@veecode-platform/backstage-plugin-ldap-auth": "^1.1.0",
+    "@veecode-platform/backstage-plugin-ldap-auth": "^1.1.1",
     "@veecode-platform/plugin-application-common": "^0.3.18",
     "@veecode-platform/veecode-scaffolder-extensions": "^0.5.0",
     "backstage-plugin-techdocs-addon-mermaid": "^0.24.0",
