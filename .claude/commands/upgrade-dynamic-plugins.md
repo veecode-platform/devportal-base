@@ -57,15 +57,57 @@ Check for available upgrades for dynamic plugin wrappers by querying npm registr
    cd dynamic-plugins && yarn install
    ```
 
-8. **Report results**:
+8. **Upgrade downloaded dynamic plugins**:
 
-   Summarize what was upgraded and confirm yarn install completed successfully.
+   Read `dynamic-plugins/downloads/plugins.json`. This file contains
+   plugins with exact pinned versions (no `^` or `~` prefix):
+
+   ```json
+   {
+       "plugins": [
+           { "name": "@veecode-platform/plugin-veecode-homepage-dynamic", "version": "1.0.1" }
+       ]
+   }
+   ```
+
+   For each entry, fetch the latest version from npm registry:
+
+   ```bash
+   for PKG in <list-of-plugin-names>; do
+     ENCODED=$(echo "$PKG" | sed 's/@/%40/; s|/|%2F|')
+     LATEST=$(curl -sf "https://registry.npmjs.org/$ENCODED" | jq -r '.["dist-tags"].latest // empty')
+     [ -n "$LATEST" ] && echo "$PKG $LATEST" || echo "WARN: failed to fetch $PKG" >&2
+   done
+   ```
+
+   Show a summary table:
+
+   | Plugin Name                                          | Current | Latest | Status            |
+   | ---------------------------------------------------- | ------- | ------ | ----------------- |
+   | @veecode-platform/plugin-veecode-homepage-dynamic    | 1.0.1   | 1.0.2  | Upgrade available |
+
+   If there are available upgrades, use `AskUserQuestion` with
+   `multiSelect: true` to let the user choose which to apply. Update the
+   `version` field in `plugins.json` for each selected upgrade. Unlike
+   wrappers, these are exact versions — do NOT add `^` or `~` prefix.
+
+   Example:
+   ```
+   Before: "version": "1.0.1"
+   After:  "version": "1.0.2"
+   ```
+
+9. **Report results**:
+
+   Summarize what was upgraded (wrappers and downloads) and confirm yarn
+   install completed successfully.
 
 ## Notes
 
 - The npm registry URL for scoped packages requires URL encoding: `@scope/package` becomes `@scope%2Fpackage`
-- Only check dependencies that are Backstage-related (starting with `@backstage-community/` or `@backstage/`)
-- Strip the `^` or `~` prefix from version strings when comparing
+- Only check wrapper dependencies that are Backstage-related (starting with `@backstage-community/` or `@backstage/`)
+- Downloaded plugins in `plugins.json` use exact pinned versions (no `^` or `~` prefix)
+- Strip the `^` or `~` prefix from version strings when comparing wrapper dependencies
 - If a wrapper has multiple Backstage dependencies, show each on a separate row
-- Always preserve the `^` or `~` prefix when updating versions
+- Always preserve the `^` or `~` prefix when updating wrapper dependency versions
 - Run `yarn install` only once after all upgrades are applied, from the `dynamic-plugins` folder (not from individual wrapper folders)

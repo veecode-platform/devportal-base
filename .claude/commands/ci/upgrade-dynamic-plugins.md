@@ -63,9 +63,44 @@ a command exits with non-zero status.
 
    Confirm exit code is 0 before reporting success.
 
-7. **Report results**:
+7. **Upgrade downloaded dynamic plugins**:
+
+   Read `dynamic-plugins/downloads/plugins.json`. This file contains
+   plugins with exact pinned versions (no `^` or `~` prefix):
+
+   ```json
+   {
+       "plugins": [
+           { "name": "@veecode-platform/plugin-veecode-homepage-dynamic", "version": "1.0.1" }
+       ]
+   }
+   ```
+
+   For each entry, fetch the latest version from npm:
+
+   ```bash
+   for PKG in <list-of-plugin-names>; do
+     ENCODED=$(echo "$PKG" | sed 's/@/%40/; s|/|%2F|')
+     LATEST=$(curl -sf "https://registry.npmjs.org/$ENCODED" | jq -r '.["dist-tags"].latest // empty')
+     [ -n "$LATEST" ] && echo "$PKG $LATEST" || echo "WARN: failed to fetch $PKG" >&2
+   done
+   ```
+
+   Compare using the same semver classification from step 4 (patch/minor
+   = apply, major = skip). Use the `Edit` tool to update the `version`
+   field in `plugins.json`. Unlike wrappers, these are exact versions —
+   do NOT add `^` or `~` prefix.
+
+   Example:
+   ```
+   Before: "version": "1.0.1"
+   After:  "version": "1.0.2"
+   ```
+
+8. **Report results**:
 
    Output a summary with:
-   - Table of applied upgrades (wrapper, dependency, old version, new version)
-   - List of skipped major upgrades (wrapper, dependency, current, available)
+   - Table of applied wrapper upgrades (wrapper, dependency, old version, new version)
+   - Table of applied download upgrades from `plugins.json` (plugin name, old version, new version)
+   - List of skipped major upgrades (source, package, current, available)
    - yarn install: pass / fail
