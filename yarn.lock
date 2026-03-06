@@ -18761,9 +18761,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@veecode-platform/backstage-plugin-ldap-auth-backend@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@veecode-platform/backstage-plugin-ldap-auth-backend@npm:1.1.0"
+"@veecode-platform/backstage-plugin-ldap-auth-backend@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@veecode-platform/backstage-plugin-ldap-auth-backend@npm:1.1.1"
   dependencies:
     "@backstage/backend-plugin-api": "npm:^1.7.0"
     "@backstage/core-plugin-api": "npm:^1.12.3"
@@ -18776,13 +18776,13 @@ __metadata:
     ldapjs: "npm:^3.0.7"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0
-  checksum: 10c0/b5e720158bcff8b6e58ef13918f2851fc7cb14bd8aa2dfa6d5b5a4bfac9ea3cee7ed37cd5d0893a3191022130bf6b9164cd4532e1793602fa6790b5163736afb
+  checksum: 10c0/0c3e2b444e7307cda039d7c5efef74d62aaabda7e9d090bd349a1b32fee10add1366d1895785243d05db7b4a4281be336f23e18315917bcba88ca35930bde40b
   languageName: node
   linkType: hard
 
-"@veecode-platform/backstage-plugin-ldap-auth@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@veecode-platform/backstage-plugin-ldap-auth@npm:1.1.0"
+"@veecode-platform/backstage-plugin-ldap-auth@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@veecode-platform/backstage-plugin-ldap-auth@npm:1.1.1"
   dependencies:
     "@backstage/core-components": "npm:^0.18.7"
     "@backstage/core-plugin-api": "npm:^1.12.3"
@@ -18796,7 +18796,7 @@ __metadata:
     zod: "npm:^3.17.3"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0
-  checksum: 10c0/5681fef6566996905512d935e2242d98956193223bcdab9f8f7dbca8219abafa546ee26564e6344455aa4ebcd423285816eff216e43aaa9d1b4d69a088f5270a
+  checksum: 10c0/82ff5034c6d0ad3ec85837182965b456c1b8a9d5055a4a644a8b4fe3c06880c26c7d13ead880faa52018a26ce6d74b5f202674952e5f17063efb0f29a33c784f
   languageName: node
   linkType: hard
 
@@ -18809,13 +18809,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@veecode-platform/plugin-scaffolder-backend-module-kong@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@veecode-platform/plugin-scaffolder-backend-module-kong@npm:1.0.1"
+"@veecode-platform/plugin-scaffolder-backend-module-kong@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@veecode-platform/plugin-scaffolder-backend-module-kong@npm:1.0.2"
   peerDependencies:
     "@backstage/backend-plugin-api": ^1.7.0
     "@backstage/plugin-scaffolder-node": ^0.12.5
-  checksum: 10c0/4892b7aa100410a5bda81ec1b219b7701cc1c03495a730dad5b8c226167d497a0c675b2aa4e65dca33e12dc6cc22eb491b75f52a0c6123107cc06e3f00b31753
+  checksum: 10c0/62b4ab7386271e721fb8d2582deb083be3a53829e8d3bfe9eba949895d8405e1dfd0201e25b32435635e041f0bfb93a9bc8926b014e9d71e70f1b8ec5deba1eb
   languageName: node
   linkType: hard
 
@@ -19556,7 +19556,7 @@ __metadata:
     "@testing-library/user-event": "npm:^14.0.0"
     "@types/lodash": "npm:^4"
     "@types/react-dom": "npm:*"
-    "@veecode-platform/backstage-plugin-ldap-auth": "npm:^1.1.0"
+    "@veecode-platform/backstage-plugin-ldap-auth": "npm:^1.1.1"
     "@veecode-platform/plugin-application-common": "npm:^0.3.18"
     "@veecode-platform/veecode-scaffolder-extensions": "npm:^0.5.0"
     backstage-plugin-techdocs-addon-mermaid: "npm:^0.24.0"
@@ -20359,8 +20359,8 @@ __metadata:
     "@roadiehq/scaffolder-backend-module-http-request": "npm:^5.5.1"
     "@roadiehq/scaffolder-backend-module-utils": "npm:^4.1.2"
     "@types/global-agent": "npm:^3"
-    "@veecode-platform/backstage-plugin-ldap-auth-backend": "npm:^1.1.0"
-    "@veecode-platform/plugin-scaffolder-backend-module-kong": "npm:^1.0.1"
+    "@veecode-platform/backstage-plugin-ldap-auth-backend": "npm:^1.1.1"
+    "@veecode-platform/plugin-scaffolder-backend-module-kong": "npm:^1.0.2"
     app: "link:../app"
     better-sqlite3: "npm:^12.0.0"
     global-agent: "npm:^3.0.0"
