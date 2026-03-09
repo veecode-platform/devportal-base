@@ -158,6 +158,17 @@ When a command regressed, reason through it step by step:
 Only proceed to Step 6 once every command that passed in baseline also
 passes after your changes.
 
+### Build output reference
+
+`yarn build` produces `packages/backend/dist/` containing:
+- `bundle.tar.gz` and `skeleton.tar.gz` — Docker packaging artifacts
+- `index.js` — the runnable backend entry point
+
+The tarballs are **not** the final build format. They coexist with the
+executable `index.js`. The server starts normally via
+`node packages/backend/dist/index.js` regardless of tarball files being
+present. Do NOT skip Step 6 — Visual regression because of them.
+
 ## Step 6 — Visual regression
 
 Run this step only if build succeeded (build exit code = 0 in postfix.txt).
