@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Ensure on main branch
+        run: |
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          if [ "$BRANCH" != "main" ]; then
+            echo "ERROR: Must be on main branch (currently on $BRANCH)" >&2
+            exit 1
+          fi
+
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod +x /usr/local/bin/yq
+
+      - name: Compute next version
+        id: version
+        run: |
+          CURRENT=$(jq -r .version package.json)
+          NEXT=$(echo "$CURRENT" | awk -F. '{print $1"."$2"."$3+1}')
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "next=$NEXT" >> "$GITHUB_OUTPUT"
+          echo "Current: $CURRENT → Next: $NEXT"
+
+      - name: Generate release notes
+        run: |
+          if [ -f scripts/generate-release-notes.sh ]; then
+            chmod +x scripts/generate-release-notes.sh
+            ./scripts/generate-release-notes.sh ${{ steps.version.outputs.next }}
+            git add CHANGELOG.md
+          fi
+
+      - name: Bump version, commit, tag, and push
+        run: |
+          NEXT=${{ steps.version.outputs.next }}
+          NEXT_VERSION="$NEXT" yq -i -o=json '.version = env(NEXT_VERSION)' package.json
+          git add package.json
+          git commit -m "Release version $NEXT"
+          git push origin main
+          git tag -a "$NEXT" -m "$NEXT"
+          git push origin "$NEXT"
+          echo "Released $NEXT"
