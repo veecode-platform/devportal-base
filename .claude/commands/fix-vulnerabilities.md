@@ -26,13 +26,36 @@ Remediate known vulnerabilities identified by Trivy security scans:
    }
    ```
 
-   **Important constraints:**
+   **CRITICAL — How Yarn resolutions work:**
 
-   - **NEVER add resolutions for `@backstage/*` packages** - these must only be updated via the Backstage upgrade process. Use `/upgrade-and-test` skill instead for Backstage version bumps.
-   - Only add resolutions for patch/minor updates
-   - Skip major version bumps that may break dependencies (document for later)
-   - Only add resolutions for patch/minor updates that pass validation
-   - Skip major version bumps that may break dependencies (document for later)
+   A resolution overrides the resolved version for EVERY consumer in the
+   entire dependency tree, not just the direct dependency. If package A
+   requires `foo@^3.0.0` and package B requires `foo@^9.0.0`, a resolution
+   `"foo": "^10.0.0"` forces BOTH to use v10 — even if A's code relies on
+   the v3 API (e.g., different export style, removed methods, renamed
+   options). This breaks A at runtime.
+
+   **Before adding each resolution, follow this reasoning chain:**
+
+   1. Identify the fixed version Trivy recommends (e.g., `10.2.1`).
+   2. Run: `yarn why <package>` to list every consumer and the version
+      range each one declares.
+   3. Compare the major version of the fix against each consumer's range.
+      If ANY consumer requires a different major version, the resolution
+      will break that consumer. Skip it.
+   4. Only add the resolution when every consumer's declared range is
+      compatible with the fixed version's major (e.g., all require `^10`
+      and fix is `10.2.1`).
+
+   **Constraints:**
+
+   - **NEVER add resolutions for `@backstage/*` packages** — these must
+     only be updated via the Backstage upgrade process.
+   - Only add resolutions when the fix stays within the same major version
+     as every existing consumer in the tree.
+   - When the fix crosses a major boundary for any consumer, skip the
+     resolution and document it as "fix requires major version bump —
+     incompatible with transitive consumers".
 
 3. **For Python vulnerabilities**:
 

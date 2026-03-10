@@ -98,6 +98,14 @@ reports only for severity counts in the PR body.
 
 Follow the process described in .claude/commands/fix-vulnerabilities.md
 
+**Resolution safety gate — reason before each resolution:**
+
+Yarn resolutions override the resolved version for EVERY consumer in the
+dependency tree. Before adding a resolution, run `yarn why <package>` and
+verify that the fixed version's major matches every consumer's declared
+range. If any consumer requires a different major version, skip the
+resolution — it will break that consumer at runtime even if types compile.
+
 The fix-vulnerabilities step includes its own validation. The post-fix
 validation below adds a baseline comparison to catch regressions
 against the clean main state.
