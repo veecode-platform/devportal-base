@@ -48,11 +48,12 @@ gh pr list --state open --json headRefName,number \
 
 ## Step 2 — Baseline validation
 
-Before creating a branch or applying any updates, run validation on clean
-main and save the exit codes:
+Before creating a branch or applying any updates, save the start timestamp
+and run validation on clean main:
 
 ```bash
 mkdir -p /tmp/logs
+date +%s > /tmp/logs/start_time.txt
 yarn install > /tmp/logs/baseline-install.log 2>&1; echo "install=$?" >> /tmp/logs/baseline.txt
 yarn tsc > /tmp/logs/baseline-tsc.log 2>&1; echo "tsc=$?" >> /tmp/logs/baseline.txt
 yarn lint:check > /tmp/logs/baseline-lint.log 2>&1; echo "lint=$?" >> /tmp/logs/baseline.txt
@@ -226,22 +227,35 @@ kill %1 2>/dev/null || true
 If no update step produced changes: exit silently, with no branch, PR,
 or artifact.
 
-If changes were made: open a PR using the structure and principles below.
-Generate the Mermaid diagram and tables dynamically based on actual results.
+If changes were made: open a PR using the structure and rules below.
 
-### PR body structure
+### Pre-PR: collect metadata
 
-The PR body has 5 sections: header, pipeline diagram, dependency changes,
-validation matrix, and errors/manual attention. Follow the example below
-as a reference, adapting content to match what actually happened in this run.
+Before composing the PR body, gather these values:
 
-### Pipeline diagram rules
+```bash
+RUN_URL="https://github.com/veecode-platform/devportal-base/actions/runs/$GITHUB_RUN_ID"
+BACKSTAGE_VERSION=$(cat backstage.json | grep -o '"version": "[^"]*"' | head -1 | cut -d'"' -f4)
+START_TS=$(cat /tmp/logs/start_time.txt)
+DURATION=$(( ($(date +%s) - START_TS) / 60 ))
+```
 
-The diagram has 3 phases connected top-to-bottom:
+Use `$RUN_URL`, `$BACKSTAGE_VERSION`, and `$DURATION` when filling in the
+PR body below.
 
-1. **Scan phase**: fan-out from start into 4 parallel scan nodes (UBI10,
-   Backstage Core, Static Plugins, Dynamic Plugins). Each node shows its
-   name and outcome on two lines using `<br/>`.
+### PR body rules
+
+Read ALL rules in this section before generating the PR body.
+
+**Sections** (in order): header with metadata table, pipeline diagram,
+dependency changes table, validation matrix, errors, manual attention,
+footer.
+
+**Pipeline diagram**: Mermaid `graph TB` with 3 phases:
+
+1. **Scan phase**: fan-out from start node into 4 parallel scan nodes
+   (UBI10, Backstage Core, Static Plugins, Dynamic Plugins). Each node
+   shows its name and outcome on two lines using `<br/>`.
 2. **Validation gate**: single hexagon node showing checks performed and
    pass count (`tsc · lint · build · test` + `N/4 pass`).
 3. **Visual verification gate**: single hexagon node showing pages checked
@@ -252,20 +266,36 @@ Color coding (apply via `style` directives):
 - `fill:#6e7681,color:#adbac7` — gray: no changes / skipped
 - `fill:#da3633,color:#fff` — red: failed or reverted
 - `fill:#d29922,color:#fff` — yellow: warning
-- `fill:#1f2937,color:#e6edf3,stroke:#30363d` — dark: gate nodes
+- `fill:#1f2937,color:#e6edf3,stroke:#30363d` — dark: gate nodes (pass)
 - `fill:#1f6feb,color:#fff,stroke:#388bfd` — blue: start node
 - `fill:#238636,color:#fff,stroke:#2ea043` — green: final "PR Ready" node
 
 If a scan step was reverted due to regression, color it red and label it
 `⚠️ reverted — <reason>`. If a gate has failures, color it red instead
-of dark.
+of dark. After the diagram, if any step was reverted or had errors, add a
+blockquote explaining what happened and how the agent resolved it.
 
-After the diagram, if any step was reverted or had errors, add a blockquote
-explaining what happened and how the agent resolved it.
+**Dependency changes table**: one row per changed package showing name,
+previous version, updated version, and scope (base image / core / static /
+dynamic wrapper). Omit rows for categories with no changes.
 
-### Example PR body (adapt to actual results)
+**Validation matrix**: one row per check. Use ✅ for pass, ⚠️ for warning,
+❌ for fail. The Visual rows MUST include a `[screenshot]($RUN_URL)` link
+pointing to the workflow run. Add a brief description of what you observed
+after the link, separated by ` · `. Example:
+`[screenshot](https://github.com/.../runs/123) · sidebar and catalog visible`.
+If screenshots could not be captured, write `no screenshot` — never omit
+the field or substitute with only a description.
 
----
+**Footer**: always include the branding line exactly as shown in the example.
+
+### Example PR body
+
+Below is a complete example. Adapt all values to match this run's actual
+results. The example shows the happy path; for failures, apply the color
+rules above.
+
+<!-- EXAMPLE START -->
 ## Automated Maintenance — YYYY-MM-DD
 
 > Autonomous dependency management for VeeCode DevPortal.
@@ -316,21 +346,18 @@ graph TB
 | Lint | ✅ pass | — |
 | Build | ✅ pass | — |
 | Tests | ✅ pass | — |
-| Visual: Home | ✅ pass | [screenshots](run-url) |
-| Visual: Catalog | ✅ pass | [screenshots](run-url) |
-| Visual: APIs | ✅ pass | [screenshots](run-url) |
+| Visual: Home | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · renders correctly |
+| Visual: Catalog | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · sidebar and catalog visible |
+| Visual: APIs | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · API entries listed |
 
 ### Errors encountered
 none
 
 ### Manual attention required
 none
----
 
-Replace `(run-url)` with
-`https://github.com/<owner>/<repo>/actions/runs/$GITHUB_RUN_ID`.
-Use ✅ for pass, ⚠️ for warning, ❌ for fail. For failed checks, add the
-error summary in the Details column. Omit dependency table rows for
-categories with no changes.
+---
+<sub>🤖 Generated by <a href="https://github.com/veecode-platform/devportal-base/blob/main/.github/workflows/automated-update.yml">VeeCode Automated Maintenance</a> · powered by Claude Code</sub>
+<!-- EXAMPLE END -->
 
 Mark the PR as ready for review.
