@@ -165,6 +165,11 @@ backend.add(
 backend.add(import('@backstage/plugin-catalog-backend-module-ldap'));
 backend.add(import('@backstage/plugin-catalog-backend-module-gitlab'));
 backend.add(import('@backstage/plugin-catalog-backend-module-gitlab-org'));
+backend.add(
+  import(
+    '@backstage/plugin-catalog-backend-module-incremental-ingestion'
+  ),
+);
 
 // scaffolder plugin
 backend.add(import('@backstage/plugin-scaffolder-backend'));
