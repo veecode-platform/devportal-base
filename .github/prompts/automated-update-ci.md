@@ -196,7 +196,9 @@ Capture and verify each page:
 | Catalog | `http://localhost:7007/catalog` | `/tmp/visual-regression/catalog.png` |
 | APIs | `http://localhost:7007/catalog?filters%5Bkind%5D=api` | `/tmp/visual-regression/apis.png` |
 
-For each page:
+For each page, use `agent-browser` — a CLI tool installed globally in this
+workflow. Run each command via the Bash tool. Do NOT use Puppeteer MCP
+tools — they are not available in this environment.
 
 ```bash
 agent-browser open <URL>
@@ -224,38 +226,111 @@ kill %1 2>/dev/null || true
 If no update step produced changes: exit silently, with no branch, PR,
 or artifact.
 
-If changes were made: open a PR with the following body format:
+If changes were made: open a PR using the structure and principles below.
+Generate the Mermaid diagram and tables dynamically based on actual results.
+
+### PR body structure
+
+The PR body has 5 sections: header, pipeline diagram, dependency changes,
+validation matrix, and errors/manual attention. Follow the example below
+as a reference, adapting content to match what actually happened in this run.
+
+### Pipeline diagram rules
+
+The diagram has 3 phases connected top-to-bottom:
+
+1. **Scan phase**: fan-out from start into 4 parallel scan nodes (UBI10,
+   Backstage Core, Static Plugins, Dynamic Plugins). Each node shows its
+   name and outcome on two lines using `<br/>`.
+2. **Validation gate**: single hexagon node showing checks performed and
+   pass count (`tsc · lint · build · test` + `N/4 pass`).
+3. **Visual verification gate**: single hexagon node showing pages checked
+   and pass count (`Home · Catalog · APIs` + `N/3 pass`).
+
+Color coding (apply via `style` directives):
+- `fill:#238636,color:#fff` — green: updated or pass
+- `fill:#6e7681,color:#adbac7` — gray: no changes / skipped
+- `fill:#da3633,color:#fff` — red: failed or reverted
+- `fill:#d29922,color:#fff` — yellow: warning
+- `fill:#1f2937,color:#e6edf3,stroke:#30363d` — dark: gate nodes
+- `fill:#1f6feb,color:#fff,stroke:#388bfd` — blue: start node
+- `fill:#238636,color:#fff,stroke:#2ea043` — green: final "PR Ready" node
+
+If a scan step was reverted due to regression, color it red and label it
+`⚠️ reverted — <reason>`. If a gate has failures, color it red instead
+of dark.
+
+After the diagram, if any step was reverted or had errors, add a blockquote
+explaining what happened and how the agent resolved it.
+
+### Example PR body (adapt to actual results)
 
 ---
-## Automated Update — YYYY-MM-DD
+## Automated Maintenance — YYYY-MM-DD
 
-### Updates applied
-- [ ] UBI10: <previous version> → <new version> (or "no updates")
-- [ ] Backstage core: <previous version> → <new version> (or "no updates")
-- [ ] Static plugins: <N> upgrades applied (or "no updates")
-- [ ] Dynamic plugins: <N> upgrades applied (or "no updates")
+> Autonomous dependency management for VeeCode DevPortal.
+> This PR was created, validated, and visually verified by an AI agent
+> without human intervention.
 
-### Major upgrades available (not applied)
-<list of packages with available major, or "none">
+### Pipeline
 
-### Validation results
-- tsc: pass / fail (regression / pre-existing if failed)
-- lint: pass / fail (regression / pre-existing if failed)
-- build: pass / fail (regression / pre-existing if failed)
-- test: pass / fail (regression / pre-existing if failed)
+```mermaid
+graph TB
+    Start(["🔄 Automated Maintenance"])
 
-### Visual regression
-- Home (/): pass / warning / fail
-- Catalog (/catalog): pass / warning / fail
-- APIs (/catalog?kind=api): pass / warning / fail
+    Start --> A & B & C & D
 
-> Screenshots available in the workflow run artifacts.
+    A["UBI10 Base Image<br/>updated"]
+    B["Backstage Core<br/>updated"]
+    C["Static Plugins<br/>no changes"]
+    D["Dynamic Plugins<br/>1 upgrade"]
+
+    A & B & C & D --> V{{"Validation Gate<br/><i>tsc · lint · build · test</i><br/>4/4 pass ✅"}}
+
+    V --> VR{{"Visual Verification<br/><i>Home · Catalog · APIs</i><br/>3/3 pass ✅"}}
+
+    VR --> Done(["✅ PR Ready for Review"])
+
+    style A fill:#238636,color:#fff
+    style B fill:#238636,color:#fff
+    style C fill:#6e7681,color:#adbac7
+    style D fill:#238636,color:#fff
+    style V fill:#1f2937,color:#e6edf3,stroke:#30363d
+    style VR fill:#1f2937,color:#e6edf3,stroke:#30363d
+    style Start fill:#1f6feb,color:#fff,stroke:#388bfd
+    style Done fill:#238636,color:#fff,stroke:#2ea043
+```
+
+### Dependency changes
+
+| Package | Previous | Updated | Scope |
+|---------|----------|---------|-------|
+| UBI10 base image | `10.1-1772512434` | `10.1-1773117814` | base image |
+| @backstage-community/plugin-rbac | `^1.49.0` | `^1.50.0` | dynamic wrapper |
+
+### Validation matrix
+
+| Check | Result | Details |
+|-------|--------|---------|
+| TypeScript | ✅ pass | — |
+| Lint | ✅ pass | — |
+| Build | ✅ pass | — |
+| Tests | ✅ pass | — |
+| Visual: Home | ✅ pass | [screenshots](run-url) |
+| Visual: Catalog | ✅ pass | [screenshots](run-url) |
+| Visual: APIs | ✅ pass | [screenshots](run-url) |
 
 ### Errors encountered
-<errors that could not be fixed, or "none">
+none
 
 ### Manual attention required
-<items requiring human intervention, or "none">
+none
 ---
+
+Replace `(run-url)` with
+`https://github.com/<owner>/<repo>/actions/runs/$GITHUB_RUN_ID`.
+Use ✅ for pass, ⚠️ for warning, ❌ for fail. For failed checks, add the
+error summary in the Details column. Omit dependency table rows for
+categories with no changes.
 
 Mark the PR as ready for review.
