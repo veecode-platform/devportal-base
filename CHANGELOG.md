@@ -1,6 +1,18 @@
 # devportal-base changelog
 
 
+## v1.2.7 (2026-03-11)
+* fix: use RELEASE_TOKEN to bypass branch protection in release workflow (8eab9fd)
+* chore: optimize automated-update PR template with prompt engineering (b04dac2)
+* chore: automated dependency update 2026-03-11 (#33) (a0890cb)
+* chore: improve automated-update PR output with pipeline diagram (1a12658)
+* feat: add catalog incremental ingestion backend module (#30) (52c2f4a)
+* chore: harden security scan prompt with generic resolution safety gate (3513ed3)
+* refactor: simplify release workflow to invoke make release (c1ed9f1)
+* chore: harden automated-update prompt against visual regression skip (19f448b)
+* feat: add release workflow (3adf18c)
+* [URGENT] chore: fix security vulnerabilities (2026-03-09) (#22) (48a6234)
+
 ## v1.2.6 (2026-03-06)
 * chore: automated update 2026-03-06 (#20) (42d2ebb)
 * docs: add plugins.json upgrade step to dynamic plugin prompts (32c74c8)
