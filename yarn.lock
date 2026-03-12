@@ -3401,9 +3401,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-rbac-backend@npm:^7.8.0":
-  version: 7.8.0
-  resolution: "@backstage-community/plugin-rbac-backend@npm:7.8.0"
+"@backstage-community/plugin-rbac-backend@npm:^7.9.0":
+  version: 7.9.0
+  resolution: "@backstage-community/plugin-rbac-backend@npm:7.9.0"
   dependencies:
     "@backstage-community/plugin-rbac-common": "npm:^1.24.0"
     "@backstage-community/plugin-rbac-node": "npm:^1.18.0"
@@ -3428,7 +3428,7 @@ __metadata:
     typeorm-adapter: "npm:^1.6.1"
     zod: "npm:^3.25.76"
     zod-to-json-schema: "npm:^3.25.1"
-  checksum: 10c0/089427522cd1bf100d8fea63af0eb2cf74727427fe2f5bff0b7f0a8cc41bb1c586f9a4bd3293d3a452deb50434dd006206ff1bdfbbb3c78b6b92320a3a2c75d5
+  checksum: 10c0/6b94bd9d12b2ea11645441117df901b6f699e3bcfac00e46ecb409fe9bd0b77483961744304e5bd1283532c2ef4e5e16ca4043ae80f4c923d057d9e94a3b8bd1
   languageName: node
   linkType: hard
 
@@ -3451,9 +3451,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-rbac@npm:^1.50.0":
-  version: 1.50.0
-  resolution: "@backstage-community/plugin-rbac@npm:1.50.0"
+"@backstage-community/plugin-rbac@npm:^1.50.1":
+  version: 1.50.1
+  resolution: "@backstage-community/plugin-rbac@npm:1.50.1"
   dependencies:
     "@backstage-community/plugin-rbac-common": "npm:^1.24.0"
     "@backstage/catalog-model": "npm:^1.7.6"
@@ -3481,7 +3481,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: ^6.0.0
-  checksum: 10c0/471aeafbaeb9572f0e865c780c14c0798bf2eac8dc42ce7fdc4a0c2afffda530dbb43ca8e233e5f0922d04d4e1fc30bea6c40c3d4f770f71fec51571ceb82ce8
+  checksum: 10c0/0a6755f57eeb9759cff73fce0536e2bfb66d2fc3f2bd5fb2d4aa1610e6ecd54770abe2d82105153eb15a36f22ca550b8c46d049330db3c58c6ed731ad78f0fbf
   languageName: node
   linkType: hard
 
@@ -19490,7 +19490,7 @@ __metadata:
   dependencies:
     "@backstage-community/plugin-analytics-module-ga4": "npm:^0.16.1"
     "@backstage-community/plugin-explore": "npm:^0.17.0"
-    "@backstage-community/plugin-rbac": "npm:^1.50.0"
+    "@backstage-community/plugin-rbac": "npm:^1.50.1"
     "@backstage-community/plugin-rbac-common": "npm:^1.24.0"
     "@backstage/app-defaults": "npm:^1.7.5"
     "@backstage/catalog-model": "npm:^1.7.6"
@@ -20284,7 +20284,7 @@ __metadata:
   dependencies:
     "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor": "npm:^0.17.1"
     "@backstage-community/plugin-catalog-backend-module-keycloak": "npm:^3.17.2"
-    "@backstage-community/plugin-rbac-backend": "npm:^7.8.0"
+    "@backstage-community/plugin-rbac-backend": "npm:^7.9.0"
     "@backstage-community/plugin-rbac-node": "npm:^1.18.0"
     "@backstage-community/plugin-scaffolder-backend-module-annotator": "npm:^2.15.0"
     "@backstage-community/plugin-scaffolder-backend-module-azure-devops": "npm:^0.22.1"
