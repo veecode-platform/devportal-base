@@ -18,7 +18,7 @@
   "dependencies": {
     "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor": "^0.17.1",
     "@backstage-community/plugin-catalog-backend-module-keycloak": "^3.17.2",
-    "@backstage-community/plugin-rbac-backend": "^7.8.0",
+    "@backstage-community/plugin-rbac-backend": "^7.9.0",
     "@backstage-community/plugin-rbac-node": "^1.18.0",
     "@backstage-community/plugin-scaffolder-backend-module-annotator": "^2.15.0",
     "@backstage-community/plugin-scaffolder-backend-module-azure-devops": "^0.22.1",

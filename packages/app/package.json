@@ -20,7 +20,7 @@
   "dependencies": {
     "@backstage-community/plugin-analytics-module-ga4": "^0.16.1",
     "@backstage-community/plugin-explore": "^0.17.0",
-    "@backstage-community/plugin-rbac": "^1.50.0",
+    "@backstage-community/plugin-rbac": "^1.50.1",
     "@backstage-community/plugin-rbac-common": "^1.24.0",
     "@backstage/app-defaults": "^1.7.5",
     "@backstage/catalog-model": "^1.7.6",
