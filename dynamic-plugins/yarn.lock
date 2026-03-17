@@ -2568,21 +2568,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-rbac-common@npm:^1.24.0":
-  version: 1.24.0
-  resolution: "@backstage-community/plugin-rbac-common@npm:1.24.0"
+"@backstage-community/plugin-rbac-common@npm:^1.24.1":
+  version: 1.24.1
+  resolution: "@backstage-community/plugin-rbac-common@npm:1.24.1"
   peerDependencies:
     "@backstage/errors": ^1.2.7
     "@backstage/plugin-permission-common": ^0.9.6
-  checksum: 10c0/cd588720ec9dbef6fcf220ccfc93980bb1b03c7efe8fe56e4b85230535c804d688a10210e0f58ec4191f5892318ea29a7e8777109a6d1636051b11e0a3bf3b9c
+  checksum: 10c0/59b727a923e0b88157213edb4ae7d5d8bdfa8774468329a1cd9bb35f24f8333d805263c189a77a75e15f25ab2d72f647e8908086bc333e2be3eccd7ef1e47c52
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-rbac@npm:^1.50.1":
-  version: 1.50.1
-  resolution: "@backstage-community/plugin-rbac@npm:1.50.1"
+"@backstage-community/plugin-rbac@npm:^1.50.2":
+  version: 1.50.2
+  resolution: "@backstage-community/plugin-rbac@npm:1.50.2"
   dependencies:
-    "@backstage-community/plugin-rbac-common": "npm:^1.24.0"
+    "@backstage-community/plugin-rbac-common": "npm:^1.24.1"
     "@backstage/catalog-model": "npm:^1.7.6"
     "@backstage/core-components": "npm:^0.18.7"
     "@backstage/core-plugin-api": "npm:^1.12.3"
@@ -2608,7 +2608,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: ^6.0.0
-  checksum: 10c0/0a6755f57eeb9759cff73fce0536e2bfb66d2fc3f2bd5fb2d4aa1610e6ecd54770abe2d82105153eb15a36f22ca550b8c46d049330db3c58c6ed731ad78f0fbf
+  checksum: 10c0/9c3272fbd6ed2b3e6e415b42ef11de6b1d4bbaffe9b39ba82d611b3454b272bf4fcac071cd3174e2ceec7c0aae8b682e1db230cf1e7086dbe6fea5bbe28d1ad1
   languageName: node
   linkType: hard
 
@@ -12881,7 +12881,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backstage-community-plugin-rbac@workspace:wrappers/backstage-community-plugin-rbac"
   dependencies:
-    "@backstage-community/plugin-rbac": "npm:^1.50.1"
+    "@backstage-community/plugin-rbac": "npm:^1.50.2"
     "@backstage/cli": "npm:^0.35.4"
     "@janus-idp/cli": "npm:3.6.1"
     "@mui/material": "npm:5.18.0"
