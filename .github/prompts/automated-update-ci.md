@@ -181,7 +181,28 @@ Start the built app in background:
 RBAC_POLICY_PATH=$(pwd)/rbac-policy.csv node packages/backend/dist/index.js &
 ```
 
-Wait for the server to be ready (poll http://localhost:7007 with curl, max 60 seconds).
+Wait for the server to be ready in two phases:
+
+**Phase 1 — HTTP server up**: poll http://localhost:7007 with curl until it
+responds (max 60 seconds).
+
+**Phase 2 — Catalog API ready**: the backend uses in-memory SQLite and
+ingests example entities from `examples/` on every startup. The catalog API
+becomes available a few seconds after HTTP is up. Poll it:
+
+```bash
+for i in $(seq 1 30); do
+  if curl -sf http://localhost:7007/api/catalog/entity-facets?facet=kind > /dev/null 2>&1; then
+    echo "Catalog API ready after ${i}s"
+    break
+  fi
+  sleep 1
+done
+```
+
+If the loop completes without a successful response, record catalog and
+APIs visual checks as **fail**. A timeout here means the catalog backend
+failed to start — treat it as a regression.
 
 All screenshots go to `/tmp/visual-regression/`:
 
@@ -189,7 +210,7 @@ All screenshots go to `/tmp/visual-regression/`:
 mkdir -p /tmp/visual-regression
 ```
 
-Capture and verify each page:
+### Pages to verify
 
 | Page | URL | Screenshot |
 |------|-----|------------|
@@ -197,9 +218,8 @@ Capture and verify each page:
 | Catalog | `http://localhost:7007/catalog` | `/tmp/visual-regression/catalog.png` |
 | APIs | `http://localhost:7007/catalog?filters%5Bkind%5D=api` | `/tmp/visual-regression/apis.png` |
 
-For each page, use `agent-browser` — a CLI tool installed globally in this
-workflow. Run each command via the Bash tool. Do NOT use Puppeteer MCP
-tools — they are not available in this environment.
+Use `agent-browser` (installed globally in this workflow) for each page.
+Run each command via the Bash tool.
 
 ```bash
 agent-browser open <URL>
@@ -208,12 +228,54 @@ agent-browser screenshot <screenshot-path>
 agent-browser snapshot -i
 ```
 
-Read each screenshot and verify:
-- Page loads (visible content, no error screen)
-- Navigation sidebar is visible
-- Main content area renders
+Read each screenshot and assess it using the criteria below.
 
-Record visual assessment for each page: pass / warning / fail.
+### Assessment criteria
+
+Each page gets exactly one result: **pass**, **fail**, or **skipped**.
+
+**Home → always skipped.** The `/` route is a dynamic plugin
+(`plugin-veecode-homepage-dynamic`). Dynamic plugins are loaded from
+`dynamic-plugins-root/`, which is empty in CI. Mark Home as `⏭️ skipped`
+in the validation matrix. Still take the screenshot for the record.
+
+**Catalog → pass when all three are true:**
+1. Navigation sidebar is visible (left side)
+2. "VeeCode Catalog" or equivalent header renders
+3. Entity rows appear in the table (e.g., "5 catalog entries")
+
+**Catalog → fail when any of these appear:**
+- "Could not fetch catalog entities"
+- Empty table with no rows
+- Error screen or blank page
+
+**APIs → pass when all three are true:**
+1. Navigation sidebar is visible
+2. Kind filter shows "API" selected
+3. API entity rows appear in the table (e.g., "3 API entries")
+
+**APIs → fail when any of these appear:**
+- Same failure indicators as Catalog
+
+### Why these criteria work
+
+The backend always starts with in-memory SQLite and ingests
+`examples/catalog-all.yaml` (which references entities, APIs, users,
+groups, resources). After Phase 2 polling confirms the catalog API is
+responding, entity data is always present. A missing entity table means
+something broke in this upgrade.
+
+### Describing results
+
+When recording visual results for the PR body, state what you observed
+concretely. Good descriptions reference visible data:
+
+- `sidebar and 5 catalog entries visible`
+- `3 API entries listed, kind filter renders`
+- `catalog table renders but shows 0 entries` (this is a fail)
+
+Vague descriptions like `renders correctly` or `page loads` are
+insufficient — always mention the entity count or specific content.
 
 Close browser and kill background server:
 
@@ -259,13 +321,13 @@ footer.
 2. **Validation gate**: single hexagon node showing checks performed and
    pass count (`tsc · lint · build · test` + `N/4 pass`).
 3. **Visual verification gate**: single hexagon node showing pages checked
-   and pass count (`Home · Catalog · APIs` + `N/3 pass`).
+   and pass count (`Catalog · APIs` + `N/2 pass`). Home is always skipped
+   (dynamic plugin, not loaded in CI) — do not count it in the total.
 
 Color coding (apply via `style` directives):
 - `fill:#238636,color:#fff` — green: updated or pass
 - `fill:#6e7681,color:#adbac7` — gray: no changes / skipped
 - `fill:#da3633,color:#fff` — red: failed or reverted
-- `fill:#d29922,color:#fff` — yellow: warning
 - `fill:#1f2937,color:#e6edf3,stroke:#30363d` — dark: gate nodes (pass)
 - `fill:#1f6feb,color:#fff,stroke:#388bfd` — blue: start node
 - `fill:#238636,color:#fff,stroke:#2ea043` — green: final "PR Ready" node
@@ -279,13 +341,23 @@ blockquote explaining what happened and how the agent resolved it.
 previous version, updated version, and scope (base image / core / static /
 dynamic wrapper). Omit rows for categories with no changes.
 
-**Validation matrix**: one row per check. Use ✅ for pass, ⚠️ for warning,
-❌ for fail. The Visual rows MUST include a `[screenshot]($RUN_URL)` link
-pointing to the workflow run. Add a brief description of what you observed
-after the link, separated by ` · `. Example:
-`[screenshot](https://github.com/.../runs/123) · sidebar and catalog visible`.
-If screenshots could not be captured, write `no screenshot` — never omit
-the field or substitute with only a description.
+**Validation matrix**: one row per check.
+
+Symbols: ✅ pass, ❌ fail, ⏭️ skipped (Home only).
+
+Visual rows (Catalog, APIs) include a `[screenshot]($RUN_URL)` link and a
+concrete description separated by ` · `. The description states what is
+visible — include entity counts when present.
+
+Examples of good visual row descriptions:
+- `[screenshot](...) · sidebar and 5 catalog entries visible`
+- `[screenshot](...) · 3 API entries listed`
+- `[screenshot](...) · catalog table shows "Could not fetch" error` (fail)
+
+Home row uses `⏭️ skipped` with reason `dynamic plugin not loaded in CI`.
+
+If a screenshot could not be captured, write `no screenshot` in the Details
+column.
 
 **Footer**: always include the branding line exactly as shown in the example.
 
@@ -317,7 +389,7 @@ graph TB
 
     A & B & C & D --> V{{"Validation Gate<br/><i>tsc · lint · build · test</i><br/>4/4 pass ✅"}}
 
-    V --> VR{{"Visual Verification<br/><i>Home · Catalog · APIs</i><br/>3/3 pass ✅"}}
+    V --> VR{{"Visual Verification<br/><i>Catalog · APIs</i><br/>2/2 pass ✅"}}
 
     VR --> Done(["✅ PR Ready for Review"])
 
@@ -346,9 +418,9 @@ graph TB
 | Lint | ✅ pass | — |
 | Build | ✅ pass | — |
 | Tests | ✅ pass | — |
-| Visual: Home | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · renders correctly |
-| Visual: Catalog | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · sidebar and catalog visible |
-| Visual: APIs | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · API entries listed |
+| Visual: Home | ⏭️ skipped | dynamic plugin not loaded in CI |
+| Visual: Catalog | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · sidebar and 5 catalog entries visible |
+| Visual: APIs | ✅ pass | [screenshot](https://github.com/veecode-platform/devportal-base/actions/runs/123456) · 3 API entries listed |
 
 ### Errors encountered
 none
