@@ -1,6 +1,14 @@
 # devportal-base changelog
 
 
+## v1.2.8 (2026-03-20)
+* chore: automated dependency update 2026-03-20 (#49) (12df40f)
+* fix: remove RHDH-specific tests from dynamic-plugins wrapper suite (77479ee)
+* docs: Enhance automated update CI prompt with detailed server readiness checks, visual assessment criteria, and validation matrix updates. (c3a4f20)
+* chore: automated dependency update 2026-03-12 (#36) (312df14)
+* chore: fix security vulnerabilities (#37) (d6266d4)
+* fix: add missing -- separator in dev script for Turbo 2.x (424e633)
+
 ## v1.2.7 (2026-03-11)
 * fix: use RELEASE_TOKEN to bypass branch protection in release workflow (8eab9fd)
 * chore: optimize automated-update PR template with prompt engineering (b04dac2)
