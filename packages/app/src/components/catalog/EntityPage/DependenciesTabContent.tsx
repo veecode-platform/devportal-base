@@ -49,7 +49,6 @@ export const DependenciesTabContent = () => (
         }}
       >
         <EntityCatalogGraphCard
-          variant="gridItem"
           direction={Direction.TOP_BOTTOM}
           height={900}
         />
@@ -63,7 +62,7 @@ export const DependenciesTabContent = () => (
           },
         }}
       >
-        <EntityDependsOnComponentsCard variant="gridItem" />
+        <EntityDependsOnComponentsCard />
       </Grid>
       <Grid
         item
@@ -74,7 +73,7 @@ export const DependenciesTabContent = () => (
           },
         }}
       >
-        <EntityDependsOnResourcesCard variant="gridItem" />
+        <EntityDependsOnResourcesCard />
       </Grid>
       <Grid
         item
@@ -85,7 +84,7 @@ export const DependenciesTabContent = () => (
           },
         }}
       >
-        <EntityHasSubcomponentsCard variant="gridItem" />
+        <EntityHasSubcomponentsCard />
       </Grid>
       <Grid
         item
