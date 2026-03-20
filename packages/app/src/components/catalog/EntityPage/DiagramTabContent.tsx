@@ -40,7 +40,6 @@ export const DiagramTabContent = () => (
     <EntitySwitch.Case if={isKind('system')}>
       <Grid item sx={{ gridColumn: '1 / -1' }}>
         <EntityCatalogGraphCard
-          variant="gridItem"
           direction={Direction.TOP_BOTTOM}
           title="System Diagram"
           height={700}
