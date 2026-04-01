@@ -63,7 +63,7 @@ jinja2==3.1.6
     #   mkdocs-material
 jsbeautifier==1.15.4
     # via mkdocs-mermaid2-plugin
-markdown==3.3.7
+markdown==3.8.1
     # via
     #   -r python/requirements.in
     #   markdown-inline-graphviz-extension
@@ -176,7 +176,7 @@ regex==2023.12.25
     # via
     #   -r python/requirements.in
     #   mkdocs-material
-requests==2.32.4
+requests==2.33.0
     # via
     #   -r python/requirements.in
     #   mkdocs-material
