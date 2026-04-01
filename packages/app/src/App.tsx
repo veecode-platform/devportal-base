@@ -36,41 +36,16 @@ const baseFrontendConfig = {
     dynamicPlugins: {
       frontend: {
         'default.main-menu-items': DefaultMainMenuItems,
-        // please keep this in sync with plugins/dynamic-plugins-info/app-config.janus-idp.yaml
-        
+        // please keep this in sync with plugins/dynamic-plugins-info/app-config.dynamic.yaml
         'internal.plugin-dynamic-plugins-info': {
           appIcons: [
-            { name: 'pluginsInfoIcon', importName: 'PluginsInfoIcon' },
             { name: 'adminIcon', importName: 'AdminIcon' },
-          ],
-          dynamicRoutes: [
-            {
-              path: '/extensions',
-              importName: 'DynamicPluginsInfoPage',
-              menuItem: { text: 'Plugins', icon: 'pluginsInfoIcon' },
-            },
-          ],
-          mountPoints: [
-            {
-              mountPoint: 'internal.plugins/tab',
-              importName: 'DynamicPluginsInfoContent',
-              config: {
-                path: 'installed',
-                title: 'Installed',
-              },
-            },
           ],
           menuItems: {
             admin: {
               title: 'Administration',
               titleKey: 'menuItem.administration',
               icon: 'adminIcon',
-            },
-            extensions: {
-              parent: 'admin',
-              title: 'Extensions',
-              titleKey: 'menuItem.extensions',
-              icon: 'pluginsInfoIcon',
             },
           },
         },
