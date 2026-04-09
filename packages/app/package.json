@@ -18,7 +18,7 @@
     "prettier:fix": "prettier --ignore-unknown --write ."
   },
   "dependencies": {
-    "@backstage-community/plugin-analytics-module-ga4": "^0.16.2",
+    "@backstage-community/plugin-analytics-module-ga4": "^0.17.0",
     "@backstage-community/plugin-explore": "^0.17.0",
     "@backstage-community/plugin-rbac": "^1.52.0",
     "@backstage-community/plugin-rbac-common": "^1.26.0",
