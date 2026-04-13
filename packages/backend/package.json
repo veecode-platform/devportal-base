@@ -16,12 +16,12 @@
     "build-image": "docker build ../.. -f Dockerfile --tag veecode/devportal-base:$(node -p \"require('../../package.json').version\") --tag veecode/devportal-base:latest --progress plain"
   },
   "dependencies": {
-    "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor": "^0.17.1",
+    "@backstage-community/plugin-catalog-backend-module-azure-devops-annotator-processor": "^0.18.0",
     "@backstage-community/plugin-catalog-backend-module-keycloak": "^3.19.1",
     "@backstage-community/plugin-rbac-backend": "^7.12.1",
     "@backstage-community/plugin-rbac-node": "^1.20.0",
     "@backstage-community/plugin-scaffolder-backend-module-annotator": "^2.16.1",
-    "@backstage-community/plugin-scaffolder-backend-module-azure-devops": "^0.22.1",
+    "@backstage-community/plugin-scaffolder-backend-module-azure-devops": "^0.23.0",
     "@backstage-community/plugin-scaffolder-backend-module-jenkins": "^0.20.0",
     "@backstage-community/plugin-scaffolder-backend-module-sonarqube": "^2.15.0",
     "@backstage/backend-defaults": "^0.16.0",
