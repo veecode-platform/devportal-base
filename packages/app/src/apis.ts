@@ -30,7 +30,9 @@ import {
   microsoftAuthApiRef,
   oauthRequestApiRef,
   storageApiRef,
+  alertApiRef,
 } from '@backstage/core-plugin-api';
+import { toastApiRef } from '@backstage/frontend-plugin-api';
 import {
   ScmAuth,
   scmAuthApiRef,
@@ -180,5 +182,21 @@ export const apis: AnyApiFactory[] = [
     deps: { storageApi: storageApiRef, identityApi: identityApiRef },
     factory: ({ storageApi, identityApi }) =>
       VisitsStorageApi.create({ storageApi, identityApi }),
+  }),
+  createApiFactory({
+    api: toastApiRef,
+    deps: { alertApi: alertApiRef },
+    factory: ({ alertApi }) => ({
+      post: toast => {
+        const severityMap = { danger: 'error', warning: 'warning', success: 'success' } as const;
+        alertApi.post({
+          message:
+            [toast.title, toast.description].filter(Boolean).join(': ') ||
+            'Notification',
+          severity: severityMap[toast.status as keyof typeof severityMap] ?? 'info',
+        });
+        return { close: () => {} };
+      },
+    }),
   }),
 ];
