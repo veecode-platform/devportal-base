@@ -30,12 +30,12 @@
     "export-dynamic": "rhdh-cli plugin export --embed-package @backstage-community/plugin-tech-radar"
   },
   "dependencies": {
-    "@backstage-community/plugin-tech-radar": "^1.17.0",
-    "@backstage-community/plugin-tech-radar-common": "^1.16.0",
-    "@backstage/core-plugin-api": "^1.12.4"
+    "@backstage-community/plugin-tech-radar": "^1.18.0",
+    "@backstage-community/plugin-tech-radar-common": "^1.17.0",
+    "@backstage/core-plugin-api": "^1.12.5"
   },
   "peerDependencies": {
-    "@backstage/core-plugin-api": "^1.12.4",
+    "@backstage/core-plugin-api": "^1.12.5",
     "@mui/icons-material": "^5.18.0",
     "react": "^18",
     "react-dom": "^18"
