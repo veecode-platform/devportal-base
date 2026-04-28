@@ -29,6 +29,12 @@ FROM registry.redhat.io/ubi10/nodejs-22:10.1-1775712813
 
 USER root
 
+# Pinned versions of CLI binaries shipped in the image. Bump these and rebuild
+# the image to consume newer Go stdlib patches; review at every audit cycle.
+ARG YQ_VERSION=4.53.2
+ARG DECK_VERSION=1.59.1
+ARG KUBECTL_VERSION=v1.36.0
+
 # Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -37,7 +43,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
       make cmake cpp gcc gcc-c++ skopeo git pkg-config \
       jq wget tar gzip ca-certificates \
     # && dnf clean all \
-    && wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -q -O /usr/local/bin/yq \
+    && wget https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64 -q -O /usr/local/bin/yq \
     && chmod +x /usr/local/bin/yq
 
 # python setup (important for techdocs and scripts)
@@ -54,18 +60,16 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     set -e; \
     pip install --upgrade pip setuptools pyyaml; \
     pip install -r requirements.txt --ignore-installed urllib3; mkdocs --version
-# Deck install (auto-detect latest version)
-RUN DECK_VERSION=$(curl -sL https://api.github.com/repos/kong/deck/releases/latest | jq -r '.tag_name' | sed 's/^v//') && \
-    ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
+# Deck install (pinned via DECK_VERSION ARG)
+RUN ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
     curl -sL "https://github.com/kong/deck/releases/download/v${DECK_VERSION}/deck_${DECK_VERSION}_linux_${ARCH}.tar.gz" -o deck.tar.gz && \
     tar -xf deck.tar.gz -C /tmp && \
     mv /tmp/deck /usr/local/bin/ && \
     chmod +x /usr/local/bin/deck && \
     rm deck.tar.gz
-# download kubectl
-RUN CURL_VERSION="$(curl -L -s https://dl.k8s.io/release/stable.txt)" && \
-    ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
-    curl -LO "https://dl.k8s.io/release/${CURL_VERSION}/bin/linux/${ARCH}/kubectl" && \
+# download kubectl (pinned via KUBECTL_VERSION ARG)
+RUN ARCH=$(arch | sed -e 's/x86_64/amd64/' -e 's/aarch64/arm64/') && \
+    curl -LO "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/${ARCH}/kubectl" && \
     chmod +x kubectl && \
     mv kubectl /usr/local/bin/
 
