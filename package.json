@@ -62,6 +62,7 @@
     "typescript": "~5.8.0"
   },
   "resolutions": {
+    "@backstage/backend-defaults@^0.12.0": "0.12.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "react": "18.3.1",
