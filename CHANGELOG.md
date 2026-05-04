@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.3.4 (2026-05-04)
+* feat: MCP per-user identity via OAuth DCR + ConsentPage (603c4f8)
+
 ## v1.3.1 (2026-04-13)
 * chore: bump Backstage 1.49.3 → 1.49.4 + tech-radar plugins (feaa86c)
 
