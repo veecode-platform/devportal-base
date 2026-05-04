@@ -27,7 +27,11 @@ import { schedulerServiceFactory } from '@backstage/backend-defaults/scheduler';
 import { urlReaderServiceFactory } from '@backstage/backend-defaults/urlReader';
 import { userInfoServiceFactory } from '@backstage/backend-defaults/userInfo';
 import type { ServiceFactory } from '@backstage/backend-plugin-api';
-import { actionsRegistryServiceFactory, actionsServiceFactory } from '@backstage/backend-defaults/alpha';
+import {
+  actionsRegistryServiceFactory,
+  actionsServiceFactory,
+  metricsServiceFactory,
+} from '@backstage/backend-defaults/alpha';
 import { eventsServiceFactory } from '@backstage/plugin-events-node';
 
 /**
@@ -58,6 +62,7 @@ export const DEFAULT_SERVICE_FACTORIES: ServiceFactory[] = [
   eventsServiceFactory,
   actionsRegistryServiceFactory,
   actionsServiceFactory,
+  metricsServiceFactory,
 ] as const;
 
 export const getDefaultServiceFactories = ({

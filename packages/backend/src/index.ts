@@ -223,6 +223,9 @@ if (process.env.ENABLE_AUTH_PROVIDER_MODULE_OVERRIDE !== 'true') {
   staticLogger.info(`Default authentication provider module disabled`);
 }
 
+// MCP actions
+backend.add(import('@backstage/plugin-mcp-actions-backend'));
+
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));
 

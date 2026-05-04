@@ -81,6 +81,7 @@ import { ApplicationProvider } from '../Root/ApplicationProvider';
 import ConfigUpdater from '../Root/ConfigUpdater';
 import { LayoutCustom } from '../scaffolder/LayoutCustom';
 import { SearchPage } from '../search/SearchPage';
+import { ConsentPage } from '../Auth/ConsentPage';
 import { settingsPage } from '../UserSettings/SettingsPages';
 import {
   DefaultTechDocsHome,
@@ -248,6 +249,10 @@ const AppBase = () => {
               <Route path="/settings" element={<UserSettingsPage />}>
                 {settingsPage(providerSettings)}
               </Route>
+              <Route
+                path="/oauth2/authorize/:sessionId"
+                element={<ConsentPage />}
+              />
               {/* <Route path="/about" element={<AboutPage />} /> */}
               {/* <Route path="/support" element={<SupportPage />} /> */}
               <Route

@@ -71,7 +71,7 @@ backend:
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
   auth:
-    dangerouslyDisableDefaultAuthPolicy: true
+    dangerouslyDisableDefaultAuthPolicy: false
     # Notice: This test-token can be used to add notifications to the backstage demo application.
     # Production enironments should define a token in a more secure way that supports rotation.
     # externalAccess:
@@ -87,6 +87,10 @@ backend:
       - host: example.com
       - host: platform.vee.codes
       - host: '*.mozilla.org'
+  actions:
+    pluginSources:
+      - catalog
+      - scaffolder
 auth:
   environment: development
   # see https://backstage.io/docs/auth/ to learn about auth providers
