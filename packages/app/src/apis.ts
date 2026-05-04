@@ -16,6 +16,7 @@
 
 import { OAuth2, WebStorage } from '@backstage/core-app-api';
 import {
+  alertApiRef,
   analyticsApiRef,
   AnyApiFactory,
   bitbucketAuthApiRef,
@@ -31,6 +32,10 @@ import {
   oauthRequestApiRef,
   storageApiRef,
 } from '@backstage/core-plugin-api';
+import {
+  toastApiRef,
+  type ToastApiMessage,
+} from '@backstage/frontend-plugin-api';
 import {
   ScmAuth,
   scmAuthApiRef,
@@ -180,5 +185,24 @@ export const apis: AnyApiFactory[] = [
     deps: { storageApi: storageApiRef, identityApi: identityApiRef },
     factory: ({ storageApi, identityApi }) =>
       VisitsStorageApi.create({ storageApi, identityApi }),
+  }),
+  createApiFactory({
+    api: toastApiRef,
+    deps: { alertApi: alertApiRef },
+    factory: ({ alertApi }) => ({
+      post: (message: ToastApiMessage) => {
+        alertApi.post({
+          message: String(message.title ?? ''),
+          severity:
+            message.status === 'danger'
+              ? 'error'
+              : message.status === 'warning'
+                ? 'warning'
+                : 'info',
+          display: message.timeout ? 'transient' : 'permanent',
+        });
+        return { close: () => {} };
+      },
+    }),
   }),
 ];
