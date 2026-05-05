@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.3.5 (2026-05-05)
+* fix(backend): unregister mcp-actions-backend statically; ship as dynamic (#112) (e759805)
+
 ## v1.3.4 (2026-05-04)
 * feat: MCP per-user identity via OAuth DCR + ConsentPage (603c4f8)
 
