@@ -223,8 +223,10 @@ if (process.env.ENABLE_AUTH_PROVIDER_MODULE_OVERRIDE !== 'true') {
   staticLogger.info(`Default authentication provider module disabled`);
 }
 
-// MCP actions
-backend.add(import('@backstage/plugin-mcp-actions-backend'));
+// MCP actions are added dynamically via dynamic-plugins.yaml when the
+// integration is enabled at instance level. Registering them here too
+// would crash startup with "Plugin 'mcp-actions' is already registered"
+// the moment a SaaS instance turns the feature on.
 
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));
