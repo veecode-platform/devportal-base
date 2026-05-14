@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-console -- build-time CLI script; diagnostics must reach CI logs */
 /*
  * Generates packages/app/dist/index.html.tmpl from the build output and the
  * source template (packages/app/public/index.html).
@@ -29,12 +28,10 @@ const publicHtmlPath = path.join(appDir, 'public', 'index.html');
 const outPath = path.join(appDir, 'dist', 'index.html.tmpl');
 
 if (!fs.existsSync(distHtmlPath)) {
-  console.error(`[generate-html-tmpl] missing ${distHtmlPath} — run \`yarn build\` first`);
-  process.exit(1);
+  throw new Error(`generate-html-tmpl: missing ${distHtmlPath} — run \`yarn build\` first`);
 }
 if (!fs.existsSync(publicHtmlPath)) {
-  console.error(`[generate-html-tmpl] missing ${publicHtmlPath}`);
-  process.exit(1);
+  throw new Error(`generate-html-tmpl: missing ${publicHtmlPath}`);
 }
 
 const distHtml = fs.readFileSync(distHtmlPath, 'utf8');
@@ -53,20 +50,12 @@ const assetTags = [
 ];
 
 if (assetTags.length === 0) {
-  console.error('[generate-html-tmpl] no /static/* asset tags found in dist/index.html — build output unexpected');
-  process.exit(1);
+  throw new Error('generate-html-tmpl: no /static/* asset tags found in dist/index.html — build output unexpected');
 }
 
-// Insert the asset tags right before </head>, matching where janus-cli put them.
 if (!publicHtml.includes('</head>')) {
-  console.error('[generate-html-tmpl] public/index.html has no </head> tag — cannot splice asset tags');
-  process.exit(1);
+  throw new Error('generate-html-tmpl: public/index.html has no </head> tag — cannot splice asset tags');
 }
 
 const tmpl = publicHtml.replace('</head>', `${assetTags.join('')}\n  </head>`);
-
 fs.writeFileSync(outPath, tmpl);
-console.log(
-  `[generate-html-tmpl] wrote ${path.relative(process.cwd(), outPath)} ` +
-    `(${tmpl.length} bytes, ${assetTags.length} asset tag(s) spliced)`,
-);
