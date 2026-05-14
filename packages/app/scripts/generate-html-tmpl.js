@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable no-console -- build-time CLI script; diagnostics must reach CI logs */
 /*
  * Generates packages/app/dist/index.html.tmpl from the build output and the
  * source template (packages/app/public/index.html).
