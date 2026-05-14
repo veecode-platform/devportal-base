@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.3.7 (2026-05-14)
+* feat(app): emit index.html.tmpl so runtime config injection works (#128) (618f965)
+
 ## v1.3.6 (2026-05-14)
 * chore: fix security vulnerabilities (#127) (f9805c3)
 
