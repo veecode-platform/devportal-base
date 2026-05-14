@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.3.6 (2026-05-14)
+* chore: fix security vulnerabilities (#127) (f9805c3)
+
 ## v1.3.5 (2026-05-05)
 * fix(backend): unregister mcp-actions-backend statically; ship as dynamic (#112) (e759805)
 
