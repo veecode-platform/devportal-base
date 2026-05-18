@@ -1,6 +1,9 @@
 # devportal-base changelog
 
 
+## v1.3.8 (2026-05-18)
+* fix: bump fast-xml-parser pin from 5.7.0 to ~5.7.2 (#135) (a0627c9)
+
 ## v1.3.7 (2026-05-14)
 * feat(app): emit index.html.tmpl so runtime config injection works (#128) (618f965)
 
